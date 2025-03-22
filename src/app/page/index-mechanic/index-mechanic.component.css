@@ -1,0 +1,78 @@
+.assign{
+  width: 120px;
+  height: 40px;
+  color: blue;
+  background-color: white;
+  border: 1px solid blue;
+  cursor: pointer;
+}
+
+.finished{
+  width: 120px;
+  height: 40px;
+  color: blue;
+  background-color: white;
+  border: 1px solid blue;
+}
+
+.prev,.next{
+  border: 0px solid blue;
+  background-color: white;
+  cursor: pointer;
+}
+
+.in-progress{
+  width: 120px;
+  height: 40px;
+  color: green;
+  background-color: white;
+  border: 1px solid green;
+}
+.not-started{
+  width: 120px;
+  height: 40px;
+  color: red;
+  background-color: white;
+  border: 1px solid red;
+}
+
+
+.assign:hover{
+  background-color: blue;
+  color: white;
+  border: 1px solid blue;
+}
+
+.agenda{
+  margin-left: 40px;
+  width: 35%;
+  border: 2px solid;
+  margin-right: 10px;
+}
+.reservation{
+  display: flex;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid;
+}
+
+.hour{
+  padding-top: 10px;
+}
+
+.agenda-items{
+  padding-top: 30px;
+}
+
+.agenda-item:not(:first-child){
+  padding-top: 10px;
+}
+
+.agenda-item{
+  display: flex;
+  padding-left: 10px;
+}
+
+.description{
+  padding-left: 50px;
+}
