@@ -42,7 +42,7 @@
     </div>
     <div  class="agenda">
       <h4 align="center">Your agenda</h4>
-      <div align="center"><button class="prev"><</button> 18 March 2024 <button class="next">></button></div>
+      <div align="center"><button (click)="prevDate()" class="prev"><</button>{{ displayDate() }} <button (click)="nextDate()" class="next">></button></div>
 
       <div class="agenda-items">
         <div class="agenda-item">
