@@ -5,13 +5,15 @@
       <h4>Unassigned reservation</h4>
       <div *ngFor="let reservation of reservations" class="reservation">
         <div>
-          <div>{{displayDateWithHour(reservation.reservationDate)}} - {{displayDateWithHour(reservation.endReservation)}}</div>
-          <div>{{reservation.result.name}}</div>
-          <div>{{reservation.result.description}}</div>
+          <div class="date-display">{{displayDateWithHour(reservation.reservationDate)}} - {{displayDateWithHour(reservation.endReservation)}}</div>
+          <div class="detail">
+            <div>{{reservation.result.name}}</div>
+            <div>{{reservation.result.description}}</div>
+          </div>
         </div>
-        <div style="display: flex; padding-left: 70%; padding-top: 30px;">
+        <div style="display: flex; padding-left: 65%;padding-top: 10px;">
           <div>
-            <button class="assign">Assign</button>
+            <button (click)="assign(reservation)" class="assign">Assign</button>
           </div>
         </div>
       </div>
@@ -21,45 +23,22 @@
       <div align="center"><button (click)="prevDate()" class="prev"><</button>{{ displayDate() }} <button (click)="nextDate()" class="next">></button></div>
 
       <div class="agenda-items">
-        <div class="agenda-item">
-          <div class="hour">
-            8h - 10h
+        <div *ngFor="let agenda of agendas">
+          <div class="agenda-item">
+            <div class="hour">
+              {{displayHour(agenda.reservationDate,agenda.endReservation)}}
+            </div>
+            <div class="description">
+              <div>reservation : Rakoto</div>
+              <div>Tyre change/oil change</div>
+            </div>
+            <div style="padding-left: 39%;">
+              <button  *ngIf='agenda.status !== "finished"' class="{{agenda.status.replaceAll(' ','-')}}" (click)="changeState(agenda,agenda.status)">{{agenda.status}}</button>
+              <button *ngIf='agenda.status === "finished"' class="{{agenda.status.replaceAll(' ','-')}}" disabled>{{agenda.status}}</button>
+            </div>
           </div>
-          <div class="description">
-            <div>reservation : Rakoto</div>
-            <div>Tyre change/oil change</div>
-          </div>
-          <div style="padding-left: 39%;">
-            <button class="finished" disabled>Finished</button>
-          </div>
+          <hr>
         </div>
-        <hr>
-        <div class="agenda-item">
-          <div class="hour">
-            8h - 10h
-          </div>
-          <div class="description">
-            <div>reservation : Rakoto</div>
-            <div>Tyre change/oil change</div>
-          </div>
-          <div style="padding-left: 39%;">
-            <button class="in-progress">In progress</button>
-          </div>
-        </div>
-        <hr>
-        <div class="agenda-item">
-          <div class="hour">
-            8h - 10h
-          </div>
-          <div class="description">
-            <div>reservation : Rakoto</div>
-            <div>Tyre change/oil change</div>
-          </div>
-          <div style="padding-left: 39%;">
-            <button class="not-started">Not started</button>
-          </div>
-        </div>
-        <hr>
       </div>
     </div>
   </div>

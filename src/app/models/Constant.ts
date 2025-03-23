@@ -11,7 +11,14 @@ export class Constant {
     "October",
     "November",
     "December",
-  ]
+  ];
+
+  readonly status = [
+    "unassigned",
+    "not started",
+    "pending",
+    "finished"
+  ];
 }
 
 

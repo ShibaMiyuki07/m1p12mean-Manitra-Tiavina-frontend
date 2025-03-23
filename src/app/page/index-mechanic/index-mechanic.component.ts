@@ -3,7 +3,7 @@ import {MenubarMechanicComponent} from "../../components/menubar-mechanic/menuba
 import {Constant} from "../../models/Constant";
 import {Reservation} from "../../models/reservation";
 import {ApiReservationServiceService} from "../../services/api-reservation-service.service";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf, NgStyle} from "@angular/common";
 import {UnassignedReservation} from "../../models/apiResult/unassignedReservation";
 
 @Component({
@@ -11,7 +11,9 @@ import {UnassignedReservation} from "../../models/apiResult/unassignedReservatio
   standalone: true,
   imports: [
     MenubarMechanicComponent,
-    NgForOf
+    NgForOf,
+    NgStyle,
+    NgIf
   ],
   templateUrl: './index-mechanic.component.html',
   styleUrl: './index-mechanic.component.css'
@@ -19,14 +21,25 @@ import {UnassignedReservation} from "../../models/apiResult/unassignedReservatio
 export class IndexMechanicComponent implements OnInit {
   todayDate : Date = new Date();
   reservations: Array<UnassignedReservation> = [];
+  agendas: Array<Reservation> = [];
 
   constructor(private reservationService:ApiReservationServiceService) {}
 
   ngOnInit() {
     this.reservationService.getUnassignedReservations().subscribe(liste =>{
       this.reservations = liste;
-      console.log(this.reservations);
     });
+    this.reservationService.getReservationsByMechanicId("").subscribe(liste =>{
+      this.agendas = liste.filter(l => this.checkDate(new Date(l.reservationDate),this.todayDate));
+      console.log(this.agendas);
+    });
+  }
+
+  checkDate(date1: Date,date2 : Date) {
+    if(date1.getFullYear() == date2.getFullYear() && date1.getMonth() == date2.getMonth() && date1.getDate() == date2.getDate()){
+      return true;
+    }
+    return false;
   }
 
   nextDate()
@@ -51,7 +64,36 @@ export class IndexMechanicComponent implements OnInit {
   displayDateWithHour(date: any)
   {
     var toDate = new Date(date);
-    return toDate.getDate() + ' ' + this.Constant.monthNames[toDate.getMonth()] + ' ' + toDate.getFullYear() + ' ' + toDate.getUTCHours() + ':' + toDate.getMinutes();
+    return toDate.getDate() + ' ' + this.Constant.monthNames[toDate.getMonth()] + ' ' + toDate.getFullYear() + ' ' + toDate.getUTCHours();
+  }
+
+  displayHour(reservationDate : any,endReservation : any)
+  {
+    var reservationDatetoDate = new Date(reservationDate);
+    var endReservationtoDate = new Date(endReservation);
+    return reservationDatetoDate.getUTCHours() + 'h - ' + endReservationtoDate.getUTCHours() + 'h';
+  }
+
+  assign(reservation : Reservation)
+  {
+    this.reservationService.updateMechanicId(reservation,"not started");
+    location.reload();
+  }
+
+  changeState(reservation : Reservation,status : string)
+  {
+    var index = 0;
+    for(let i in this.Constant.status)
+    {
+      if(this.Constant.status[i] === status)
+      {
+        break;
+      }
+      index++;
+    }
+    reservation.status = this.Constant.status[index+1];
+    this.reservationService.updateMechanicId(reservation,reservation.status);
+    location.reload();
   }
 
   protected readonly Constant = new Constant();

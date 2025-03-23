@@ -7,12 +7,13 @@
   cursor: pointer;
 }
 
-.finished{
+.pending{
   width: 120px;
   height: 40px;
   color: blue;
   background-color: white;
   border: 1px solid blue;
+  cursor: pointer;
 }
 
 .prev,.next{
@@ -21,7 +22,7 @@
   cursor: pointer;
 }
 
-.in-progress{
+.finished{
   width: 120px;
   height: 40px;
   color: green;
@@ -37,7 +38,7 @@
 }
 
 
-.assign:hover{
+.assign:hover,.pending:hover{
   background-color: blue;
   color: white;
   border: 1px solid blue;
@@ -75,4 +76,12 @@
 
 .description{
   padding-left: 50px;
+}
+
+.date-display{
+  width: 300px;
+}
+
+.detail{
+  padding-top: 10px;
 }
