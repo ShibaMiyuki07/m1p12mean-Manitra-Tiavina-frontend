@@ -45,11 +45,19 @@ export class IndexMechanicComponent implements OnInit {
   nextDate()
   {
     this.todayDate.setDate(this.todayDate.getDate() + 1);
+    this.reservationService.getReservationsByMechanicId("").subscribe(liste =>{
+      this.agendas = liste.filter(l => this.checkDate(new Date(l.reservationDate),this.todayDate));
+      console.log(this.agendas);
+    });
   }
 
   prevDate()
   {
     this.todayDate.setDate(this.todayDate.getDate() - 1);
+    this.reservationService.getReservationsByMechanicId("").subscribe(liste =>{
+      this.agendas = liste.filter(l => this.checkDate(new Date(l.reservationDate),this.todayDate));
+      console.log(this.agendas);
+    });
   }
 
   displayDate()
