@@ -1,14 +1,16 @@
-import { Injectable } from '@angular/core';
+import {Injectable, isDevMode} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Reservation} from "../models/reservation";
 import {UnassignedReservation} from "../models/apiResult/unassignedReservation";
+var environment_dev =  require("../../environments/environment.development");
+var environment_prod =  require("../../environments/environment");
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiReservationServiceService {
 
-  readonly url = "http://localhost:8888";
+  readonly url = isDevMode() ? environment_dev.environment.API_URL : environment_prod.environment.API_URL;
   constructor(private http: HttpClient) { }
 
   getUnassignedReservations(){
