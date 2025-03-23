@@ -22,12 +22,30 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets-bosh"
             ],
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets-bosh/js/jquery.js",
+              "src/assets-bosh/js/popper.min.js",
+              "src/assets-bosh/js/bootstrap.min.js",
+              "src/assets-bosh/js/plugins.js",
+              "src/assets-bosh/js/owl.js",
+              "src/assets-bosh/js/wow.js",
+              "src/assets-bosh/js/validation.js",
+              "src/assets-bosh/js/jquery.fancybox.js",
+              "src/assets-bosh/js/appear.js",
+              "src/assets-bosh/js/nav_tool.js",
+              "src/assets-bosh/js/scrollbar.js",
+              "src/assets-bosh/js/jquery.nice_select.min.js",
+              "src/assets-bosh/js/jquery.bootstrap_touchspin.js",
+              "src/assets-bosh/js/jquery_ui.js",
+              "src/assets-bosh/js/product_filter.js",
+              "src/assets-bosh/js/script.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -81,7 +99,8 @@
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets-bosh"
             ],
             "styles": [
               "src/styles.css"
