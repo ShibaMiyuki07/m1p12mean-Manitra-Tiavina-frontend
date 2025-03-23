@@ -4,8 +4,8 @@ export interface Reservation {
   mechanicId : any,
   serviceId : any,
   status : string,
-  endReservation : any,
-  reservationDate : any,
+  endReservation : Date,
+  reservationDate : Date,
   createdAt : any,
   updatedAt : any,
 }
