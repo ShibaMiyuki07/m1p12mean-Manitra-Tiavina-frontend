@@ -69,9 +69,10 @@ export class LoginComponent {
     const { email, password } = this.loginForm.value;
     this.errorMessage = null; // Réinitialiser l'erreur
 
+    console.log("Avant login");
     this.authService.login(email, password).subscribe({
-      next: () => {
-        this.router.navigate(['/']); // Redirection après succès
+      next: (response) => {
+        this.isLoading = false;
       },
       error: (err) => {
         this.errorMessage = err.message;
@@ -79,5 +80,21 @@ export class LoginComponent {
       },
       complete: () => { this.isLoading = false; }
     });
+  }
+
+  private redirectBasedOnRole(user: any) {
+    switch(user.role) {
+      case 'admin':
+        this.router.navigate(['/admin/dashboard']);
+        break;
+      case 'mecanicien':
+        this.router.navigate(['/mecanicien/planning']);
+        break;
+      case 'client':
+        this.router.navigate(['/client/profil']);
+        break;
+      default:
+        this.router.navigate(['/']);
+    }
   }
 }
