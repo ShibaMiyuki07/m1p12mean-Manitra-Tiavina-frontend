@@ -1,0 +1,12 @@
+.error-message {
+  color: #dc3545; /* Rouge Bootstrap */
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+.spinner-border-sm {
+  margin-right: 0.5rem;
+}

@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
-import {FooterComponent} from "../../components/footer/footer.component";
-import {Router} from "@angular/router";
-import {NgIf} from "@angular/common";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
+  selector: 'app-footer',
+  standalone: true,
+  imports: [],
+  templateUrl: './footer.component.html',
   styleUrls: [
-    './login.component.css',
     '../../../assets-bosh/css/font_awesome_all.css',
     '../../../assets-bosh/css/flaticon.css',
     '../../../assets-bosh/css/icomoon.css',
@@ -42,42 +38,7 @@ import {NgIf} from "@angular/common";
     '../../../assets-bosh/css/responsive.css',
     '../../../assets-bosh/css/style.css',
   ],
-  imports: [
-    FooterComponent,
-    ReactiveFormsModule,
-    NgIf
-  ],
-  standalone: true
 })
-export class LoginComponent {
-  loginForm: FormGroup;
-  errorMessage: string | null = null;
-  isLoading = false;
+export class FooterComponent {
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-    });
-  }
-
-  onSubmit() {
-
-    if (this.loginForm.invalid) return;
-
-    this.isLoading = true;
-    const { email, password } = this.loginForm.value;
-    this.errorMessage = null; // Réinitialiser l'erreur
-
-    this.authService.login(email, password).subscribe({
-      next: () => {
-        this.router.navigate(['/']); // Redirection après succès
-      },
-      error: (err) => {
-        this.errorMessage = err.message;
-        this.isLoading = false;
-      },
-      complete: () => { this.isLoading = false; }
-    });
-  }
 }

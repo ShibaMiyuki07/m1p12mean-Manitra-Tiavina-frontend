@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, catchError, throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,17 +24,21 @@ export class AuthService {
   // Connexion de l'utilisateur
   login(email: string, password: string) {
     return this.http
-      .post<{ token: string }>(`${this.apiUrl}/auth/login`, { email, password })
-      .subscribe({
-        next: (response) => {
-          localStorage.setItem(this.tokenKey, response.token);
-          this.isAuthenticatedSubject.next(true);
-          this.router.navigate(['/']);
-        },
-        error: (err) => {
-          console.error('Login failed:', err);
-        },
-      });
+      .post<{ token: string }>(this.apiUrl, { email, password })
+      .pipe(
+        catchError((error) => {
+          if (error.status === 401) {
+            return throwError(() => ({
+              type: 'auth',
+              message: 'Email ou mot de passe incorrect'
+            }));
+          }
+          return throwError(() => ({
+            type: 'server',
+            message: 'Erreur de connexion au serveur'
+          }));
+        })
+      );
   }
 
   // Inscription de l'utilisateur

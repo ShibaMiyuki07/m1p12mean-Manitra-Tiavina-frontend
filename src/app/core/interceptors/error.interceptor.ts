@@ -11,10 +11,11 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       // Gestion des erreurs
-      if (error.status === 401) {
-        // Erreur 401 : Non autorisé
-        authService.logout(); // Déconnecter l'utilisateur
-        router.navigate(['/auth/login']); // Rediriger vers la page de connexion
+      if (error.status === 401 && !req.url.includes('/auth/login')) {
+        authService.logout();
+        router.navigate(['/auth/login'], {
+          queryParams: { returnUrl: router.url }
+        });
       } else if (error.status === 403) {
         // Erreur 403 : Accès refusé
         router.navigate(['/forbidden']); // Rediriger vers une page d'erreur
