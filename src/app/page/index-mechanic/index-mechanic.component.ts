@@ -22,17 +22,18 @@ export class IndexMechanicComponent implements OnInit {
   todayDate : Date = new Date();
   reservations: Array<UnassignedReservation> = [];
   agendas: Array<Reservation> = [];
+  error : string = "";
 
   constructor(private reservationService:ApiReservationServiceService) {}
 
   ngOnInit() {
+    this.reservationService.getReservationsByMechanicId("").subscribe(liste =>{
+      this.agendas = liste.filter(l => this.checkDate(new Date(l.reservationDate),this.todayDate));
+    });
     this.reservationService.getUnassignedReservations().subscribe(liste =>{
       this.reservations = liste;
     });
-    this.reservationService.getReservationsByMechanicId("").subscribe(liste =>{
-      this.agendas = liste.filter(l => this.checkDate(new Date(l.reservationDate),this.todayDate));
-      console.log(this.agendas);
-    });
+
   }
 
   checkDate(date1: Date,date2 : Date) {
@@ -84,8 +85,30 @@ export class IndexMechanicComponent implements OnInit {
 
   assign(reservation : Reservation)
   {
-    this.reservationService.updateMechanicId(reservation,"not started");
-    location.reload();
+    var assigneable = true;
+    for(let agenda of this.agendas){
+      if(!this.isAssignationValid(reservation, agenda)){
+        assigneable = false;
+      }
+    }
+    if(assigneable){
+      this.reservationService.updateMechanicId(reservation,"not started");
+      location.reload();
+    }
+    else{
+      this.error = "The reservation is not assignable due to another reservation already assigned at this time";
+    }
+  }
+
+  isAssignationValid(reservation : Reservation,agenda : Reservation)
+  {
+    if(reservation.reservationDate < agenda.reservationDate && reservation.endReservation < agenda.reservationDate){
+      return true;
+    }
+    if(reservation.reservationDate > agenda.endReservation && reservation.endReservation > agenda.endReservation){
+      return true;
+    }
+    return false;
   }
 
   changeState(reservation : Reservation,status : string)
