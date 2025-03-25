@@ -18,19 +18,18 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         });
       } else if (error.status === 403) {
         // Erreur 403 : Accès refusé
-        router.navigate(['/forbidden']); // Rediriger vers une page d'erreur
+        router.navigate(['/forbidden']);
       } else if (error.status === 404) {
         // Erreur 404 : Ressource non trouvée
-        router.navigate(['/not-found']); // Rediriger vers une page d'erreur
+        router.navigate(['/not-found']);
       } else if (error.status === 500) {
         // Erreur 500 : Erreur serveur
-        router.navigate(['/server-error']); // Rediriger vers une page d'erreur
+        router.navigate(['/server-error']);
       }
 
       // Afficher l'erreur dans la console (pour le débogage)
       console.error('HTTP Error:', error);
 
-      // Propager l'erreur
       return throwError(() => error);
     })
   );

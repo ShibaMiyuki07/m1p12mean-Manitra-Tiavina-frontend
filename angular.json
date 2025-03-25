@@ -44,6 +44,8 @@
               "src/assets-bosh/js/jquery.bootstrap_touchspin.js",
               "src/assets-bosh/js/jquery_ui.js",
               "src/assets-bosh/js/product_filter.js",
+              "src/assets-bosh/js/progresscircle.js",
+              "src/assets-bosh/js/home.js",
               "src/assets-bosh/js/script.js"
             ]
           },
