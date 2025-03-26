@@ -53,8 +53,8 @@ export class AuthService {
   private redirectBasedOnRole(role: string): void {
     const routes: Record<string, string> = {
       manager: '/manager/dashboard',
-      mecanicien: '/mecanicien/planning',
-      client: '/client/profil'
+      mecanicien: 'mechanic',
+      client: '/'
     };
     this.router.navigate([routes[role] || '/']);
   }
@@ -71,7 +71,7 @@ export class AuthService {
       .post(`${this.apiUrl}/auth/register`, { username, email, password })
       .subscribe({
         next: () => {
-          this.router.navigate(['/auth/login']);
+          this.router.navigate(['/login']);
         },
         error: (err) => {
           console.error('Registration failed:', err);

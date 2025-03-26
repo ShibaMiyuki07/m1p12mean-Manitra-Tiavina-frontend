@@ -27,9 +27,7 @@ export class IndexMechanicComponent implements OnInit {
   constructor(private reservationService:ApiReservationServiceService) {}
 
   ngOnInit() {
-    this.reservationService.getReservationsByMechanicId("").subscribe(liste =>{
-      this.agendas = liste.filter(l => this.checkDate(new Date(l.reservationDate),this.todayDate));
-    });
+    this.reloadAgenda();
     this.reservationService.getUnassignedReservations().subscribe(liste =>{
       this.reservations = liste;
     });
@@ -46,16 +44,18 @@ export class IndexMechanicComponent implements OnInit {
   nextDate()
   {
     this.todayDate.setDate(this.todayDate.getDate() + 1);
-    this.reservationService.getReservationsByMechanicId("").subscribe(liste =>{
-      this.agendas = liste.filter(l => this.checkDate(new Date(l.reservationDate),this.todayDate));
-      console.log(this.agendas);
-    });
+    this.reloadAgenda();
   }
 
   prevDate()
   {
     this.todayDate.setDate(this.todayDate.getDate() - 1);
-    this.reservationService.getReservationsByMechanicId("").subscribe(liste =>{
+    this.reloadAgenda()
+  }
+
+  reloadAgenda()
+  {
+    this.reservationService.getReservationsByMechanicId(localStorage.getItem("authToken")).subscribe(liste =>{
       this.agendas = liste.filter(l => this.checkDate(new Date(l.reservationDate),this.todayDate));
       console.log(this.agendas);
     });
@@ -73,7 +73,7 @@ export class IndexMechanicComponent implements OnInit {
   displayDateWithHour(date: any)
   {
     var toDate = new Date(date);
-    return toDate.getDate() + ' ' + this.Constant.monthNames[toDate.getMonth()] + ' ' + toDate.getFullYear() + ' ' + toDate.getUTCHours();
+    return toDate.getDate() + ' ' + this.Constant.monthNames[toDate.getMonth()] + ' ' + toDate.getFullYear() + ' ' + toDate.getUTCHours() + 'h' + toDate.getUTCMinutes() + 'mn';
   }
 
   displayHour(reservationDate : any,endReservation : any)
@@ -85,19 +85,26 @@ export class IndexMechanicComponent implements OnInit {
 
   assign(reservation : Reservation)
   {
-    var assigneable = true;
-    for(let agenda of this.agendas){
-      if(!this.isAssignationValid(reservation, agenda)){
-        assigneable = false;
+    this.reservationService.getReservationsByMechanicId(localStorage.getItem("authToken")).subscribe(liste =>{
+      var MyAgenda = liste;
+      var assignable = true;
+      for(let agenda of MyAgenda){
+        console.log(agenda);
+        if(!this.isAssignationValid(reservation, agenda)){
+          assignable = false;
+        }
       }
-    }
-    if(assigneable){
-      this.reservationService.updateMechanicId(reservation,"not started");
-      location.reload();
-    }
-    else{
-      this.error = "The reservation is not assignable due to another reservation already assigned at this time";
-    }
+      if(assignable){
+        reservation.mechanicId = localStorage.getItem('authToken');
+        this.reservationService.updateMechanicId(reservation,"not started");
+        location.reload();
+      }
+      else{
+        this.error = "The reservation is not assignable due to another reservation already assigned at this time";
+        alert(this.error);
+      }
+    });
+
   }
 
   isAssignationValid(reservation : Reservation,agenda : Reservation)
@@ -105,7 +112,7 @@ export class IndexMechanicComponent implements OnInit {
     if(reservation.reservationDate < agenda.reservationDate && reservation.endReservation < agenda.reservationDate){
       return true;
     }
-    if(reservation.reservationDate > agenda.endReservation && reservation.endReservation > agenda.endReservation){
+    else if(reservation.reservationDate > agenda.endReservation && reservation.endReservation > agenda.endReservation){
       return true;
     }
     return false;

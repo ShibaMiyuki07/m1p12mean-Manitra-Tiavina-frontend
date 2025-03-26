@@ -2,15 +2,14 @@ import {Injectable, isDevMode} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Reservation} from "../models/reservation";
 import {UnassignedReservation} from "../models/apiResult/unassignedReservation";
-var environment_dev =  require("../../environments/environment.development");
-var environment_prod =  require("../../environments/environment");
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiReservationServiceService {
 
-  readonly url = isDevMode() ? environment_dev.environment.API_URL : environment_prod.environment.API_URL;
+  readonly url = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
   getUnassignedReservations(){
@@ -18,7 +17,7 @@ export class ApiReservationServiceService {
   }
 
   getReservationsByMechanicId(mechanicId: any) {
-      return this.http.get<Reservation[]>(`${this.url}/reservations/mechanics/65f8e8b1e4b1a2b3c4d5e6fa`);
+      return this.http.get<Reservation[]>(`${this.url}/reservations/mechanics/${mechanicId}`);
   }
 
   updateMechanicId(reservation:Reservation,status:string) {

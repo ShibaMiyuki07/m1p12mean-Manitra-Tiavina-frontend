@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000', // URL du backend Node.js
+  apiUrl: 'https://backend-p70w.onrender.com', // URL du backend Node.js
 };
