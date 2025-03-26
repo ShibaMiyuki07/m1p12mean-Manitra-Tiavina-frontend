@@ -1,0 +1,45 @@
+<app-menubar-mechanic />
+<main>
+  <div style="display: flex;padding-top: 30px;">
+    <div style="padding-left: 2%;width: 65%;">
+      <h4>Unassigned reservation</h4>
+      <div *ngFor="let reservation of reservations" class="reservation">
+        <div>
+          <div class="date-display">{{displayDateWithHour(reservation.reservationDate)}} - {{displayDateWithHour(reservation.endReservation)}}</div>
+          <div class="detail">
+            <div>{{reservation.result.name}}</div>
+            <div>{{reservation.result.description}}</div>
+          </div>
+        </div>
+        <div style="display: flex; padding-left: 65%;padding-top: 10px;">
+          <div>
+            <button (click)="assign(reservation)" class="assign">Assign</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div  class="agenda">
+      <h4 align="center">Your agenda</h4>
+      <div align="center"><button (click)="prevDate()" class="prev"><</button>{{ displayDate() }} <button (click)="nextDate()" class="next">></button></div>
+
+      <div class="agenda-items">
+        <div *ngFor="let agenda of agendas">
+          <div class="agenda-item">
+            <div class="hour">
+              {{displayHour(agenda.reservationDate,agenda.endReservation)}}
+            </div>
+            <div class="description">
+              <div>reservation : Rakoto</div>
+              <div>Tyre change/oil change</div>
+            </div>
+            <div style="padding-left: 39%;">
+              <button  *ngIf='agenda.status !== "finished"' class="{{agenda.status.replaceAll(' ','-')}}" (click)="changeState(agenda,agenda.status)">{{agenda.status}}</button>
+              <button *ngIf='agenda.status === "finished"' class="{{agenda.status.replaceAll(' ','-')}}" disabled>{{agenda.status}}</button>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
