@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {MenubarMechanicComponent} from "../../components/menubar-mechanic/menubar-mechanic.component";
-import {Constant} from "../../models/Constant";
-import {Reservation} from "../../models/reservation";
-import {ApiReservationServiceService} from "../../services/api-reservation-service.service";
+import {MenubarMechanicComponent} from "../../../components/menubar-mechanic/menubar-mechanic.component";
+import {Constant} from "../../../models/Constant";
+import {Reservation} from "../../../models/reservation";
+import {ApiReservationServiceService} from "../../../services/reservationApi/api-reservation-service.service";
 import {NgForOf, NgIf, NgStyle} from "@angular/common";
-import {UnassignedReservation} from "../../models/apiResult/unassignedReservation";
+import {UnassignedReservation} from "../../../models/apiResult/unassignedReservation";
 
 @Component({
   selector: 'app-index-mechanic',
