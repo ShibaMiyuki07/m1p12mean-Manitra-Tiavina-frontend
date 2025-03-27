@@ -3,7 +3,7 @@ import {MenubarMechanicComponent} from "../../../components/menubar-mechanic/men
 import {Constant} from "../../../models/Constant";
 import {Reservation} from "../../../models/reservation";
 import {ApiReservationServiceService} from "../../../services/reservationApi/api-reservation-service.service";
-import {NgForOf, NgIf, NgStyle} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {UnassignedReservation} from "../../../models/apiResult/unassignedReservation";
 
 @Component({
@@ -12,7 +12,6 @@ import {UnassignedReservation} from "../../../models/apiResult/unassignedReserva
   imports: [
     MenubarMechanicComponent,
     NgForOf,
-    NgStyle,
     NgIf
   ],
   templateUrl: './index-mechanic.component.html',
@@ -35,10 +34,8 @@ export class IndexMechanicComponent implements OnInit {
   }
 
   checkDate(date1: Date,date2 : Date) {
-    if(date1.getFullYear() == date2.getFullYear() && date1.getMonth() == date2.getMonth() && date1.getDate() == date2.getDate()){
-      return true;
-    }
-    return false;
+    return date1.getFullYear() == date2.getFullYear() && date1.getMonth() == date2.getMonth() && date1.getDate() == date2.getDate();
+
   }
 
   nextDate()
@@ -72,22 +69,22 @@ export class IndexMechanicComponent implements OnInit {
   }
   displayDateWithHour(date: any)
   {
-    var toDate = new Date(date);
+    const toDate = new Date(date);
     return toDate.getDate() + ' ' + this.Constant.monthNames[toDate.getMonth()] + ' ' + toDate.getFullYear() + ' ' + toDate.getUTCHours() + 'h' + toDate.getUTCMinutes() + 'mn';
   }
 
   displayHour(reservationDate : any,endReservation : any)
   {
-    var reservationDatetoDate = new Date(reservationDate);
-    var endReservationtoDate = new Date(endReservation);
+    const reservationDatetoDate = new Date(reservationDate);
+    const endReservationtoDate = new Date(endReservation);
     return reservationDatetoDate.getUTCHours() + 'h - ' + endReservationtoDate.getUTCHours() + 'h';
   }
 
   assign(reservation : Reservation)
   {
     this.reservationService.getReservationsByMechanicId(localStorage.getItem("authToken")).subscribe(liste =>{
-      var MyAgenda = liste;
-      var assignable = true;
+      const MyAgenda = liste;
+      let assignable = true;
       for(let agenda of MyAgenda){
         console.log(agenda);
         if(!this.isAssignationValid(reservation, agenda)){
@@ -120,7 +117,7 @@ export class IndexMechanicComponent implements OnInit {
 
   changeState(reservation : Reservation,status : string)
   {
-    var index = 0;
+    let index = 0;
     for(let i in this.Constant.status)
     {
       if(this.Constant.status[i] === status)
