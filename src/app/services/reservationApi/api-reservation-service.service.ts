@@ -42,7 +42,6 @@ export class ApiReservationServiceService {
         () => {
           console.log("The PUT observable is now completed.");
         }
-
       );
   }
 }
