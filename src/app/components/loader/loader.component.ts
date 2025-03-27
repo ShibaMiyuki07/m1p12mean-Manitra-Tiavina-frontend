@@ -1,16 +1,11 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
-import {FooterComponent} from "../../components/footer/footer.component";
-import {Router} from "@angular/router";
-import {NgIf} from "@angular/common";
-import {LoaderComponent} from "../../components/loader/loader.component";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
+  selector: 'app-loader',
+  standalone: true,
+  imports: [],
+  templateUrl: './loader.component.html',
   styleUrls: [
-    './login.component.css',
     '../../../assets-bosh/css/font_awesome_all.css',
     '../../../assets-bosh/css/flaticon.css',
     '../../../assets-bosh/css/icomoon.css',
@@ -43,45 +38,7 @@ import {LoaderComponent} from "../../components/loader/loader.component";
     '../../../assets-bosh/css/responsive.css',
     '../../../assets-bosh/css/style.css',
   ],
-  imports: [
-    FooterComponent,
-    ReactiveFormsModule,
-    NgIf,
-    LoaderComponent
-  ],
-  standalone: true
 })
-export class LoginComponent {
-  loginForm: FormGroup;
-  errorMessage: string | null = null;
-  isLoading = false;
-
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-    });
-  }
-
-  onSubmit() {
-
-    if (this.loginForm.invalid) return;
-
-    this.isLoading = true;
-    const { email, password } = this.loginForm.value;
-    this.errorMessage = null; // Réinitialiser l'erreur
-
-    console.log("Avant login");
-    this.authService.login(email, password).subscribe({
-      next: (response) => {
-        this.isLoading = false;
-      },
-      error: (err) => {
-        this.errorMessage = err.message;
-        this.isLoading = false;
-      },
-      complete: () => { this.isLoading = false; }
-    });
-  }
+export class LoaderComponent {
 
 }

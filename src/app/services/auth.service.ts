@@ -42,6 +42,7 @@ export class AuthService {
       .pipe(
         tap(response => {
           localStorage.setItem(this.tokenKey, response._id);
+          console.log("Connexion réussi");
           this.redirectBasedOnRole(response.role);
         }),
         catchError(error => {
@@ -54,7 +55,7 @@ export class AuthService {
     const routes: Record<string, string> = {
       manager: '/manager/dashboard',
       mecanicien: 'mechanic',
-      client: '/'
+      client: 'home'
     };
     this.router.navigate([routes[role] || '/']);
   }

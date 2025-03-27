@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import {FooterComponent} from "../../components/footer/footer.component";
 import {Router} from "@angular/router";
 import {NgIf} from "@angular/common";
+import {LoaderComponent} from "../../components/loader/loader.component";
 
 @Component({
   selector: 'app-home',
@@ -57,10 +58,30 @@ import {NgIf} from "@angular/common";
   imports: [
     FooterComponent,
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    LoaderComponent
   ],
   standalone: true
 })
 export class HomeComponent {
 
+  ngOnInit() {
+    this.playLoaderAnimation();
+  }
+
+  private playLoaderAnimation(): void {
+    if (typeof $ !== 'undefined') {
+      console.log("loader fade");
+      $('.loader-wrap').delay(1000).fadeOut(500);
+    } else {
+      console.warn('jQuery non chargé');
+      // Fallback vanilla JS
+      document.querySelectorAll('.loader-wrap').forEach(el => {
+        setTimeout(() => {
+          (el as HTMLElement).style.opacity = '0';
+          setTimeout(() => el.remove(), 500);
+        }, 200);
+      });
+    }
+  }
 }
