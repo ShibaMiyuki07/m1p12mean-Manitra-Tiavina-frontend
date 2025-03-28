@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-backoffice-item',
@@ -8,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './backoffice-item.component.css'
 })
 export class BackofficeItemComponent {
-
+  @Input() name: string = "";
+  @Input() icon: string = "";
+  @Input() link: string = "";
 }
