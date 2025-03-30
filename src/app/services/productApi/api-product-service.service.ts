@@ -3,6 +3,7 @@ import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {UnassignedReservation} from "../../models/apiResult/unassignedReservation";
 import {Product} from "../../models/product";
+import {ProductStock} from "../../models/apiResult/product-stock";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,10 @@ export class ApiProductServiceService {
 
   getAllProducts() {
     return this.http.get<Array<Product>>(`${this.url}/products/`);
+  }
+
+  getAllProductsWithStocks() {
+    return this.http.get<Array<ProductStock>>(`${this.url}/products/with/stocks`);
   }
 
   getProductById(productId: any) {
