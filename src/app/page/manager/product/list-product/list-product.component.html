@@ -1,0 +1,38 @@
+<app-menubar-manager />
+
+<main>
+  <div class="title"><h2>Liste des produits avec les stocks disponibles</h2></div>
+  <div align="right"><a href="/manager/create/product"><button class="add">New Product</button></a></div>
+  <div style="padding-top: 30px">
+    <table>
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Stock</th>
+        <th>Limite avant notification</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of products" align="center">
+        <td>{{product.name}}</td>
+        <td>{{product.description}}</td>
+        <td>{{product.price}}</td>
+        <td>{{product.category}}</td>
+
+        <td *ngIf="product.result !== undefined">{{product.result.stockQuantity}}</td>
+        <td *ngIf="product.result !== undefined">{{product.result.threshold}}</td>
+
+        <td *ngIf="product.result === undefined" style="color: red;">Aucun</td>
+        <td *ngIf="product.result === undefined" style="color: red;">Aucun</td>
+        <td *ngIf="product.result === undefined"><button class="add">Add stock</button></td>
+
+        <td><button class="update" (click)="linkUpdate(product._id)">Update</button></td>
+        <td><button class="delete" (click)="delete(product._id)">Delete</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</main>

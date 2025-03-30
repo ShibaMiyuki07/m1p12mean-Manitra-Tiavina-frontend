@@ -15,20 +15,24 @@ table{
 button{
   width: 100px;
   height: 30px;
-  color: white;
+  color: black;
   cursor: pointer;
+  background: whitesmoke;
 }
 
-.add{
+.add:hover{
   background: #1ee156;
+  color: white;
 }
 
-.update{
+.update:hover{
   background: #4444f3;
+  color: white;
 }
 
-.delete{
+.delete:hover{
   background: #ec5656;
+  color: white;
 }
 
 table{

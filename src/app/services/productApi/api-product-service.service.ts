@@ -25,7 +25,7 @@ export class ApiProductServiceService {
   }
 
   createProduct(product: Product) {
-    this.http.post(`${this.url}/products`, product);
+    this.http.post(`${this.url}/products`, product).subscribe();
   }
 
 
@@ -50,5 +50,9 @@ export class ApiProductServiceService {
       () => {
         console.log("The PUT observable is now completed.");
       });
+  }
+
+  deleteProduct(productId: any) {
+    this.http.delete(`${this.url}/products/${productId}`).subscribe(val => {});
   }
 }
