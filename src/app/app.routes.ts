@@ -6,6 +6,7 @@ import { HomeComponent } from './page/home/home.component';
 import {AuthGuard} from "./core/guards/auth.guard";
 import {IndexManagerComponent} from "./page/manager/index-manager/index-manager.component";
 import {ListProductComponent} from "./page/manager/list-product/list-product.component";
+import {UpdateProductComponent} from "./page/manager/update-product/update-product.component";
 
 export const routes: Routes = [
   { path: 'mechanic', component: IndexMechanicComponent, canActivate: [AuthGuard] },
@@ -14,4 +15,5 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'manager' , component : IndexManagerComponent},
   { path: 'manager/products', component: ListProductComponent },
+  { path: 'manager/products/:id', component: UpdateProductComponent }
 ];
