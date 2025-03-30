@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {MenubarManagerComponent} from "../../../components/menubar-manager/menubar-manager.component";
-import {ApiProductServiceService} from "../../../services/productApi/api-product-service.service";
-import {ProductStock} from "../../../models/apiResult/product-stock";
+import {MenubarManagerComponent} from "../../../../components/menubar-manager/menubar-manager.component";
+import {ApiProductServiceService} from "../../../../services/productApi/api-product-service.service";
+import {ProductStock} from "../../../../models/apiResult/product-stock";
 import {NgForOf, NgIf} from "@angular/common";
 import {Router} from "@angular/router";
 
@@ -32,6 +32,7 @@ export class ListProductComponent implements OnInit {
   delete(productId : any)
   {
     this.apiProduct.deleteProduct(productId);
+    location.reload();
     //To Add delete stock when it is finished
   }
 

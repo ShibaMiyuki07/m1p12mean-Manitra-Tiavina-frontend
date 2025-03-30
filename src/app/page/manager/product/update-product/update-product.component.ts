@@ -1,8 +1,8 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {MenubarManagerComponent} from "../../../components/menubar-manager/menubar-manager.component";
+import {MenubarManagerComponent} from "../../../../components/menubar-manager/menubar-manager.component";
 import {ActivatedRoute} from "@angular/router";
-import {Product} from "../../../models/product";
-import {ApiProductServiceService} from "../../../services/productApi/api-product-service.service";
+import {Product} from "../../../../models/product";
+import {ApiProductServiceService} from "../../../../services/productApi/api-product-service.service";
 import {FormsModule} from "@angular/forms";
 
 @Component({
