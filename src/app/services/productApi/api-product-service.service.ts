@@ -25,7 +25,7 @@ export class ApiProductServiceService {
   }
 
   createProduct(product: Product) {
-    this.http.post(`${this.url}/products`, product);
+    this.http.post(`${this.url}/products`, product).subscribe();
   }
 
 
