@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import {BackofficeItemComponent} from "../../../components/backoffice-item/backoffice-item.component";
-import {MenubarMechanicComponent} from "../../../components/menubar-mechanic/menubar-mechanic.component";
+import {MenubarManagerComponent} from "../../../components/menubar-manager/menubar-manager.component";
 
 @Component({
   selector: 'app-index-manager',
   standalone: true,
   imports: [
-    MenubarMechanicComponent,
-    BackofficeItemComponent
+    BackofficeItemComponent,
+    MenubarManagerComponent
   ],
   templateUrl: './index-manager.component.html',
   styleUrls:[
