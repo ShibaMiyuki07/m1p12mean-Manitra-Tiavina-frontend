@@ -1,8 +1,41 @@
 main{
   padding-top: 50px;
-  padding-left: 150px;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 table{
   width: 100%;
+}
+
+button{
+  width: 100px;
+  height: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+.add{
+  background: #1ee156;
+}
+
+.update{
+  background: #4444f3;
+}
+
+.delete{
+  background: #ec5656;
+}
+
+table{
+  border-collapse: collapse;
+}
+
+tr{
+  border-bottom: black 1px solid;
+  height: 50px;
+}
+
+tr:nth-child(even) {
+  background-color: #efeaea;
 }
