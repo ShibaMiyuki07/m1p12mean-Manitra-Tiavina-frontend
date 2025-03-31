@@ -5,6 +5,7 @@ import {FooterComponent} from "../../components/footer/footer.component";
 import {Router} from "@angular/router";
 import {NgIf} from "@angular/common";
 import {LoaderComponent} from "../../components/loader/loader.component";
+import {HeaderComponent} from "../../components/header/header.component";
 
 @Component({
   selector: 'app-login',
@@ -47,11 +48,13 @@ import {LoaderComponent} from "../../components/loader/loader.component";
     FooterComponent,
     ReactiveFormsModule,
     NgIf,
-    LoaderComponent
+    LoaderComponent,
+    HeaderComponent
   ],
   standalone: true
 })
 export class LoginComponent {
+  currentActiveMenu: string = 'login';
   loginForm: FormGroup;
   errorMessage: string | null = null;
   isLoading = false;
@@ -71,7 +74,6 @@ export class LoginComponent {
     const { email, password } = this.loginForm.value;
     this.errorMessage = null; // Réinitialiser l'erreur
 
-    console.log("Avant login");
     this.authService.login(email, password).subscribe({
       next: (response) => {
         this.isLoading = false;

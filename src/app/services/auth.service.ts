@@ -42,7 +42,8 @@ export class AuthService {
       .pipe(
         tap(response => {
           localStorage.setItem(this.tokenKey, response._id);
-          console.log("Connexion réussi");
+          localStorage.setItem("username", response.username);
+          console.log("Connexion réussi : " + response.username);
           this.redirectBasedOnRole(response.role);
         }),
         catchError(error => {
@@ -82,9 +83,10 @@ export class AuthService {
 
   // Déconnexion de l'utilisateur
   logout() {
+    console.log('Logout');
     localStorage.removeItem(this.tokenKey);
     this.isAuthenticatedSubject.next(false);
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/login']);
   }
 
   // Récupère le token JWT

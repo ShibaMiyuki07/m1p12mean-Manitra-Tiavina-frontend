@@ -2,255 +2,8 @@
 
   <app-loader />
 
-  <!--Search Popup two-->
-  <div id="menupop" class="menupop">
-    <div class="menupop-container">
-      <div class="menupop-header">
-        <div class="menupop-header-logo">
-          <img src="assets-bosh/images/logo.png" alt="logo">
-        </div>
-        <div class="menupop-close">
-          <i class="flaticon-add"></i>
-        </div>
-      </div>
+  <app-header [activeMenu]="currentActiveMenu" />
 
-      <div class="menupop-sidebar">
-        <ul class="sidebar-dropdown">
-          <li><h6>Main Mennu</h6></li>
-          <li class="dropdown"><a href="#0" class="active"> Home</a>
-            <ul>
-              <li><a href="index.html">Home One</a></li>
-              <li><a href="index-2.html">Home Two</a></li>
-              <li><a href="index-3.html" class="active">Home Three</a></li>
-              <li><a href="index-4.html">Home Four</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#">Shope</a>
-            <ul>
-              <li><a href="#"><i class="icon-shopping-cart"></i>Shop Default</a></li>
-              <li><a href="#"><i class="icon-shopping-cart"></i>Shop Right Sidebar</a></li>
-              <li><a href="#"><i class="icon-shopping-cart"></i>Shop Wide</a></li>
-              <li><a href="#"><i class="icon-shopping-cart"></i>Single Shop</a></li>
-              <li><a href="#"><i class="icon-shopping-cart"></i>Product Shop</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Tires & Wheels </a></li>
-          <li><a href="#">Interior Accessories  </a></li>
-          <li class="dropdown">
-            <a href="#">Blog</a>
-            <ul>
-              <li><a href="#">Blog 01</a></li>
-              <li><a href="#">Blog 02</a></li>
-              <li><a href="#">Blog 03</a></li>
-              <li><a href="#">Blog 04</a></li>
-              <li><a href="#">Blog 05</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <ul class="sidebar-dropdown menupop-dropdown">
-          <li><h6>Category menu</h6></li>
-          <li class="dropdown">
-            <a href="#"><i class="icon-tair"></i>Tires & Wheels </a>
-            <ul>
-              <li><a href="#"><i class="icon-tair"></i>Tires & Wheels 01</a></li>
-              <li><a href="#"><i class="icon-tair"></i>Tires & Wheels 02</a></li>
-              <li><a href="#"><i class="icon-tair"></i>Tires & Wheels 03</a></li>
-              <li><a href="#"><i class="icon-tair"></i>Tires & Wheels 04</a></li>
-              <li><a href="#"><i class="icon-tair"></i>Tires & Wheels 05</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#"><i class="icon-car-insurance"></i>Garage tools </a>
-            <ul>
-              <li><a href="#"><i class="icon-car-insurance"></i>Garage tools 01</a></li>
-              <li><a href="#"><i class="icon-car-insurance"></i>Garage tools 02</a></li>
-              <li><a href="#"><i class="icon-car-insurance"></i>Garage tools 03</a></li>
-              <li><a href="#"><i class="icon-car-insurance"></i>Garage tools 04</a></li>
-              <li><a href="#"><i class="icon-car-insurance"></i>Garage tools 05</a></li>
-            </ul>
-          </li>
-          <li><a href="#"><i class="icon-repair"></i>Garage tools </a></li>
-          <li><a href="#"><i class="icon-car-battery"></i>Battery  & adhesives</a></li>
-          <li class="dropdown">
-            <a href="#"><i class="icon-shock-absorber"></i>Car safety</a>
-            <ul>
-              <li><a href="#"><i class="icon-shock-absorber"></i>Car safety 01</a></li>
-              <li><a href="#"><i class="icon-shock-absorber"></i>Car safety 02</a></li>
-              <li><a href="#"><i class="icon-shock-absorber"></i>Car safety 03</a></li>
-              <li><a href="#"><i class="icon-shock-absorber"></i>Car safety 04</a></li>
-              <li><a href="#"><i class="icon-shock-absorber"></i>Car safety 05</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!--Search Popup-->
-  <div id="search-popup" class="search-popup">
-    <div class="popup-inner">
-      <div class="upper-box clearfix">
-        <figure class="logo-box pull-left"><a href="index.html"><img src="assets-bosh/images/logo.png" alt="logo"></a></figure>
-        <div class="close-search pull-right"><img src="assets-bosh/images/icons/close.png" alt="close"></div>
-      </div>
-      <div class="overlay-layer"></div>
-      <div class="auto-container">
-        <div class="search-form">
-          <form method="post" action="https://wpsection.com/html/bosch/index.html">
-            <div class="form-group">
-              <fieldset>
-                <input type="search" class="form-control" name="search-input" value="" placeholder="Type your keyword and hit" required >
-                <button type="submit"><i class="far fa-search"></i></button>
-              </fieldset>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- main header -->
-  <header class="main-header ex_shop_header header-style-two header-style-three">
-
-    <!-- Header Upper -->
-    <div class="header-upper">
-      <div class="auto-container">
-        <div class="inner-container">
-          <!-- toggol menu -->
-          <div class="search-menu"><i class="icon-menu-bar"></i></div>
-          <!-- toggol menu -->
-
-          <!--Logo-->
-          <div class="logo_menu">
-            <div class="logo-box">
-              <div class="logo"><a href="index.html"><img src="assets-bosh/images/logo.png" alt="logo"></a></div>
-            </div>
-          </div>
-
-          <div class="search-box">
-            <form>
-              <input type="search" placeholder="Rechercher Produits">
-              <button type="submit"><i class="icon-magnifing-glass"></i></button>
-            </form>
-          </div>
-
-          <ul class="right-info">
-            <li><div class="shopping-cart"><i class="icon-heart"></i><span class="count">0</span></div></li>
-            <li><a href="#" class="search-btn"><i class="icon-user"></i> <p>Mon compte <span>Hello, Se connecter</span></p></a></li>
-            <li><a href="#"><i class="icon-shopping-cart"><span class="count">0</span></i> <p><span>AR 0.00</span></p></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <!--End Header Upper-->
-
-    <!-- Hide header -->
-    <div class="hide-header">
-      <div class="auto-container">
-        <div class="inner-container">
-          <!--Logo-->
-          <div class="logo_menu">
-            <div class="logo-box">
-              <div class="logo"><a href="index.html"><img src="assets-bosh/images/logo.png" alt="logo"></a></div>
-            </div>
-
-            <div class="menu-area clearfix">
-              <nav class="main-menu clearfix navbar-expand-md navbar-light">
-                <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
-                  <ul class="navigation clearfix home-menu">
-                    <li class="current dropdown"><a href="#0" class="active first-menu">Home</a>
-                      <ul class="sub-dropdown">
-                        <li><a href="index.html" >Home One</a></li>
-                        <li><a href="index-2.html">Home Two</a></li>
-                        <li><a href="index-3.html">Home Three</a></li>
-                        <li><a href="index-4.html" class="active">Home Four</a></li>
-                      </ul>
-                    </li>
-                    <li class="dropdown"><a href="index.html">Shop</a>
-                      <ul class="sub-dropdown">
-                        <li><a href="shop.html">Shop</a></li>
-                        <li><a href="shop-details.html">Shop Details</a></li>
-                        <li><a href="cart.html">Cart</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
-                      </ul>
-                    </li>
-                    <li ><a href="tires-wheels.html">Tires & Wheels </a></li>
-                    <li ><a href="interior-accessories.html">Interior Accessories </a></li>
-                    <li class="dropdown"><a href="#0">Blog</a>
-                      <ul class="sub-dropdown">
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="blog-details.html">Blog Details</a></li>
-                      </ul>
-                    </li>
-                    <li ><a href="contact.html">Contact </a></li>
-                  </ul>
-                </div>
-              </nav>
-
-              <!--Mobile Navigation Toggler-->
-              <div class="mobile-nav-toggler">
-                <i class="icon-bar"></i>
-                <i class="icon-bar"></i>
-                <i class="icon-bar"></i>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-    <!--End Hide header -->
-
-    <!--sticky Header-->
-    <div class="sticky-header">
-      <div class="auto-container">
-        <div class="outer-box">
-          <div class="logo-box">
-            <div class="logo"><a href="index.html"><img src="assets-bosh/images/logo.png" alt="logo"></a></div>
-          </div>
-          <div class="menu-area clearfix">
-            <nav class="main-menu clearfix">
-              <!--Keep This Empty / Menu will come through Javascript-->
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-  <!-- main-header end -->
-
-  <!-- Mobile Menu  -->
-  <div class="mobile-menu">
-    <div class="menu-backdrop"></div>
-    <div class="close-btn"><i class="fas fa-times"></i></div>
-
-    <nav class="menu-box">
-      <div class="nav-logo"><a href="index.html"><img src="assets-bosh/images/logo.png" alt="logo" title=""></a></div>
-      <div class="menu-outer">
-        <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
-      </div>
-      <div class="contact-info">
-        <h4>Contact Info</h4>
-        <ul>
-          <li>Chicago 12, Melborne City, USA</li>
-          <li><a href="tel:+8801682648101">+88 01682648101</a></li>
-          <li><a href="mailto:info@example.com">infoexample.com</a></li>
-        </ul>
-      </div>
-      <div class="social-links">
-        <ul class="clearfix">
-          <li><a href="#0"><span class="fab fa-twitter"></span></a></li>
-          <li><a href="#0"><span class="fab fa-facebook-square"></span></a></li>
-          <li><a href="#0"><span class="fab fa-pinterest-p"></span></a></li>
-          <li><a href="#0"><span class="fab fa-instagram"></span></a></li>
-          <li><a href="#0"><span class="fab fa-youtube"></span></a></li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-  <!-- End Mobile Menu -->
 
   <!-- banner -->
   <section class="banner banner-three">
@@ -263,10 +16,10 @@
                 <div class="offset-lg-6 col-lg-6">
                   <div class="banner-item">
                     <div class="banner-content">
-                      <h2>New Top Product <br> High Quality</h2>
-                      <p>I have been a loyal customer of this auto parts company for years and I cannot recommend them enough. </p>
+                      <h2>Des produits <br> Hautes qualités</h2>
+                      <p>Découvrez notre gamme de produits de hautes qualités, n'hésitez plus et commencer à les commander en ligne. </p>
                       <div class="btn-box clearfix">
-                        <a href="#" class="theme-btn btn-style-one">Shop Now<i class="flaticon-right-arrow"></i></a>
+                        <a href="#" class="theme-btn btn-style-one">Acheter maintenant<i class="flaticon-right-arrow"></i></a>
                       </div>
                     </div>
                   </div>
@@ -276,10 +29,10 @@
                 <div class="offset-lg-6 col-lg-6">
                   <div class="banner-item">
                     <div class="banner-content">
-                      <h2>New Top Product <br> High Quality</h2>
-                      <p>I have been a loyal customer of this auto parts company for years and I cannot recommend them enough. </p>
+                      <h2>Des services <br> Hautes qualités</h2>
+                      <p>Référence des meilleurs services d'entretien et de réparation à Madagascar, n'attendez plus !</p>
                       <div class="btn-box clearfix">
-                        <a href="#" class="theme-btn btn-style-one">Shop Now<i class="flaticon-right-arrow"></i></a>
+                        <a href="#" class="theme-btn btn-style-one">Réserver maintenant<i class="flaticon-right-arrow"></i></a>
                       </div>
                     </div>
                   </div>
@@ -289,10 +42,10 @@
                 <div class="offset-lg-6 col-lg-6">
                   <div class="banner-item">
                     <div class="banner-content">
-                      <h2>New Top Product <br> High Quality</h2>
-                      <p>I have been a loyal customer of this auto parts company for years and I cannot recommend them enough. </p>
+                      <h2>BOSH <br> Garage en ligne</h2>
+                      <p>Créé en 2024, nous offrons des produits et services de hautes qualités et en ligne. Voulez-vous nous connaître un peu plus?</p>
                       <div class="btn-box clearfix">
-                        <a href="#" class="theme-btn btn-style-one">Shop Now<i class="flaticon-right-arrow"></i></a>
+                        <a href="#" class="theme-btn btn-style-one">A propos de nous<i class="flaticon-right-arrow"></i></a>
                       </div>
                     </div>
                   </div>
@@ -318,7 +71,7 @@
                   <div class="featured-one-container">
                     <div class="section-title">
                       <img src="assets-bosh/images/icons/featured-nav-left.png" alt="icon">
-                      <h4>Wheels & Tires</h4>
+                      <h4>Nos Produits et Services</h4>
                     </div>
                     <ul class="nav nav-tabs tab-btn-style-one" role="tablist">
                       <li class="nav-item">
@@ -1141,34 +894,6 @@
   </section>
   <!-- featured-3-->
 
-  <!-- divider-3 -->
-  <section class="divider-three" style="background-image: url(assets-bosh/images/add/divider-3.jpg);">
-    <div class="auto-container">
-      <div class="row">
-        <div class="col-xl-6">
-          <div class="divider-three-content">
-            <div class="divider-three-content-inner">
-              <span class="popular-sale">New Collection</span>
-              <h2>The Latest Developments  & Special Offers</h2>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-6">
-          <div class="divider-three-content">
-            <div class="newsletter-right-container">
-              <form>
-                <input type="email" name="email" class="newsletter-mail" placeholder="Enter your mail address">
-                <button class="theme-btn btn-style-one" type="submit">subscribe <i class="flaticon-right-arrow"></i></button>
-              </form>
-              <p>By subscribing you agree to our <span class="search-btn">Terms & Conditions and Privacy & Cookies Policy.</span></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- divider-3 -->
-
   <!-- add-3 -->
   <section class="add-three">
     <div class="auto-container">
@@ -1207,60 +932,6 @@
               <a href="#" class="theme-btn btn-style-one">Shop Now<i class="flaticon-right-arrow"></i></a>
             </div>
           </div>
-          <div class="latest-deals-container">
-            <div class="ribon fs_13">30%</div>
-            <div class="latest-deals-image">
-              <img src="assets-bosh/images/product/latest-deal-1.png" alt="product">
-            </div>
-            <div class="latest-deals-content">
-              <h5>Car Mazda Kia Motors</h5>
-              <div class="rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star empty-star" ></i>
-                <span>1  review </span>
-              </div>
-              <div class="price-container">
-                <div class="price fs_15 fw_medium"> $268.99 <span>$168.99</span></div>
-              </div>
-              <div id="skills-section">
-                <div class="progress">
-                  <div class="progress-bar" data-progress="85">
-                  </div>
-                </div>
-              </div>
-              <h6>Sold : 15</h6>
-            </div>
-          </div>
-          <div class="latest-deals-container">
-            <div class="ribon fs_13">30%</div>
-            <div class="latest-deals-image">
-              <img src="assets-bosh/images/product/latest-ddeal-2.png" alt="product">
-            </div>
-            <div class="latest-deals-content">
-              <h5>Car Mazda Kia Motors</h5>
-              <div class="rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star empty-star" ></i>
-                <span>1  review </span>
-              </div>
-              <div class="price-container">
-                <div class="price fs_15 fw_medium"> $268.99 <span>$168.99</span></div>
-              </div>
-              <div id="skills-section-one">
-                <div class="progress">
-                  <div class="progress-bar" data-progress="85">
-                  </div>
-                </div>
-              </div>
-              <h6>Sold : 15</h6>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -1274,7 +945,7 @@
         <div class="common-section-title-left">
           <div class="section-title">
             <img src="assets-bosh/images/icons/featured-nav-left.png" alt="icon">
-            <h4>Auto Parts</h4>
+            <h4>Nos Promotions</h4>
           </div>
         </div>
         <div class="common-more-btn">
@@ -1486,7 +1157,8 @@
         </div>
         <div class="col-xl-4 col-lg-6">
           <div class="item-left-container">
-            <h4>Deal of the day</h4>
+            <h4>Meilleur promotion du moment</h4>
+            <div class="ribon fs_13">8%</div>
             <div class="item-left-carousol single-item-carousel owl-theme owl-carousel ">
               <div class="item-carousol-content">
                 <div class="item-left-image">
@@ -1510,16 +1182,20 @@
             <div class="item-left-timer">
               <div class="launch-time item3-launch-time">
                 <div class="launch-time-content">
-                  <p id="days">00</p>
+                  <p id="days">{{ countdown.days }}</p>
                   <span>Days</span>
                 </div>
                 <div class="launch-time-content">
-                  <p id="hours">00</p>
+                  <p id="hours">{{ countdown.hours }}</p>
                   <span>Hours</span>
                 </div>
                 <div class="launch-time-content">
-                  <p id="minutes">00</p>
+                  <p id="minutes">{{ countdown.minutes }}</p>
                   <span>Minuts</span>
+                </div>
+                <div class="launch-time-content">
+                  <p id="seconds">{{ countdown.seconds }}</p>
+                  <span>Seconds</span>
                 </div>
               </div>
               <a href="#" class="theme-btn btn-style-one">Add To Cart<i class="flaticon-right-arrow"></i></a>
@@ -1530,524 +1206,6 @@
     </div>
   </section>
   <!-- item-3 -->
-
-  <!-- brand -->
-  <section class="brand">
-    <div class="auto-container">
-      <div class="row">
-        <div class="common-section-title">
-          <div class="section-title">
-            <img src="assets-bosh/images/icons/featured-nav-left.png" alt="icon">
-            <h4>Shop by Brands</h4>
-          </div>
-        </div>
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-          <div class="brand-container">
-            <div class="brand-logo">
-              <a href="#"><img src="assets-bosh/images/clients/b-1.png" alt="logo"> <span>Mercedes Benz</span></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-          <div class="brand-container">
-            <div class="brand-logo">
-              <a href="#"><img src="assets-bosh/images/clients/b-2.png" alt="logo"> <span>BMW</span></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-          <div class="brand-container">
-            <div class="brand-logo">
-              <a href="#"><img src="assets-bosh/images/clients/b-3.png" alt="logo"> <span>Infinity</span></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-          <div class="brand-container">
-            <div class="brand-logo">
-              <a href="#"><img src="assets-bosh/images/clients/b-4.png" alt="logo"> <span>Audi</span></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-          <div class="brand-container">
-            <div class="brand-logo">
-              <a href="#"><img src="assets-bosh/images/clients/b-5.png" alt="logo"> <span>Honda</span></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-          <div class="brand-container">
-            <div class="brand-logo">
-              <a href="#"><img src="assets-bosh/images/clients/b-6.png" alt="logo"> <span>Volkswagen</span></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-          <div class="brand-container">
-            <div class="brand-logo">
-              <a href="#"><img src="assets-bosh/images/clients/b-7.png" alt="logo"> <span>Ford</span></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-          <div class="brand-container">
-            <div class="brand-logo">
-              <a href="#"><img src="assets-bosh/images/clients/b-8.png" alt="logo"> <span>Mitsubishi</span></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-          <div class="brand-container">
-            <div class="brand-logo">
-              <a href="#"><img src="assets-bosh/images/clients/b-9.png" alt="logo"> <span>Chevrolet</span></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-          <div class="brand-container">
-            <div class="brand-logo">
-              <a href="#"><img src="assets-bosh/images/clients/b-10.png" alt="logo"> <span>Subaru</span></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-          <div class="brand-container">
-            <div class="brand-logo">
-              <a href="#"><img src="assets-bosh/images/clients/b-11.png" alt="logo"> <span>Nissan</span></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-          <div class="brand-container">
-            <div class="brand-logo">
-              <a href="#"><img src="assets-bosh/images/clients/b-12.png" alt="logo"> <span>KIA</span></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- brand -->
-
-  <!-- week deal -->
-  <section class="week-deal week-deal-three">
-    <div class="auto-container">
-      <div class="common-section-title">
-        <div class="common-section-title-left">
-          <div class="section-title">
-            <img src="assets-bosh/images/icons/featured-nav-left.png" alt="icon">
-            <h4>Deals For This Week</h4>
-          </div>
-        </div>
-        <div class="common-more-btn">
-          <a href="#">View More <i class="flaticon-right-arrow"></i></a>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-3 col-md-6">
-          <div class="product-block-one week-deal-one">
-            <div class="ribon fs_13">8%</div>
-            <div class="product-block-one-image">
-              <div class="image"><img src="assets-bosh/images/product/f-1.png" alt="parts"></div>
-            </div>
-            <div class="product-block-one-cintent">
-              <h4 class="fs_15"><a href="#">R1 Concepts® – eLINE Series Plain Brake Rotors </a></h4>
-              <div class="rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star empty-star"></i>
-                <span>1  review </span>
-              </div>
-              <div class="price-container">
-                <div class="price fs_15 fw_medium">$268.99 <span>$168.99</span></div>
-                <div class="price-cart"><a href="#"><i class="flaticon-shopping-cart"></i></a></div>
-              </div>
-            </div>
-            <div class="product-block-one-heart">
-              <a href="#"><i class="flaticon-heart"></i></a>
-            </div>
-            <div class="overlay">
-              <ul>
-                <li><span>Wishlist </span> <a href="#"><i class="flaticon-heart"></i></a></li>
-                <li><span>Compare </span> <a href="assets-bosh/images/shop/product/image-33.html" class="lightbox-image" data-fancybox="gallery"><i class="icon-left-right-arrow"></i></a></li>
-                <li><span>Quick View </span> <a href="#"><i class="icon-open-eye"></i></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-          <div class="product-block-one week-deal-one">
-            <div class="ribon fs_13">8%</div>
-            <div class="product-block-one-image">
-              <div class="image"><img src="assets-bosh/images/product/f-2.png" alt="parts"></div>
-            </div>
-            <div class="product-block-one-cintent">
-              <h4 class="fs_15"><a href="#">Spyder® – Projector Headlights halogen </a></h4>
-              <div class="rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star empty-star"></i>
-                <span>1  review </span>
-              </div>
-              <div class="price-container">
-                <div class="price fs_15 fw_medium">$268.99 <span>$168.99</span></div>
-                <div class="price-cart"><a href="#"><i class="flaticon-shopping-cart"></i></a></div>
-              </div>
-            </div>
-            <div class="product-block-one-heart">
-              <a href="#"><i class="flaticon-heart"></i></a>
-            </div>
-            <div class="overlay">
-              <ul>
-                <li><span>Wishlist </span> <a href="#"><i class="flaticon-heart"></i></a></li>
-                <li><span>Compare </span> <a href="assets-bosh/images/shop/product/image-33.html" class="lightbox-image" data-fancybox="gallery"><i class="icon-left-right-arrow"></i></a></li>
-                <li><span>Quick View </span> <a href="#"><i class="icon-open-eye"></i></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-          <div class="product-block-one week-deal-one">
-            <div class="ribon fs_13">Super Price</div>
-            <div class="product-block-one-image">
-              <div class="image"><img src="assets-bosh/images/product/f-3.png" alt="parts"></div>
-            </div>
-            <div class="product-block-one-cintent">
-              <h4 class="fs_15"><a href="#">Spender® - Wheeler   for all car tires  17/30ins </a></h4>
-              <div class="rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star empty-star" ></i>
-                <span>1  review </span>
-              </div>
-              <div class="price-container">
-                <div class="price fs_15 fw_medium">$268.99 <span>$168.99</span></div>
-                <div class="price-cart"><a href="#"><i class="flaticon-shopping-cart"></i></a></div>
-              </div>
-            </div>
-            <div class="product-block-one-heart">
-              <a href="#"><i class="flaticon-heart"></i></a>
-            </div>
-            <div class="overlay">
-              <ul>
-                <li><span>Wishlist </span> <a href="#"><i class="flaticon-heart"></i></a></li>
-                <li><span>Compare </span> <a href="assets-bosh/images/shop/product/image-33.html" class="lightbox-image" data-fancybox="gallery"><i class="icon-left-right-arrow"></i></a></li>
-                <li><span>Quick View </span> <a href="#"><i class="icon-open-eye"></i></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-          <div class="product-block-one week-deal-one">
-            <div class="ribon fs_13">8%</div>
-            <div class="product-block-one-image">
-              <div class="image"><img src="assets-bosh/images/product/f-4.png" alt="parts"></div>
-            </div>
-            <div class="product-block-one-cintent">
-              <h4 class="fs_15"><a href="#">All Weather Terrain Barker  AbS/PRO for Car </a></h4>
-              <div class="rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star empty-star" ></i>
-                <span>1  review </span>
-              </div>
-              <div class="price-container">
-                <div class="price fs_15 fw_medium">$268.99 <span>$168.99</span></div>
-                <div class="price-cart"><a href="#"><i class="flaticon-shopping-cart"></i></a></div>
-              </div>
-              <div class="product-block-one-heart">
-                <a href="#"><i class="flaticon-heart"></i></a>
-              </div>
-            </div>
-            <div class="overlay">
-              <ul>
-                <li><span>Wishlist </span> <a href="#"><i class="flaticon-heart"></i></a></li>
-                <li><span>Compare </span> <a href="assets-bosh/images/shop/product/image-33.html" class="lightbox-image" data-fancybox="gallery"><i class="icon-left-right-arrow"></i></a></li>
-                <li><span>Quick View </span> <a href="#"><i class="icon-open-eye"></i></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- week deal -->
-
-  <!-- testimonial -->
-  <section class="testimonial">
-    <div class="auto-container">
-      <div class="common-section-title">
-        <div class="section-title">
-          <img src="assets-bosh/images/icons/featured-nav-left.png" alt="icon">
-          <h4>Customer Reviews</h4>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-4 col-md-6">
-          <div class="testimonial-left">
-            <h5>What they’re talking about the part’s business</h5>
-            <div class="testimonial-left-content">
-              <div class="testimonial-left-icon">
-                <img src="assets-bosh/images/icons/tetimonial-icon-01.png" alt="icon">
-              </div>
-              <h6>We're trusted by more then 380 satisfied & happy customers</h6>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-8">
-          <div class="testimonial-carousol two-item-carousel owl-carousel owl-theme">
-            <div class="testimonial-item">
-              <div class="testimonial-content">
-                <div class="triangle-border">
-                  <img src="assets-bosh/images/shape/border-triangle.png" alt="triangle">
-                </div>
-                <div class="rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star" ></i>
-                </div>
-                <div class="quote-icon">
-                  <img src="assets-bosh/images/icons/quote.svg" alt="icon">
-                </div>
-                <p>I have been a loyal customer of this auto parts company for years and I cannot recommend them enough. Mamnun khan selection of high-quality parts.</p>
-                <div class="testimonial-content-border">
-                  <img src="assets-bosh/images/shape/border.png" alt="border">
-                </div>
-              </div>
-              <div class="testimonial-member-info">
-                <div class="member-image">
-                  <img src="assets-bosh/images/shape/testimonial-01.png" alt="image">
-                </div>
-                <div class="member-info">
-                  <h6>Wade Warren</h6>
-                  <p>Web designer</p>
-                </div>
-              </div>
-            </div>
-            <div class="testimonial-item">
-              <div class="testimonial-content">
-                <div class="triangle-border">
-                  <img src="assets-bosh/images/shape/border-triangle.png" alt="triangle">
-                </div>
-                <div class="rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star" ></i>
-                </div>
-                <div class="quote-icon">
-                  <img src="assets-bosh/images/icons/quote.svg" alt="icon">
-                </div>
-                <p>I have been a loyal customer of this auto parts company for years and I cannot recommend them enough. Mamnun khan selection of high-quality parts.</p>
-                <div class="testimonial-content-border">
-                  <img src="assets-bosh/images/shape/border.png" alt="border">
-                </div>
-              </div>
-              <div class="testimonial-member-info">
-                <div class="member-image">
-                  <img src="assets-bosh/images/shape/testimonial-02.png" alt="image">
-                </div>
-                <div class="member-info">
-                  <h6>Wade Warren</h6>
-                  <p>Web designer</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- testimonial -->
-
-  <!-- blog -->
-  <section class="blog">
-    <div class="auto-container">
-      <div class="common-section-title">
-        <div class="common-section-title-left">
-          <div class="section-title">
-            <img src="assets-bosh/images/icons/featured-nav-left.png" alt="icon">
-            <h4>Our Latest News </h4>
-          </div>
-          <p>Don't miss out on this week's deals</p>
-        </div>
-        <div class="common-more-btn">
-          <a href="#">View More <i class="flaticon-right-arrow"></i></a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-3 col-md-6">
-          <div class="blog-container">
-            <div class="blog-image">
-              <img src="assets-bosh/images/product/blog-1.jpg" alt="parts">
-              <div class="blog-ribon">Auto Repair</div>
-            </div>
-            <div class="blog-content">
-              <div class="blog-date">
-                <img src="assets-bosh/images/icons/calender.svg" alt="calender">
-                <p>13 Oct 2022</p>
-              </div>
-              <div class="blog-date">
-                <img src="assets-bosh/images/icons/comments.svg" alt="comments">
-                <p>3 comments</p>
-              </div>
-            </div>
-            <div class="blog-title">
-              <a href="#">Buying cheap used transmissions ot n't as risky as you think</a>
-            </div>
-            <p>I have been a loyal customer of this auto parts company for years.</p>
-            <div class="common-more-btn">
-              <a href="#">Read More <i class="flaticon-right-arrow"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-          <div class="blog-container">
-            <div class="blog-image">
-              <img src="assets-bosh/images/product/blog-2.jpg" alt="parts">
-              <div class="blog-ribon">Auto Repair</div>
-            </div>
-            <div class="blog-content">
-              <div class="blog-date">
-                <img src="assets-bosh/images/icons/calender.svg" alt="calender">
-                <p>13 Oct 2022</p>
-              </div>
-              <div class="blog-date">
-                <img src="assets-bosh/images/icons/comments.svg" alt="comments">
-                <p>3 comments</p>
-              </div>
-            </div>
-            <div class="blog-title">
-              <a href="#">A beautiful sunday morning lorem make finibus bonorum renaissance</a>
-            </div>
-            <p>I have been a loyal customer of this auto parts company for years.</p>
-            <div class="common-more-btn">
-              <a href="#">Read More <i class="flaticon-right-arrow"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-          <div class="blog-container">
-            <div class="blog-image">
-              <img src="assets-bosh/images/product/blog-3.jpg" alt="parts">
-              <div class="blog-ribon">Auto Repair</div>
-            </div>
-            <div class="blog-content">
-              <div class="blog-date">
-                <img src="assets-bosh/images/icons/calender.svg" alt="calender">
-                <p>13 Oct 2022</p>
-              </div>
-              <div class="blog-date">
-                <img src="assets-bosh/images/icons/comments.svg" alt="comments">
-                <p>3 comments</p>
-              </div>
-            </div>
-            <div class="blog-title">
-              <a href="#">Risus retium tortor metus fringilla nullam classical literature</a>
-            </div>
-            <p>I have been a loyal customer of this auto parts company for years.</p>
-            <div class="common-more-btn">
-              <a href="#">Read More <i class="flaticon-right-arrow"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-          <div class="blog-container">
-            <div class="blog-image">
-              <img src="assets-bosh/images/product/blog-4.jpg" alt="parts">
-              <div class="blog-ribon">Auto Repair</div>
-            </div>
-            <div class="blog-content">
-              <div class="blog-date">
-                <img src="assets-bosh/images/icons/calender.svg" alt="calender">
-                <p>13 Oct 2022</p>
-              </div>
-              <div class="blog-date">
-                <img src="assets-bosh/images/icons/comments.svg" alt="comments">
-                <p>3 comments</p>
-              </div>
-            </div>
-            <div class="blog-title">
-              <a href="#">Urna pretium elit mauris cursus curabitu letraset sheets spectacles</a>
-            </div>
-            <p>I have been a loyal customer of this auto parts company for years.</p>
-            <div class="common-more-btn">
-              <a href="#">Read More <i class="flaticon-right-arrow"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- blog -->
-
-  <!-- instagram -->
-  <div class="inastagram-feed">
-    <div class="instagram-container">
-      <div class="instagram-content">
-        <div class="instagram-image">
-          <img src="assets-bosh/images/product/instagram-1.jpg" alt="image">
-        </div>
-        <div class="instagram-overlay">
-          <div class="instagram-icon"><a href="assets-bosh/images/product/instagram-1.jpg" class="lightbox-image" data-fancybox="gallery"><i class="fab fa-instagram"></i></a></div>
-        </div>
-      </div>
-      <div class="instagram-content">
-        <div class="instagram-image">
-          <img src="assets-bosh/images/product/instagram-2.jpg" alt="image">
-        </div>
-        <div class="instagram-overlay">
-          <div class="instagram-icon"><a href="assets-bosh/images/product/instagram-2.jpg" class="lightbox-image" data-fancybox="gallery"><i class="fab fa-instagram"></i></a></div>
-        </div>
-      </div>
-      <div class="instagram-content">
-        <div class="instagram-image">
-          <img src="assets-bosh/images/product/instagram-3.jpg" alt="image">
-        </div>
-        <div class="instagram-overlay">
-          <div class="instagram-icon"><a href="assets-bosh/images/product/instagram-3.jpg" class="lightbox-image" data-fancybox="gallery"><i class="fab fa-instagram"></i></a></div>
-        </div>
-      </div>
-      <div class="instagram-content hide">
-        <div class="instagram-image">
-          <img src="assets-bosh/images/product/instagram-4.jpg" alt="image">
-        </div>
-        <div class="instagram-overlay">
-          <div class="instagram-icon"><a href="assets-bosh/images/product/instagram-4.jpg" class="lightbox-image" data-fancybox="gallery"><i class="fab fa-instagram"></i></a></div>
-        </div>
-      </div>
-      <div class="instagram-content hide">
-        <div class="instagram-image">
-          <img src="assets-bosh/images/product/instagram-5.jpg" alt="image">
-        </div>
-        <div class="instagram-overlay">
-          <div class="instagram-icon"><a href="assets-bosh/images/product/instagram-5.jpg" class="lightbox-image" data-fancybox="gallery"><i class="fab fa-instagram"></i></a></div>
-        </div>
-      </div>
-      <div class="instagram-content hide">
-        <div class="instagram-image">
-          <img src="assets-bosh/images/product/instagram-6.jpg" alt="image">
-        </div>
-        <div class="instagram-overlay">
-          <div class="instagram-icon"><a href="assets-bosh/images/product/instagram-6.jpg" class="lightbox-image" data-fancybox="gallery"><i class="fab fa-instagram"></i></a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- instagram -->
 
   <app-footer />
   <!--Scroll to top-->

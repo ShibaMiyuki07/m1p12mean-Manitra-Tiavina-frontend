@@ -41,4 +41,23 @@ import { Component } from '@angular/core';
 })
 export class LoaderComponent {
 
+  ngOnInit() {
+    this.playLoaderAnimation();
+  }
+
+  private playLoaderAnimation(): void {
+    if (typeof $ !== 'undefined') {
+      console.log("loader fade");
+      $('.loader-wrap').delay(1000).fadeOut(500);
+    } else {
+      console.warn('jQuery non chargé');
+      // Fallback vanilla JS
+      document.querySelectorAll('.loader-wrap').forEach(el => {
+        setTimeout(() => {
+          (el as HTMLElement).style.opacity = '0';
+          setTimeout(() => el.remove(), 500);
+        }, 200);
+      });
+    }
+  }
 }

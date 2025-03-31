@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import {FooterComponent} from "../../components/footer/footer.component";
-import {Router} from "@angular/router";
-import {NgIf} from "@angular/common";
+import {Router, RouterLink} from "@angular/router";
 import {LoaderComponent} from "../../components/loader/loader.component";
+import {HeaderComponent} from "../../components/header/header.component";
+import 'owl.carousel';
 
 @Component({
   selector: 'app-home',
@@ -58,30 +59,120 @@ import {LoaderComponent} from "../../components/loader/loader.component";
   imports: [
     FooterComponent,
     ReactiveFormsModule,
-    NgIf,
-    LoaderComponent
+    LoaderComponent,
+    HeaderComponent
   ],
   standalone: true
 })
-export class HomeComponent {
+export class HomeComponent{
+
+  countdown = {
+    days: '00',
+    hours: '00',
+    minutes: '00',
+    seconds: '00'
+  };
+
+  currentActiveMenu: string = 'home';
+  private countdownInterval: any;
+  private carousel: any;
 
   ngOnInit() {
-    this.playLoaderAnimation();
+    this.startCountdown();
   }
 
-  private playLoaderAnimation(): void {
-    if (typeof $ !== 'undefined') {
-      console.log("loader fade");
-      $('.loader-wrap').delay(1000).fadeOut(500);
-    } else {
-      console.warn('jQuery non chargé');
-      // Fallback vanilla JS
-      document.querySelectorAll('.loader-wrap').forEach(el => {
-        setTimeout(() => {
-          (el as HTMLElement).style.opacity = '0';
-          setTimeout(() => el.remove(), 500);
-        }, 200);
+  ngAfterViewInit() {
+    this.initOwlCarousel();
+    this.initSingleItemCarousel();
+  }
+
+  ngOnDestroy() {
+    if (this.countdownInterval) {
+      clearInterval(this.countdownInterval);
+    }
+    if (this.carousel) {
+      this.carousel.trigger('destroy.owl.carousel');
+    }
+  }
+
+  private initOwlCarousel() {
+    if ($('.banner-carousel').length) {
+      $('.banner-carousel').owlCarousel({
+        loop: true,
+        margin: 0,
+        nav: true,
+        animateOut: 'fadeOut',
+        animateIn: 'fadeIn',
+        smartSpeed: 1000,
+        autoplay: true,
+        autoplayTimeout: 6000,
+        navText: ['<span class="nav-arrow">‹</span>', '<span class="nav-arrow">›</span>'],
+        responsive: {
+          0: { items: 1 },
+          600: { items: 1 },
+          800: { items: 1 },
+          1024: { items: 1 }
+        },
+        onTranslated: function() {
+          // Réinitialise les animations à chaque changement de slide
+          $('.owl-item').removeClass('temp-active');
+          setTimeout(() => {
+            $('.owl-item.active').addClass('temp-active');
+          }, 50);
+        },
+        onInitialized: function() {
+          $('.owl-item.active').addClass('temp-active');
+        }
       });
     }
+  }
+
+  private initSingleItemCarousel() {
+    if ($('.single-item-carousel').length) {
+      this.carousel = $('.single-item-carousel').owlCarousel({
+        loop: true,
+        margin: 30,
+        nav: true,
+        smartSpeed: 500,
+        autoplay: true,
+        navText: [
+          '<span class="fas fa-angle-left"></span>',
+          '<span class="fas fa-angle-right"></span>'
+        ],
+        responsive: {
+          0: { items: 1 },
+          480: { items: 1 },
+          600: { items: 1 },
+          800: { items: 1 },
+          1200: { items: 1 }
+        }
+      });
+    }
+  }
+
+  private formatNumber(value: number): string {
+    return value < 10 ? `0${value}` : `${value}`;
+  }
+
+  private startCountdown() {
+    const countDownDate = new Date("Apr 6, 2025 15:37:25").getTime();
+
+    this.countdownInterval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
+
+      if (distance < 0) {
+        this.countdown = { days: '00', hours: '00', minutes: '00', seconds: '00' };
+        clearInterval(this.countdownInterval);
+        return;
+      }
+
+      this.countdown = {
+        days: this.formatNumber(Math.floor(distance / (1000 * 60 * 60 * 24))),
+        hours: this.formatNumber(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))),
+        minutes: this.formatNumber(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))),
+        seconds: this.formatNumber(Math.floor(distance % (1000 * 60) / 1000))
+      };
+    }, 1000);
   }
 }
