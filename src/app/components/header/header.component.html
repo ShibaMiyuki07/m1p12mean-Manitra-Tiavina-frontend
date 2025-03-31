@@ -14,13 +14,13 @@
     <div class="menupop-sidebar">
       <ul class="sidebar-dropdown">
         <li><h6>Menu Principal</h6></li>
-        <li><a href="#0" [class.active]="activeMenu === 'home'"> Accueil</a></li>
-        <li><a href="#" [class.active]="activeMenu === 'products'">Produits</a></li>
-        <li><a href="#" [class.active]="activeMenu === 'services'">Services</a></li>
+        <li><a href="/home" [class.active]="activeMenu === 'home'"> Accueil</a></li>
+        <li><a href="/client/products" [class.active]="activeMenu === 'products'">Produits</a></li>
+        <li><a href="/client/services" [class.active]="activeMenu === 'services'">Services</a></li>
         @if (isConnected) {
-          <li><a href="#" [class.active]="activeMenu === 'history'">Historique commande</a></li>
+          <li><a href="/client/history" [class.active]="activeMenu === 'history'">Historique commande</a></li>
         }
-        <li><a href="#" [class.active]="activeMenu === 'about'">A propos de nous</a></li>
+        <li><a href="/about" [class.active]="activeMenu === 'about'">A propos de nous</a></li>
       </ul>
     </div>
   </div>
@@ -53,9 +53,9 @@
 
         <ul class="right-info">
           @if (isConnected) {
-            <li><div class="shopping-cart"><i class="fa fa-comments"></i><span class="count">0</span></div></li>
-            <li><a href="#"><i class="icon-shopping-cart"><span class="count">0</span></i></a></li>
-            <li><a href="#" class="search-btn"><i class="icon-user"></i> <p>Mon compte <span>Hello, {{ username }}</span></p></a></li>
+            <li><a href="/client/chat"><i class="fa fa-comments"><span class="count">0</span></i></a></li>
+            <li><a href="/cart"><i class="icon-shopping-cart"><span class="count">0</span></i></a></li>
+            <li><a href="/client/profil" class="search-btn"><i class="icon-user"></i> <p>Mon compte <span>Hello, {{ username }}</span></p></a></li>
             <li class="search-toggler"><i class="icon-repair" (click)="authService.logout()"></i></li>
           } @else {
             @if (activeMenu === 'login') {
@@ -77,20 +77,20 @@
         <!--Logo-->
         <div class="logo_menu">
           <div class="logo-box">
-            <div class="logo"><a href="index.html"><img src="assets-bosh/images/logo.png" alt="logo"></a></div>
+            <div class="logo"><a href="/home"><img src="assets-bosh/images/logo.png" alt="logo"></a></div>
           </div>
 
           <div class="menu-area clearfix">
             <nav class="main-menu clearfix navbar-expand-md navbar-light">
               <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                 <ul class="navigation clearfix home-menu">
-                  <li class="current"><a href="#0" class="first-menu" [class.active]="activeMenu === 'home'">Accueil</a></li>
-                  <li><a href="index.html" [class.active]="activeMenu === 'products'">Produits</a></li>
-                  <li><a href="tires-wheels.html" [class.active]="activeMenu === 'services'">Services</a></li>
+                  <li class="current"><a href="/home" class="first-menu" [class.active]="activeMenu === 'home'">Accueil</a></li>
+                  <li><a href="/client/products" [class.active]="activeMenu === 'products'">Produits</a></li>
+                  <li><a href="/client/services" [class.active]="activeMenu === 'services'">Services</a></li>
                   @if (isConnected) {
-                    <li><a href="interior-accessories.html" [class.active]="activeMenu === 'history'">Historique</a></li>
+                    <li><a href="/client/history" [class.active]="activeMenu === 'history'">Historique</a></li>
                   }
-                  <li><a href="#0" [class.active]="activeMenu === 'about'">A propos de nous</a></li>
+                  <li><a href="/about" [class.active]="activeMenu === 'about'">A propos de nous</a></li>
                 </ul>
               </div>
             </nav>
@@ -114,7 +114,7 @@
     <div class="auto-container">
       <div class="outer-box">
         <div class="logo-box">
-          <div class="logo"><a href="index.html"><img src="assets-bosh/images/logo.png" alt="logo"></a></div>
+          <div class="logo"><a href="/home"><img src="assets-bosh/images/logo.png" alt="logo"></a></div>
         </div>
         <div class="menu-area clearfix">
           <nav class="main-menu clearfix">
@@ -133,7 +133,7 @@
   <div class="close-btn"><i class="fas fa-times"></i></div>
 
   <nav class="menu-box">
-    <div class="nav-logo"><a href="index.html"><img src="assets-bosh/images/logo.png" alt="logo" title=""></a></div>
+    <div class="nav-logo"><a href="/home"><img src="assets-bosh/images/logo.png" alt="logo" title=""></a></div>
     <div class="menu-outer">
       <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
     </div>
