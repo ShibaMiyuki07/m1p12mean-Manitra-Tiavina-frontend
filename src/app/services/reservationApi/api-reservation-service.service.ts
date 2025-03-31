@@ -1,8 +1,8 @@
-import {Injectable, isDevMode} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Reservation} from "../models/reservation";
-import {UnassignedReservation} from "../models/apiResult/unassignedReservation";
-import {environment} from "../../environments/environment";
+import {Reservation} from "../../models/reservation";
+import {UnassignedReservation} from "../../models/apiResult/unassignedReservation";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +42,6 @@ export class ApiReservationServiceService {
         () => {
           console.log("The PUT observable is now completed.");
         }
-
       );
   }
 }

@@ -1,0 +1,22 @@
+<app-menubar-manager />
+
+<main style="padding-top: 50px;padding-left: 25%">
+  <div><h1>Update produit avec id : {{product._id}}</h1></div>
+  <div>
+    <table style="width: 75%">
+      <tr>
+        <td>Name :</td>
+        <td>Description :</td>
+        <td>Price :</td>
+        <td>Catgory :</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="{{product.name}}" [(ngModel)]="product.name" /></td>
+        <td><input type="text" value="{{product.description}}" [(ngModel)]="product.description" /></td>
+        <td><input type="number" value="{{product.price}}" [(ngModel)]="product.price" /></td>
+        <td><input type="text" value="{{product.category}}" [(ngModel)]="product.category" /></td>
+        <td><button (click)="updateProduct()">Update</button></td>
+      </tr>
+    </table>
+  </div>
+</main>
