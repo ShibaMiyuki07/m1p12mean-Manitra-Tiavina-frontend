@@ -5,6 +5,8 @@ import {ProductStock} from "../../../../models/apiResult/product-stock";
 import {NgForOf, NgIf} from "@angular/common";
 import {Router} from "@angular/router";
 import {ApiStockServiceService} from "../../../../services/stockApi/api-stock-service.service";
+import {Stock} from "../../../../models/stock";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-list-product',
@@ -12,7 +14,8 @@ import {ApiStockServiceService} from "../../../../services/stockApi/api-stock-se
   imports: [
     MenubarManagerComponent,
     NgForOf,
-    NgIf
+    NgIf,
+    FormsModule
   ],
   templateUrl: './list-product.component.html',
   styleUrl: './list-product.component.css'
@@ -22,6 +25,16 @@ export class ListProductComponent implements OnInit {
   private router = inject(Router);
   private apiProduct = inject(ApiProductServiceService);
   private apiStock: ApiStockServiceService = inject(ApiStockServiceService);
+  isOpen : boolean = false;
+
+  stock:Stock = new class implements Stock {
+    _id: any;
+    createdAt: any;
+    productId: any;
+    stockQuantity: number = 0;
+    threshold: number = 0;
+    updatedAt: any;
+  };
 
   constructor() {}
 
@@ -47,5 +60,17 @@ export class ListProductComponent implements OnInit {
     this.router.navigate(['/manager/products/'+productId]);
   }
 
+  openModal(productId : any) {
+    this.stock.productId = productId;
+    this.isOpen = true;
+  }
 
+  closeModal() {
+    this.isOpen = false;
+  }
+
+  submitStock() {
+    this.apiStock.createStock(this.stock);
+    location.reload();
+  }
 }

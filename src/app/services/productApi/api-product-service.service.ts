@@ -1,7 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {UnassignedReservation} from "../../models/apiResult/unassignedReservation";
 import {Product} from "../../models/product";
 import {ProductStock} from "../../models/apiResult/product-stock";
 
@@ -54,6 +53,6 @@ export class ApiProductServiceService {
   }
 
   deleteProduct(productId: any) {
-    this.http.delete(`${this.url}/products/${productId}`).subscribe(val => {});
+    this.http.delete(`${this.url}/products/${productId}`).subscribe(() => {});
   }
 }

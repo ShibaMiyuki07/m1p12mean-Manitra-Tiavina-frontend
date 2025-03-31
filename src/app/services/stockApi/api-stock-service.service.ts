@@ -46,6 +46,6 @@ export class ApiStockServiceService {
   }
 
   deleteStock(stockId: any) {
-    this.http.delete(`${this.url}/stocks/${stockId}`).subscribe(val => {});
+    this.http.delete(`${this.url}/stocks/${stockId}`).subscribe(() => {});
   }
 }

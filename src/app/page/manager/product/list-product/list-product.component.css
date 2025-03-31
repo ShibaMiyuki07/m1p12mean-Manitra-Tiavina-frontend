@@ -47,3 +47,12 @@ tr{
 tr:nth-child(even) {
   background-color: #efeaea;
 }
+
+.header{
+  display: flex;
+  padding-top: 5px;
+}
+
+.item{
+  padding: 10px;
+}

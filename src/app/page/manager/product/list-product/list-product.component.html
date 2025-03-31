@@ -27,7 +27,7 @@
 
         <td *ngIf="product.result === undefined" style="color: red;">Aucun</td>
         <td *ngIf="product.result === undefined" style="color: red;">Aucun</td>
-        <td *ngIf="product.result === undefined"><button class="add">Add stock</button></td>
+        <td *ngIf="product.result === undefined"><button class="add" (click)="openModal(product._id)">Add stock</button></td>
 
         <td><button class="update" (click)="linkUpdate(product._id)">Update</button></td>
         <td><button *ngIf="product.result === undefined" class="delete" (click)="delete(product._id,undefined)">Delete</button></td>
@@ -37,3 +37,25 @@
     </table>
   </div>
 </main>
+
+<dialog [open]="isOpen">
+  <div class="header">
+    <div><h5>Add stock to product : {{stock.productId}}</h5></div>
+    <div><img src="assets/images/close.png"  (click)="closeModal()" style="cursor: pointer;width:10px; height:10px;" /></div>
+  </div>
+  <div class="item">
+    <div>Stock quantity :</div>
+    <div>
+      <input type="number" name="stockQuantity" [(ngModel)]="stock.stockQuantity" />
+    </div>
+  </div>
+  <div class="item">
+    <div>Threshold : </div>
+    <div>
+      <input type="number" name="threshold" [(ngModel)]="stock.threshold" />
+    </div>
+  </div>
+  <div align="center">
+    <button (click)="submitStock()" class="add">Add</button>
+  </div>
+</dialog>
