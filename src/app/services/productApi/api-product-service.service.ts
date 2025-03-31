@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {UnassignedReservation} from "../../models/apiResult/unassignedReservation";
@@ -10,7 +10,8 @@ import {ProductStock} from "../../models/apiResult/product-stock";
 })
 export class ApiProductServiceService {
   readonly url = environment.apiUrl;
-  constructor(private http: HttpClient) { }
+  private readonly http: HttpClient = inject(HttpClient);
+  constructor() { }
 
   getAllProducts() {
     return this.http.get<Array<Product>>(`${this.url}/products/`);
