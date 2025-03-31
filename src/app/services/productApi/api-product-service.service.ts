@@ -4,6 +4,8 @@ import {HttpClient} from "@angular/common/http";
 import {UnassignedReservation} from "../../models/apiResult/unassignedReservation";
 import {Product} from "../../models/product";
 import {ProductStock} from "../../models/apiResult/product-stock";
+import {map, Observable} from "rxjs";
+import {GroupedProducts} from "../../models/apiResult/GroupedProducts";
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +56,10 @@ export class ApiProductServiceService {
 
   deleteProduct(productId: any) {
     this.http.delete(`${this.url}/products/${productId}`).subscribe(val => {});
+  }
+
+  getProductsGroupedByCategory(): Observable<GroupedProducts[]> {
+    return this.http.get<{data: GroupedProducts[]}>(`${this.url}/products/grouped/category`)
+      .pipe(map(response => response.data));
   }
 }

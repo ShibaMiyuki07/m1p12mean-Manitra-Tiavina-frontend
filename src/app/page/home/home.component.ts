@@ -2,10 +2,11 @@ import {AfterViewInit, Component} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import {FooterComponent} from "../../components/footer/footer.component";
-import {Router, RouterLink} from "@angular/router";
 import {LoaderComponent} from "../../components/loader/loader.component";
 import {HeaderComponent} from "../../components/header/header.component";
 import 'owl.carousel';
+import {ApiProductServiceService} from "../../services/productApi/api-product-service.service";
+import {GroupedProducts} from "../../models/apiResult/GroupedProducts";
 
 @Component({
   selector: 'app-home',
@@ -76,9 +77,14 @@ export class HomeComponent{
   currentActiveMenu: string = 'home';
   private countdownInterval: any;
   private carousel: any;
+  groupedProducts: GroupedProducts[] = [];
+  selectedCategory: string = 'Pneumatique';
+
+  constructor(private productService: ApiProductServiceService) {}
 
   ngOnInit() {
     this.startCountdown();
+    this.loadGroupedProducts();
   }
 
   ngAfterViewInit() {
@@ -93,6 +99,31 @@ export class HomeComponent{
     if (this.carousel) {
       this.carousel.trigger('destroy.owl.carousel');
     }
+  }
+
+  selectCategory(category: string) {
+    this.selectedCategory = category;
+    // Ajoutez ici toute logique supplémentaire
+  }
+
+  private loadGroupedProducts() {
+
+    this.productService.getProductsGroupedByCategory().subscribe({
+      next: (data) => {
+        this.groupedProducts = data;
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+
+  }
+
+  getSafeImagePath(filename: string): string {
+    // Vérifie que le fichier existe
+    const fullPath = `assets-bosh/images/product/${filename}`;
+    console.log('Tentative de chargement :', fullPath); // Debug
+    return fullPath;
   }
 
   private initOwlCarousel() {
