@@ -30,7 +30,8 @@
         <td *ngIf="product.result === undefined"><button class="add">Add stock</button></td>
 
         <td><button class="update" (click)="linkUpdate(product._id)">Update</button></td>
-        <td><button class="delete" (click)="delete(product._id)">Delete</button></td>
+        <td><button *ngIf="product.result === undefined" class="delete" (click)="delete(product._id,undefined)">Delete</button></td>
+        <td><button *ngIf="product.result !== undefined" class="delete" (click)="delete(product._id,product.result._id)">Delete</button></td>
       </tr>
       </tbody>
     </table>

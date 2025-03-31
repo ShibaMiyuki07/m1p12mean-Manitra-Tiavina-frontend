@@ -4,6 +4,7 @@ import {ApiProductServiceService} from "../../../../services/productApi/api-prod
 import {ProductStock} from "../../../../models/apiResult/product-stock";
 import {NgForOf, NgIf} from "@angular/common";
 import {Router} from "@angular/router";
+import {ApiStockServiceService} from "../../../../services/stockApi/api-stock-service.service";
 
 @Component({
   selector: 'app-list-product',
@@ -20,6 +21,7 @@ export class ListProductComponent implements OnInit {
   products: ProductStock[] = [];
   private router = inject(Router);
   private apiProduct = inject(ApiProductServiceService);
+  private apiStock: ApiStockServiceService = inject(ApiStockServiceService);
 
   constructor() {}
 
@@ -29,9 +31,13 @@ export class ListProductComponent implements OnInit {
     });
   }
 
-  delete(productId : any)
+  delete(productId : any,stockId : any)
   {
     this.apiProduct.deleteProduct(productId);
+    if(stockId)
+    {
+      this.apiStock.deleteStock(stockId);
+    }
     location.reload();
     //To Add delete stock when it is finished
   }
