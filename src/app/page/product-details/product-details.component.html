@@ -15,7 +15,7 @@
       <div class="content-box">
         <h1 class="d_block fs_60 lh_70 fw_bold mb_10">Produit détails</h1>
         <ul class="bread-crumb p_relative d_block mb_8 clearfix">
-          <li class="p_relative d_iblock fs_16 lh_25 fw_sbold font_family_inte mr_20"><a href="/home">Home</a></li>
+          <li class="p_relative d_iblock fs_16 lh_25 fw_sbold font_family_inte mr_20"><a href="/home">Accueil</a></li>
           <li class="current p_relative d_iblock fs_16 lh_25 fw_sbold font_family_inte">Produit détails</li>
         </ul>
       </div>
@@ -39,7 +39,7 @@
               <h2 class="d_block fs_30 lh_40 fw_sbold font_family_inter mb_5">{{ product.name }}</h2>
               <p>
               @if (isInPromotion) {
-                <span class="price p_relative d_block fs_20 lh_30 fw_medium color_black mb_25 font_family_inter">AR {{ product.price }}</span>
+                <span class="price p_relative d_block fs_20 lh_30 fw_medium color_black mb_25 font_family_inter" style="text-decoration: line-through;">AR {{ product.price }}</span>
                 <strong>AR {{ calculateDiscountedPrice(product.price, promotion.discount) }}</strong>
               } @else {
                 <strong>AR {{ product.price }}</strong>

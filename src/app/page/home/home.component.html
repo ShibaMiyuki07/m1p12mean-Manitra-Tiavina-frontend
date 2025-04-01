@@ -153,10 +153,7 @@
               </div>
               <div class="add-three-content">
                 <h4>{{ service.name }}</h4>
-                <p>{{ service.description }}
-                  @if (service.isInPromotion) {
-                    <strong>(En promotion)</strong>
-                  }</p>
+                <p>{{ service.description }}</p>
                 <p>Prix : Ar {{ service.price }} - {{ service.duration }} heures</p>
                 <a href="#" class="theme-btn btn-style-one">Réserver maintenant<i class="flaticon-right-arrow"></i></a>
               </div>
@@ -198,7 +195,7 @@
                     <div class="product-block-one-cintent">
                       <h4 class="fs_15"><a href="product-detail/{{ product._id }}">{{ product.name }}</a></h4>
                       <div class="price-container">
-                        <div class="price fs_15 fw_medium">AR {{ product.price}}<span>{{ calculateDiscountedPrice(product.price, promotion.discount) }}</span></div>
+                        <div class="price fs_15 fw_medium" style="text-decoration: line-through;">{{ product.price}}<span style="text-decoration: none;">{{ calculateDiscountedPrice(product.price, promotion.discount) }} AR</span></div>
                         <div class="price-cart"><a href="product-detail/{{ product._id }}"><i class="flaticon-shopping-cart"></i></a></div>
                       </div>
                     </div>
@@ -220,7 +217,7 @@
                   </div>
                   <div class="item-content">
                     <h5><a href="product-detail/{{ product._id }}">{{ product.name }}</a></h5>
-                    <h6>AR {{ calculateDiscountedPrice(product.price, bestActivePromotion.discount) }}<span>{{ product.price}}</span></h6>
+                    <h6>AR {{ calculateDiscountedPrice(product.price, bestActivePromotion.discount) }}<span style="text-decoration: line-through;">{{ product.price}}</span></h6>
                   </div>
                 </div>
               }
