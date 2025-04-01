@@ -1,0 +1,85 @@
+<div class="boxed_wrapper">
+
+  <app-loader />
+
+  <app-header [activeMenu]="currentActiveMenu" />
+
+  <!-- Page Title -->
+  <section class="page-title p_relative centred">
+    <div class="pattern-layer">
+      <div class="shape-1 p_absolute l_120 t_120 rotate-me" style="background-image: url(assets-bosh/images/shape/shape-176.png);"></div>
+      <div class="shape-2 p_absolute t_180 r_170 float-bob-y" style="background-image: url(assets-bosh/images/shape/shape-56.png);"></div>
+      <div class="shape-3 p_absolute l_0 b_0" style="background-image: url(assets-bosh/images/shape/shape-189.png);"></div>
+    </div>
+    <div class="auto-container">
+      <div class="content-box">
+        <h1 class="d_block fs_60 lh_70 fw_bold mb_10">Produit détails</h1>
+        <ul class="bread-crumb p_relative d_block mb_8 clearfix">
+          <li class="p_relative d_iblock fs_16 lh_25 fw_sbold font_family_inte mr_20"><a href="/home">Home</a></li>
+          <li class="current p_relative d_iblock fs_16 lh_25 fw_sbold font_family_inte">Produit détails</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- End Page Title -->
+
+  <!-- shop-details -->
+  <section class="shop-details p_relative pt_140 pb_80">
+    <div class="auto-container">
+      <div class="product-details-content p_relative d_block mb_100">
+        <div class="row clearfix">
+          <div class="col-lg-6 col-md-12 col-sm-12 image-column">
+            <div class="ribon fs_13">{{ promotion.discount }}%</div>
+            <div class="image-box shope-details-left-image p_relative d_block">
+              <figure class="image"><img [src]="getSafeImagePath(product.image)" [alt]="product.name"></figure>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12 col-sm-12 content-column">
+            <div class="product-details p_relative d_block ml_20">
+              <h2 class="d_block fs_30 lh_40 fw_sbold font_family_inter mb_5">{{ product.name }}</h2>
+              <p>
+              @if (isInPromotion) {
+                <span class="price p_relative d_block fs_20 lh_30 fw_medium color_black mb_25 font_family_inter">AR {{ product.price }}</span>
+                <strong>AR {{ calculateDiscountedPrice(product.price, promotion.discount) }}</strong>
+              } @else {
+                <strong>AR {{ product.price }}</strong>
+              }
+              </p>
+              <div class="text p_relative d_block mb_30">
+                <p class="font_family_poppins mb_25">{{ product.description }}</p>
+              </div>
+              <div class="addto-cart-box p_relative d_block mb_35">
+                <ul class="clearfix">
+                  <li class="item-quantity p_relative d_block float_left mr_10"><input class="quantity-spinner" type="number" value="1" name="quantity"></li>
+                  <li class="p_relative d_block float_left mr_10"><button type="button" class="theme-btn theme-btn-eight">Add To Cart</button></li>
+                </ul>
+              </div>
+              <div class="other-option">
+                <ul class="list">
+                  <li class="p_relative d_block fs_16 font_family_poppins mb_5"><span class="fw_medium color_black">Category : </span> {{ product.category }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- shop-details end -->
+
+  <app-footer />
+
+  <!--Scroll to top-->
+  <div class="scroll-to-top">
+    <div>
+      <div class="scroll-top-inner">
+        <div class="scroll-bar">
+          <div class="bar-inner"></div>
+        </div>
+        <div class="scroll-bar-text">Go To Top</div>
+      </div>
+    </div>
+  </div>
+  <!-- Scroll to top end -->
+
+</div>
