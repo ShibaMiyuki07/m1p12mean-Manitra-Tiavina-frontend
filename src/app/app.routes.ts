@@ -8,14 +8,16 @@ import {IndexManagerComponent} from "./page/manager/index-manager/index-manager.
 import {ListProductComponent} from "./page/manager/product/list-product/list-product.component";
 import {UpdateProductComponent} from "./page/manager/product/update-product/update-product.component";
 import {CreateProductComponent} from "./page/manager/product/create-product/create-product.component";
+import {ListServiceComponent} from "./page/manager/services/list-service/list-service.component";
 
 export const routes: Routes = [
   { path: 'mechanic', component: IndexMechanicComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: '', component: HomeComponent },
-  { path: 'manager' , component : IndexManagerComponent},
-  { path: 'manager/products', component: ListProductComponent },
-  { path: 'manager/products/:id', component: UpdateProductComponent },
-  { path: 'manager/create/product', component: CreateProductComponent }
+  { path: 'manager' , component : IndexManagerComponent, canActivate: [AuthGuard] },
+  { path: 'manager/products', component: ListProductComponent ,canActivate: [AuthGuard] },
+  { path: 'manager/products/:id', component: UpdateProductComponent,canActivate: [AuthGuard] },
+  { path: 'manager/create/product', component: CreateProductComponent,canActivate: [AuthGuard] },
+  { path: 'manager/services', component: ListServiceComponent },
 ];
