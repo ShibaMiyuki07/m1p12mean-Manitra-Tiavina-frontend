@@ -1,6 +1,5 @@
-import {AfterViewInit, Component} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import {Component} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
 import {FooterComponent} from "../../components/footer/footer.component";
 import {LoaderComponent} from "../../components/loader/loader.component";
 import {HeaderComponent} from "../../components/header/header.component";
@@ -9,6 +8,9 @@ import {ApiProductServiceService} from "../../services/productApi/api-product-se
 import {ApiServiceServiceService} from "../../services/serviceApi/api-service-service.service";
 import {GroupedProducts} from "../../models/apiResult/GroupedProducts";
 import {Service} from "../../models/Service";
+import {PromotionService} from "../../services/promotionApi/api-promotion-service.service";
+import {lastValueFrom} from "rxjs";
+import {DateTime} from 'luxon';
 
 @Component({
   selector: 'app-home',
@@ -81,15 +83,19 @@ export class HomeComponent{
   private carousel: any;
   groupedProducts: GroupedProducts[] = [];
   selectedCategory: string = 'Decoration';
-  listServices: Service[] = [];
+  listServices: any[] = [];
+  activePromotions: any[] = [];
+  bestActivePromotion: any;
+  isLoading = true;
 
 
-  constructor(private productService: ApiProductServiceService, private serviceService: ApiServiceServiceService) {}
+  constructor(private productService: ApiProductServiceService, private serviceService: ApiServiceServiceService, private promotionService: PromotionService) {}
 
-  ngOnInit() {
-    this.startCountdown();
+  async ngOnInit() {
     this.loadGroupedProducts();
     this.loadServices();
+    this.loadActivePromotions();
+    await this.loadBestPromotions();
   }
 
   ngAfterViewInit() {
@@ -106,9 +112,62 @@ export class HomeComponent{
     }
   }
 
+  async loadBestPromotions(): Promise<void> {
+    try {
+      this.isLoading = true;
+      const promotion = await lastValueFrom(this.promotionService.getPromotionWithHighestDiscount());
+      this.bestActivePromotion = promotion ? this.promotionService.formatPromotion(promotion) : null;
+
+      if (this.bestActivePromotion) {
+        console.log('Date de fin:', this.bestActivePromotion.validUntil);
+
+        const reformatDate = DateTime.fromFormat(this.bestActivePromotion.validUntil, 'dd/MM/yyyy')
+          .toFormat('MM/dd/yyyy');
+
+        const countDownDate = new Date(reformatDate).getTime();
+
+        this.countdownInterval = setInterval(() => {
+          const now = new Date().getTime();
+          const distance = countDownDate - now;
+          console.log('countDownDate:', countDownDate);
+          console.log('now:', now);
+
+          if (distance < 0) {
+            this.countdown = { days: '00', hours: '00', minutes: '00', seconds: '00' };
+            clearInterval(this.countdownInterval);
+            return;
+          }
+
+          this.countdown = {
+            days: this.formatNumber(Math.floor(distance / (1000 * 60 * 60 * 24))),
+            hours: this.formatNumber(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))),
+            minutes: this.formatNumber(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))),
+            seconds: this.formatNumber(Math.floor(distance % (1000 * 60) / 1000))
+          };
+        }, 1000);
+      }
+    } catch (err) {
+      console.error('Erreur:', err);
+      this.bestActivePromotion = null;
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
   selectCategory(category: string) {
     this.selectedCategory = category;
     // Ajoutez ici toute logique supplémentaire
+  }
+
+  loadActivePromotions(): void {
+    this.promotionService.getActivePromotions().subscribe({
+      next: (promotions) => {
+        this.activePromotions = promotions.map(p => this.promotionService.formatPromotion(p));
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des promotions actives', err);
+      }
+    });
   }
 
   private loadGroupedProducts() {
@@ -125,22 +184,43 @@ export class HomeComponent{
   }
 
   private loadServices() {
-
     this.serviceService.getAllServices().subscribe({
-      next: (data) => {
-        this.listServices = data;
+      next: async (data) => {
+        // Créer un tableau de promesses pour vérifier chaque service
+        this.listServices = await Promise.all(
+          data.map(async (service) => {
+            try {
+              // Vérifier si le service est en promotion
+              const promotionCheck = await lastValueFrom(this.promotionService.checkServicePromotion(service._id));
+              return {
+                ...service,
+                isInPromotion: promotionCheck?.isInPromotion || false,
+                promotion: promotionCheck?.promotion || null
+              };
+            } catch (error) {
+              console.error(`Erreur lors de la vérification de la promotion pour le service ${service._id}`, error);
+              return {
+                ...service,
+                isInPromotion: false,
+                promotion: null
+              };
+            }
+          })
+        );
       },
       error: (err) => {
-        console.error(err);
+        console.error('Erreur lors du chargement des services:', err);
       }
     });
+  }
 
+  calculateDiscountedPrice(originalPrice: number, discount: number): number {
+    return originalPrice * (1 - discount / 100);
   }
 
   getSafeImagePath(filename: string): string {
     // Vérifie que le fichier existe
     const fullPath = `assets-bosh/images/upload/${filename}`;
-    console.log('Tentative de chargement :', fullPath); // Debug
     return fullPath;
   }
 
@@ -201,27 +281,5 @@ export class HomeComponent{
 
   private formatNumber(value: number): string {
     return value < 10 ? `0${value}` : `${value}`;
-  }
-
-  private startCountdown() {
-    const countDownDate = new Date("Apr 6, 2025 15:37:25").getTime();
-
-    this.countdownInterval = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = countDownDate - now;
-
-      if (distance < 0) {
-        this.countdown = { days: '00', hours: '00', minutes: '00', seconds: '00' };
-        clearInterval(this.countdownInterval);
-        return;
-      }
-
-      this.countdown = {
-        days: this.formatNumber(Math.floor(distance / (1000 * 60 * 60 * 24))),
-        hours: this.formatNumber(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))),
-        minutes: this.formatNumber(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))),
-        seconds: this.formatNumber(Math.floor(distance % (1000 * 60) / 1000))
-      };
-    }, 1000);
   }
 }

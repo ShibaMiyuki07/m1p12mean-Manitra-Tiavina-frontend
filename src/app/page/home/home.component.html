@@ -145,12 +145,18 @@
         @for (service of listServices; track service._id; let i = $index) {
           <div class="col-lg-6">
             <div class="add-three-container">
+              @if (service.isInPromotion) {
+                <div class="ribone fs_13">{{ service.promotion.discount }}%</div>
+              }
               <div class="add-three-image">
                 <img [src]="getSafeImagePath(service.image)" [alt]="service.name">
               </div>
               <div class="add-three-content">
                 <h4>{{ service.name }}</h4>
-                <p>{{ service.description }}</p>
+                <p>{{ service.description }}
+                  @if (service.isInPromotion) {
+                    <strong>(En promotion)</strong>
+                  }</p>
                 <p>Prix : Ar {{ service.price }} - {{ service.duration }} heures</p>
                 <a href="#" class="theme-btn btn-style-one">Réserver maintenant<i class="flaticon-right-arrow"></i></a>
               </div>
@@ -179,250 +185,65 @@
       <div class="row">
         <div class="col-xl-8 col-lg-12">
           <div class="row">
-            <div class="col-xl-4 col-lg-4 col-md-6">
-              <div class="product-block-one item-block-one">
-                <div class="ribon fs_13">8%</div>
-                <div class="product-block-one-image">
-                  <div class="image"><img src="assets-bosh/images/product/f-1.png" alt="parts"></div>
-                </div>
-                <div class="product-block-one-cintent">
-                  <h4 class="fs_15"><a href="#">R1 Concepts® – eLINE Series Plain Brake Rotors </a></h4>
-                  <div class="rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star empty-star" ></i>
-                    <span>1  review </span>
-                  </div>
-                  <div class="price-container">
-                    <div class="price fs_15 fw_medium">$268.99 <span>$168.99</span></div>
-                    <div class="price-cart"><a href="#"><i class="flaticon-shopping-cart"></i></a></div>
-                  </div>
-                  <div class="product-block-one-heart">
-                    <a href="#"><i class="flaticon-heart"></i></a>
+            @for (promotion of activePromotions; track promotion._id) {
+              @for (product of promotion.products; track product._id) {
+                <div class="col-xl-4 col-lg-4 col-md-6">
+                  <div class="product-block-one item-block-one">
+                    <div class="ribon fs_13">{{ promotion.discountFormatted }}</div>
+                    <div class="product-block-one-image">
+                      <div class="image"><img [src]="getSafeImagePath(product.image)" [alt]="product.name" width="300"
+                                              height="200"
+                                              loading="lazy"></div>
+                    </div>
+                    <div class="product-block-one-cintent">
+                      <h4 class="fs_15"><a href="#">{{ product.name }}</a></h4>
+                      <div class="price-container">
+                        <div class="price fs_15 fw_medium">AR {{ product.price}}<span>{{ calculateDiscountedPrice(product.price, promotion.discount) }}</span></div>
+                        <div class="price-cart"><a href="#"><i class="flaticon-shopping-cart"></i></a></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="overlay">
-                  <ul>
-                    <li><span>Wishlist </span> <a href="#"><i class="flaticon-heart"></i></a></li>
-                    <li><span>Compare </span> <a href="assets-bosh/images/shop/product/image-33.html" class="lightbox-image" data-fancybox="gallery"><i class="icon-left-right-arrow"></i></a></li>
-                    <li><span>Quick View </span> <a href="#"><i class="icon-open-eye"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6">
-              <div class="product-block-one item-block-one">
-                <div class="ribon fs_13">8%</div>
-                <div class="product-block-one-image">
-                  <div class="image"><img src="assets-bosh/images/product/f-3.png" alt="parts"></div>
-                </div>
-                <div class="product-block-one-cintent">
-                  <h4 class="fs_15"><a href="#">Spender® - Wheeler   for all car tires  17/30ins </a></h4>
-                  <div class="rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star empty-star" ></i>
-                    <span>1  review </span>
-                  </div>
-                  <div class="price-container">
-                    <div class="price fs_15 fw_medium">$268.99 <span>$168.99</span></div>
-                    <div class="price-cart"><a href="#"><i class="flaticon-shopping-cart"></i></a></div>
-                  </div>
-                  <div class="product-block-one-heart">
-                    <a href="#"><i class="flaticon-heart"></i></a>
-                  </div>
-                </div>
-                <div class="overlay">
-                  <ul>
-                    <li><span>Wishlist </span> <a href="#"><i class="flaticon-heart"></i></a></li>
-                    <li><span>Compare </span> <a href="assets-bosh/images/shop/product/image-33.html" class="lightbox-image" data-fancybox="gallery"><i class="icon-left-right-arrow"></i></a></li>
-                    <li><span>Quick View </span> <a href="#"><i class="icon-open-eye"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6">
-              <div class="product-block-one item-block-one">
-                <div class="ribon fs_13">Super Price</div>
-                <div class="product-block-one-image">
-                  <div class="image"><img src="assets-bosh/images/product/i-1.png" alt="parts"></div>
-                </div>
-                <div class="product-block-one-cintent">
-                  <h4 class="fs_15"><a href="#">Auto Suspension Systems stabilizer links</a></h4>
-                  <div class="rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star empty-star" ></i>
-                    <span>1  review </span>
-                  </div>
-                  <div class="price-container">
-                    <div class="price fs_15 fw_medium">$268.99 <span>$168.99</span></div>
-                    <div class="price-cart"><a href="#"><i class="flaticon-shopping-cart"></i></a></div>
-                  </div>
-                  <div class="product-block-one-heart">
-                    <a href="#"><i class="flaticon-heart"></i></a>
-                  </div>
-                </div>
-                <div class="overlay">
-                  <ul>
-                    <li><span>Wishlist </span> <a href="#"><i class="flaticon-heart"></i></a></li>
-                    <li><span>Compare </span> <a href="assets-bosh/images/shop/product/image-33.html" class="lightbox-image" data-fancybox="gallery"><i class="icon-left-right-arrow"></i></a></li>
-                    <li><span>Quick View </span> <a href="#"><i class="icon-open-eye"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6">
-              <div class="product-block-one item-block-one">
-                <div class="ribon fs_13">8%</div>
-                <div class="product-block-one-image">
-                  <div class="image"><img src="assets-bosh/images/product/f-2.png" alt="parts"></div>
-                </div>
-                <div class="product-block-one-cintent">
-                  <h4 class="fs_15"><a href="#">Spyder® – Projector Headlights halogen</a></h4>
-                  <div class="rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star empty-star" ></i>
-                    <span>1  review </span>
-                  </div>
-                  <div class="price-container">
-                    <div class="price fs_15 fw_medium">$268.99 <span>$168.99</span></div>
-                    <div class="price-cart"><a href="#"><i class="flaticon-shopping-cart"></i></a></div>
-                  </div>
-                  <div class="product-block-one-heart">
-                    <a href="#"><i class="flaticon-heart"></i></a>
-                  </div>
-                </div>
-                <div class="overlay">
-                  <ul>
-                    <li><span>Wishlist </span> <a href="#"><i class="flaticon-heart"></i></a></li>
-                    <li><span>Compare </span> <a href="assets-bosh/images/shop/product/image-33.html" class="lightbox-image" data-fancybox="gallery"><i class="icon-left-right-arrow"></i></a></li>
-                    <li><span>Quick View </span> <a href="#"><i class="icon-open-eye"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6">
-              <div class="product-block-one item-block-one">
-                <div class="ribon fs_13">8%</div>
-                <div class="product-block-one-image">
-                  <div class="image"><img src="assets-bosh/images/product/i-2.png" alt="parts"></div>
-                </div>
-                <div class="product-block-one-cintent">
-                  <h4 class="fs_15"><a href="#">Combo Sport Stereos For Coupe  Models</a></h4>
-                  <div class="rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star empty-star" ></i>
-                    <span>1  review </span>
-                  </div>
-                  <div class="price-container">
-                    <div class="price fs_15 fw_medium">$268.99 <span>$168.99</span></div>
-                    <div class="price-cart"><a href="#"><i class="flaticon-shopping-cart"></i></a></div>
-                  </div>
-                  <div class="product-block-one-heart">
-                    <a href="#"><i class="flaticon-heart"></i></a>
-                  </div>
-                </div>
-                <div class="overlay">
-                  <ul>
-                    <li><span>Wishlist </span> <a href="#"><i class="flaticon-heart"></i></a></li>
-                    <li><span>Compare </span> <a href="assets-bosh/images/shop/product/image-33.html" class="lightbox-image" data-fancybox="gallery"><i class="icon-left-right-arrow"></i></a></li>
-                    <li><span>Quick View </span> <a href="#"><i class="icon-open-eye"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6">
-              <div class="product-block-one item-block-one">
-                <div class="ribon fs_13">8%</div>
-                <div class="product-block-one-image">
-                  <div class="image"><img src="assets-bosh/images/product/i-3.png" alt="parts"></div>
-                </div>
-                <div class="product-block-one-cintent">
-                  <h4 class="fs_15"><a href="#">J.L. Childress Spinner Wheelie Deluxe Car Seat</a></h4>
-                  <div class="rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star empty-star" ></i>
-                    <span>1  review </span>
-                  </div>
-                  <div class="price-container">
-                    <div class="price fs_15 fw_medium">$268.99 <span>$168.99</span></div>
-                    <div class="price-cart"><a href="#"><i class="flaticon-shopping-cart"></i></a></div>
-                  </div>
-                  <div class="product-block-one-heart">
-                    <a href="#"><i class="flaticon-heart"></i></a>
-                  </div>
-                </div>
-                <div class="overlay">
-                  <ul>
-                    <li><span>Wishlist </span> <a href="#"><i class="flaticon-heart"></i></a></li>
-                    <li><span>Compare </span> <a href="assets-bosh/images/shop/product/image-33.html" class="lightbox-image" data-fancybox="gallery"><i class="icon-left-right-arrow"></i></a></li>
-                    <li><span>Quick View </span> <a href="#"><i class="icon-open-eye"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+              }
+            }
           </div>
         </div>
         <div class="col-xl-4 col-lg-6">
           <div class="item-left-container">
             <h4>Meilleur promotion du moment</h4>
-            <div class="ribon fs_13">8%</div>
+            <div class="ribon fs_13">{{ bestActivePromotion.discountFormatted }}</div>
             <div class="item-left-carousol single-item-carousel owl-theme owl-carousel ">
-              <div class="item-carousol-content">
-                <div class="item-left-image">
-                  <img src="assets-bosh/images/product/item-1.png" alt="engine">
+              @for (product of bestActivePromotion.products; track product._id) {
+                <div class="item-carousol-content">
+                  <div class="align-items-center" style="text-align: center">
+                    <img [src]="getSafeImagePath(product.image)" [alt]="product.name">
+                  </div>
+                  <div class="item-content">
+                    <h5><a href="#">{{ product.name }}</a></h5>
+                    <h6>AR {{ calculateDiscountedPrice(product.price, bestActivePromotion.discount) }}<span>{{ product.price}}</span></h6>
+                  </div>
                 </div>
-                <div class="item-content">
-                  <h5>Truck/SUV Taillight With Mount  (TL-2233)</h5>
-                  <h6>$168.99<span>$268.99</span></h6>
-                </div>
-              </div>
-              <div class="item-carousol-content">
-                <div class="item-left-image">
-                  <img src="assets-bosh/images/product/tr-1.png" alt="tair">
-                </div>
-                <div class="item-content item3-content">
-                  <h5>Truck/SUV Taillight With Mount  (TL-2233)</h5>
-                  <h6>$168.99<span>$268.99</span></h6>
-                </div>
-              </div>
+              }
             </div>
             <div class="item-left-timer">
               <div class="launch-time item3-launch-time">
                 <div class="launch-time-content">
                   <p id="days">{{ countdown.days }}</p>
-                  <span>Days</span>
+                  <span>Jours</span>
                 </div>
                 <div class="launch-time-content">
                   <p id="hours">{{ countdown.hours }}</p>
-                  <span>Hours</span>
+                  <span>Heures</span>
                 </div>
                 <div class="launch-time-content">
                   <p id="minutes">{{ countdown.minutes }}</p>
-                  <span>Minuts</span>
+                  <span>Minutes</span>
                 </div>
                 <div class="launch-time-content">
                   <p id="seconds">{{ countdown.seconds }}</p>
-                  <span>Seconds</span>
+                  <span>Secondes</span>
                 </div>
               </div>
-              <a href="#" class="theme-btn btn-style-one">Add To Cart<i class="flaticon-right-arrow"></i></a>
             </div>
           </div>
         </div>
