@@ -91,7 +91,7 @@
                       }
                     </ul>
                     <div class="common-more-btn">
-                      <a href="/client/products">View More <i class="flaticon-right-arrow"></i></a>
+                      <a href="/client/products">Voir plus <i class="flaticon-right-arrow"></i></a>
                     </div>
                   </div>
                 </div>
@@ -142,41 +142,21 @@
   <section class="add-three">
     <div class="auto-container">
       <div class="row">
-        <div class="col-lg-6">
-          <div class="add-three-container">
-            <div class="add-three-image">
-              <img src="assets-bosh/images/add/add3-1.jpg" alt="image">
-            </div>
-            <div class="add-three-content">
-              <h4>All Tires ON SALE <span>up to 10%</span> Off</h4>
-              <p>I have been a loyal customer of this auto parts company.</p>
-              <a href="#" class="theme-btn btn-style-one">Shop Now<i class="flaticon-right-arrow"></i></a>
-            </div>
-          </div>
-          <div class="add-three-container">
-            <div class="add-three-image">
-              <img src="assets-bosh/images/add/add3-2.jpg" alt="image">
-            </div>
-            <div class="add-three-bottom-content">
-              <h6>New arrival</h6>
-              <h4>Hobbypark 5x10x4mm Ball Bearings RC Car</h4>
-              <p>I have been a loyal customer of this auto parts company.</p>
-              <a href="#" class="theme-btn btn-style-one">Shop Now<i class="flaticon-right-arrow"></i></a>
+        @for (service of listServices; track service._id; let i = $index) {
+          <div class="col-lg-6">
+            <div class="add-three-container">
+              <div class="add-three-image">
+                <img [src]="getSafeImagePath(service.image)" [alt]="service.name">
+              </div>
+              <div class="add-three-content">
+                <h4>{{ service.name }}</h4>
+                <p>{{ service.description }}</p>
+                <p>Prix : Ar {{ service.price }} - {{ service.duration }} heures</p>
+                <a href="#" class="theme-btn btn-style-one">Réserver maintenant<i class="flaticon-right-arrow"></i></a>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="add-three-container">
-            <div class="add-three-image">
-              <img src="assets-bosh/images/add/add3-3.jpg" alt="image">
-            </div>
-            <div class="add-three-content">
-              <h4>All Tires ON SALE <span>up to 10%</span> Off</h4>
-              <p>I have been a loyal customer of this auto parts company.</p>
-              <a href="#" class="theme-btn btn-style-one">Shop Now<i class="flaticon-right-arrow"></i></a>
-            </div>
-          </div>
-        </div>
+        }
       </div>
     </div>
   </section>
@@ -193,7 +173,7 @@
           </div>
         </div>
         <div class="common-more-btn">
-          <a href="#">View More <i class="flaticon-right-arrow"></i></a>
+          <a href="#">Voir plus <i class="flaticon-right-arrow"></i></a>
         </div>
       </div>
       <div class="row">

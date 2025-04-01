@@ -6,7 +6,9 @@ import {LoaderComponent} from "../../components/loader/loader.component";
 import {HeaderComponent} from "../../components/header/header.component";
 import 'owl.carousel';
 import {ApiProductServiceService} from "../../services/productApi/api-product-service.service";
+import {ApiServiceServiceService} from "../../services/serviceApi/api-service-service.service";
 import {GroupedProducts} from "../../models/apiResult/GroupedProducts";
+import {Service} from "../../models/Service";
 
 @Component({
   selector: 'app-home',
@@ -78,13 +80,16 @@ export class HomeComponent{
   private countdownInterval: any;
   private carousel: any;
   groupedProducts: GroupedProducts[] = [];
-  selectedCategory: string = 'Pneumatique';
+  selectedCategory: string = 'Decoration';
+  listServices: Service[] = [];
 
-  constructor(private productService: ApiProductServiceService) {}
+
+  constructor(private productService: ApiProductServiceService, private serviceService: ApiServiceServiceService) {}
 
   ngOnInit() {
     this.startCountdown();
     this.loadGroupedProducts();
+    this.loadServices();
   }
 
   ngAfterViewInit() {
@@ -119,9 +124,22 @@ export class HomeComponent{
 
   }
 
+  private loadServices() {
+
+    this.serviceService.getAllServices().subscribe({
+      next: (data) => {
+        this.listServices = data;
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+
+  }
+
   getSafeImagePath(filename: string): string {
     // Vérifie que le fichier existe
-    const fullPath = `assets-bosh/images/product/${filename}`;
+    const fullPath = `assets-bosh/images/upload/${filename}`;
     console.log('Tentative de chargement :', fullPath); // Debug
     return fullPath;
   }
