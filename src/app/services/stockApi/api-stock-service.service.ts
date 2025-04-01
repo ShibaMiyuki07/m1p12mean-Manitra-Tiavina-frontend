@@ -26,7 +26,7 @@ export class ApiStockServiceService {
 
 
   updateStock(stock: Stock) {
-    this.http.put(`${this.url}/products/${stock._id}`,
+    this.http.put(`${this.url}/stocks/${stock._id}`,
       {
         productId: stock.productId,
         stockQuantity: stock.stockQuantity,

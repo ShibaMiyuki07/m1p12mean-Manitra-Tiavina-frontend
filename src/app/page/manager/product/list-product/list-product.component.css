@@ -56,3 +56,9 @@ tr:nth-child(even) {
 .item{
   padding: 10px;
 }
+
+dialog{
+  position: absolute;
+  top : 500px;
+  left : 50px;
+}

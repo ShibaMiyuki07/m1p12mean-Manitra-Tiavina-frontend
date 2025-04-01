@@ -22,16 +22,28 @@
         <td>{{product.price}}</td>
         <td>{{product.category}}</td>
 
-        <td *ngIf="product.result !== undefined">{{product.result.stockQuantity}}</td>
-        <td *ngIf="product.result !== undefined">{{product.result.threshold}}</td>
+        @if (product.result !== undefined)
+          {
+            <td>{{product.result?.stockQuantity}}</td>
+            <td>{{product.result?.threshold}}</td>
+            <td><button class="update" (click)="updateModal(product.result)">Update stock</button></td>
+          } @else {
+          <td style="color: red;">Aucun</td>
+          <td style="color: red;">Aucun</td>
+          <td><button class="add" (click)="createModal(product._id)">Add stock</button></td>
+        }
 
-        <td *ngIf="product.result === undefined" style="color: red;">Aucun</td>
-        <td *ngIf="product.result === undefined" style="color: red;">Aucun</td>
-        <td *ngIf="product.result === undefined"><button class="add" (click)="openModal(product._id)">Add stock</button></td>
+
+
+
+
+
 
         <td><button class="update" (click)="linkUpdate(product._id)">Update</button></td>
-        <td><button *ngIf="product.result === undefined" class="delete" (click)="delete(product._id,undefined)">Delete</button></td>
-        <td><button *ngIf="product.result !== undefined" class="delete" (click)="delete(product._id,product.result._id)">Delete</button></td>
+
+
+        <td *ngIf="product.result === undefined"><button  class="delete" (click)="delete(product._id,undefined)">Delete</button></td>
+        <td *ngIf="product.result !== undefined"><button  class="delete" (click)="delete(product._id,product.result?._id)">Delete</button></td>
       </tr>
       </tbody>
     </table>
@@ -40,7 +52,7 @@
 
 <dialog [open]="isOpen">
   <div class="header">
-    <div><h5>Add stock to product : {{stock.productId}}</h5></div>
+    <div><h5>{{modalDescription}} : {{stock.productId}}</h5></div>
     <div><img src="assets/images/close.png"  (click)="closeModal()" style="cursor: pointer;width:10px; height:10px;" /></div>
   </div>
   <div class="item">
@@ -56,6 +68,7 @@
     </div>
   </div>
   <div align="center">
-    <button (click)="submitStock()" class="add">Add</button>
+    <button *ngIf="!isUpdate" (click)="submitStock()" class="add">Add</button>
+    <button *ngIf="isUpdate" (click)="updateStock()" class="add">Update</button>
   </div>
 </dialog>

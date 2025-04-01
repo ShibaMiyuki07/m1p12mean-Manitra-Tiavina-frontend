@@ -24,6 +24,10 @@ export class ApiProductServiceService {
     return this.http.get<Product>(`${this.url}/products/${productId}`);
   }
 
+  getProductByIdWithStock(productId: any) {
+    return this.http.get<Array<ProductStock>>(`${this.url}/products/with/stocks/${productId}`);
+  }
+
   createProduct(product: Product) {
     this.http.post(`${this.url}/products`, product).subscribe();
   }

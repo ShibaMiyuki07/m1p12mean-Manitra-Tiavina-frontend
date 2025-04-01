@@ -26,6 +26,8 @@ export class ListProductComponent implements OnInit {
   private apiProduct = inject(ApiProductServiceService);
   private apiStock: ApiStockServiceService = inject(ApiStockServiceService);
   isOpen : boolean = false;
+  modalDescription : string = "";
+  isUpdate : boolean = false;
 
   stock:Stock = new class implements Stock {
     _id: any;
@@ -60,9 +62,26 @@ export class ListProductComponent implements OnInit {
     this.router.navigate(['/manager/products/'+productId]);
   }
 
-  openModal(productId : any) {
+  createModal(productId : any) {
+    this.isUpdate = false;
+    this.modalDescription = "Add stock to product";
+    this.stock._id = undefined;
+    this.stock.stockQuantity = 0;
+    this.stock.threshold = 0;
     this.stock.productId = productId;
     this.isOpen = true;
+  }
+
+
+  updateModal(stock : Stock | null)
+  {
+    if(stock)
+    {
+      this.isUpdate = true;
+      this.modalDescription = "Update stock of product";
+      this.stock = stock;
+      this.isOpen = true;
+    }
   }
 
   closeModal() {
@@ -72,5 +91,9 @@ export class ListProductComponent implements OnInit {
   submitStock() {
     this.apiStock.createStock(this.stock);
     location.reload();
+  }
+
+  updateStock() {
+    this.apiStock.updateStock(this.stock);
   }
 }
