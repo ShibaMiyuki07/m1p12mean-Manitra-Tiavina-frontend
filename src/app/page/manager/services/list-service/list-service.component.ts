@@ -26,5 +26,9 @@ export class ListServiceComponent implements OnInit {
 
   }
 
-
+  deleteService(serviceId : any)
+  {
+    this.apiService.deleteService(serviceId);
+    location.reload();
+  }
 }
