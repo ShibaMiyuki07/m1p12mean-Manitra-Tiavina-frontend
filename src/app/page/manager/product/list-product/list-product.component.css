@@ -47,3 +47,18 @@ tr{
 tr:nth-child(even) {
   background-color: #efeaea;
 }
+
+.header{
+  display: flex;
+  padding-top: 5px;
+}
+
+.item{
+  padding: 10px;
+}
+
+dialog{
+  position: absolute;
+  top : 500px;
+  left : 50px;
+}

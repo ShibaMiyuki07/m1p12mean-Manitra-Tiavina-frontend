@@ -4,6 +4,8 @@ import {ActivatedRoute} from "@angular/router";
 import {Product} from "../../../../models/product";
 import {ApiProductServiceService} from "../../../../services/productApi/api-product-service.service";
 import {FormsModule} from "@angular/forms";
+import {ProductStock} from "../../../../models/apiResult/product-stock";
+import {Stock} from "../../../../models/stock";
 
 @Component({
   selector: 'app-update-product',
@@ -20,7 +22,7 @@ export class UpdateProductComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly apiProduct = inject(ApiProductServiceService);
   id : any;
-  product : Product = new class implements Product {
+  productStock : ProductStock = new class implements ProductStock {
     _id: any;
     category: string = "";
     createdDate: Date = new Date();
@@ -28,20 +30,24 @@ export class UpdateProductComponent implements OnInit {
     image: string = "";
     name: string = "";
     price: number = 0;
+    result: Stock | null = null;
     updatedDate: Date = new Date();
   };
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.id = params['id'];
-      this.apiProduct.getProductById(this.id).subscribe(product => {
-        this.product = product;
+      this.apiProduct.getProductByIdWithStock(this.id).subscribe(product => {
+        for(let i=0; i<product.length; i++) {
+          this.productStock = product[i];
+        }
+        console.log(this.productStock);
       });
     })
   }
 
   updateProduct() {
-      this.apiProduct.updateProduct(this.product);
+      this.apiProduct.updateProduct(this.productStock);
       location.reload();
   }
 }

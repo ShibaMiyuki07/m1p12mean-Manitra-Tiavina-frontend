@@ -4,6 +4,9 @@ import {ApiProductServiceService} from "../../../../services/productApi/api-prod
 import {ProductStock} from "../../../../models/apiResult/product-stock";
 import {NgForOf, NgIf} from "@angular/common";
 import {Router} from "@angular/router";
+import {ApiStockServiceService} from "../../../../services/stockApi/api-stock-service.service";
+import {Stock} from "../../../../models/stock";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-list-product',
@@ -11,7 +14,8 @@ import {Router} from "@angular/router";
   imports: [
     MenubarManagerComponent,
     NgForOf,
-    NgIf
+    NgIf,
+    FormsModule
   ],
   templateUrl: './list-product.component.html',
   styleUrl: './list-product.component.css'
@@ -20,6 +24,19 @@ export class ListProductComponent implements OnInit {
   products: ProductStock[] = [];
   private router = inject(Router);
   private apiProduct = inject(ApiProductServiceService);
+  private apiStock: ApiStockServiceService = inject(ApiStockServiceService);
+  isOpen : boolean = false;
+  modalDescription : string = "";
+  isUpdate : boolean = false;
+
+  stock:Stock = new class implements Stock {
+    _id: any;
+    createdAt: any;
+    productId: any;
+    stockQuantity: number = 0;
+    threshold: number = 0;
+    updatedAt: any;
+  };
 
   constructor() {}
 
@@ -29,9 +46,13 @@ export class ListProductComponent implements OnInit {
     });
   }
 
-  delete(productId : any)
+  delete(productId : any,stockId : any)
   {
     this.apiProduct.deleteProduct(productId);
+    if(stockId)
+    {
+      this.apiStock.deleteStock(stockId);
+    }
     location.reload();
     //To Add delete stock when it is finished
   }
@@ -41,5 +62,38 @@ export class ListProductComponent implements OnInit {
     this.router.navigate(['/manager/products/'+productId]);
   }
 
+  createModal(productId : any) {
+    this.isUpdate = false;
+    this.modalDescription = "Add stock to product";
+    this.stock._id = undefined;
+    this.stock.stockQuantity = 0;
+    this.stock.threshold = 0;
+    this.stock.productId = productId;
+    this.isOpen = true;
+  }
 
+
+  updateModal(stock : Stock | null)
+  {
+    if(stock)
+    {
+      this.isUpdate = true;
+      this.modalDescription = "Update stock of product";
+      this.stock = stock;
+      this.isOpen = true;
+    }
+  }
+
+  closeModal() {
+    this.isOpen = false;
+  }
+
+  submitStock() {
+    this.apiStock.createStock(this.stock);
+    location.reload();
+  }
+
+  updateStock() {
+    this.apiStock.updateStock(this.stock);
+  }
 }

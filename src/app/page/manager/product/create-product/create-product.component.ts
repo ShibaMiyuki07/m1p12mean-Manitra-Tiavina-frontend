@@ -3,6 +3,7 @@ import {MenubarManagerComponent} from "../../../../components/menubar-manager/me
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Product} from "../../../../models/product";
 import {ApiProductServiceService} from "../../../../services/productApi/api-product-service.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-product',
@@ -16,6 +17,7 @@ import {ApiProductServiceService} from "../../../../services/productApi/api-prod
   styleUrl: './create-product.component.css'
 })
 export class CreateProductComponent {
+  private router: Router =inject(Router);
   apiProduct = inject(ApiProductServiceService);
   product : Product = new class implements Product {
     _id: any;
@@ -29,8 +31,8 @@ export class CreateProductComponent {
   };
 
   createProduct() {
-    console.log(this.product);
     this.apiProduct.createProduct(this.product);
+    this.router.navigate(['/manager/products']);
   }
 
   getFileInformation(event:any)
