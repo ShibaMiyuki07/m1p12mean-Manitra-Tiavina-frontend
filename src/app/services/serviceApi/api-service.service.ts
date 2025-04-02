@@ -2,7 +2,6 @@ import {inject, Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Service} from "../../models/Service";
-import {Product} from "../../models/product";
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +24,10 @@ export class ApiServiceService {
 
   deleteService(serviceId: any) {
     this.http.delete(`${this.url}/services/${serviceId}`).subscribe(() => {});
+  }
+
+  getServiceById(serviceId: any) {
+    return this.http.get<Service>(`${this.url}/services/${serviceId}`);
   }
 
   updateService(service: Service) {

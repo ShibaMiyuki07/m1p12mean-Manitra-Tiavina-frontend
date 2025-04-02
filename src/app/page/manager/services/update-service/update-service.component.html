@@ -1,0 +1,24 @@
+<app-menubar-manager />
+
+<main style="padding-top: 50px;padding-left: 25%">
+  <div><h1>Update service avec id : {{service._id}}</h1></div>
+  <div>
+    <table style="width: 75%">
+      <tr>
+        <td>Name :</td>
+        <td>Description :</td>
+        <td>Price :</td>
+        <td>Duration :</td>
+        <td>Category :</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="{{service.name}}" [(ngModel)]="service.name" /></td>
+        <td><input type="text" value="{{service.description}}" [(ngModel)]="service.description" /></td>
+        <td><input type="number" value="{{service.price}}" [(ngModel)]="service.price" /></td>
+        <td><input type="number" value="{{service.duration}}" [(ngModel)]="service.duration" /></td>
+        <td><input type="text" value="{{service.category}}" [(ngModel)]="service.category" /></td>
+        <td><button (click)="updateService()">Update</button></td>
+      </tr>
+    </table>
+  </div>
+</main>

@@ -21,7 +21,7 @@
         <td>{{service.price}}</td>
         <td>{{service.duration}}</td>
         <td>{{service.category}}</td>
-        <td><button class="update">Update</button></td>
+        <td><button class="update" (click)="linkToUpdate(service._id)">Update</button></td>
         <td><button  class="delete" (click)="deleteService(service._id)">Delete</button></td>
       </tr>
       </tbody>

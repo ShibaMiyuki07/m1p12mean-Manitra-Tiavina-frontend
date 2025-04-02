@@ -33,6 +33,6 @@ export class CreateServiceComponent {
   createService()
   {
     this.apiService.createService(this.service);
-    this.router.navigate(['/manager/services']);
+    //this.router.navigate(['/manager/services']);
   }
 }

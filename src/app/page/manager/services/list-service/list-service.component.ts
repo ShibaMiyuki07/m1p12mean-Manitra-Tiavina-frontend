@@ -4,6 +4,7 @@ import {ApiServiceService} from "../../../../services/serviceApi/api-service.ser
 import {Service} from "../../../../models/Service";
 import {FormsModule} from "@angular/forms";
 import {NgForOf, NgIf} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-list-service',
@@ -19,6 +20,7 @@ import {NgForOf, NgIf} from "@angular/common";
 })
 export class ListServiceComponent implements OnInit {
   private readonly apiService : ApiServiceService = inject(ApiServiceService);
+  private readonly router : Router = inject(Router);
   services : Service[] = [];
 
   ngOnInit() {
@@ -31,4 +33,10 @@ export class ListServiceComponent implements OnInit {
     this.apiService.deleteService(serviceId);
     location.reload();
   }
+
+  linkToUpdate(serviceId : any)
+  {
+    this.router.navigate(['/manager/service/'+serviceId]);
+  }
+
 }
