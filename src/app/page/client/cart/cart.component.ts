@@ -9,6 +9,7 @@ import {lastValueFrom} from "rxjs";
 import {ApiServiceServiceService} from "../../../services/serviceApi/api-service-service.service";
 import {PromotionService} from "../../../services/promotionApi/api-promotion-service.service";
 import {Promotion} from "../../../models/Promotion";
+import { CartService } from '../../../services/cartApi/api-cart-service.service';
 
 @Component({
   selector: 'app-cart',
@@ -72,6 +73,8 @@ import {Promotion} from "../../../models/Promotion";
 export class CartComponent{
 
   currentActiveMenu: string = 'cart';
+  cart: any;
+  isLoading = true;
   promotion : Promotion = new class implements Promotion {
     _id: any;
     name: string = "";
@@ -96,10 +99,21 @@ export class CartComponent{
     updatedDate: Date = new Date();
   };
 
-  constructor(private promotionService: PromotionService) {}
+  constructor(private promotionService: PromotionService, public cartService: CartService) {}
 
   async ngOnInit(): Promise<void> {
+    this.cartService.cart$.subscribe({
+      next: cart => {
+        this.cart = cart;
+        this.isLoading = false;
+      },
+      error: err => {
+        console.error(err);
+        this.isLoading = false;
+      }
+    });
 
+    this.cartService.loadCart().subscribe();
   }
 
   calculateDiscountedPrice(originalPrice: number, discount: number): number {
@@ -110,5 +124,17 @@ export class CartComponent{
     // Vérifie que le fichier existe
     const fullPath = `assets-bosh/images/upload/${filename}`;
     return fullPath;
+  }
+
+  incrementQuantity(item: any, isProduct: boolean): void {
+    if (isProduct) {
+      this.cartService.updateQuantity(item._id, item.quantity + 1).subscribe();
+    }
+  }
+
+  decrementQuantity(item: any, isProduct: boolean): void {
+    if (isProduct && item.quantity > 1) {
+      this.cartService.updateQuantity(item._id, item.quantity - 1).subscribe();
+    }
   }
 }
