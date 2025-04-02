@@ -9,7 +9,12 @@ import {lastValueFrom} from "rxjs";
 import {ApiServiceServiceService} from "../../../services/serviceApi/api-service-service.service";
 import {PromotionService} from "../../../services/promotionApi/api-promotion-service.service";
 import {Promotion} from "../../../models/Promotion";
+import {CartProduct} from "../../../models/apiResult/CartProduct";
+import {CartServiceResult} from "../../../models/apiResult/CartService";
 import { CartService } from '../../../services/cartApi/api-cart-service.service';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
@@ -66,54 +71,126 @@ import { CartService } from '../../../services/cartApi/api-cart-service.service'
   imports: [
     HeaderComponent,
     LoaderComponent,
-    FooterComponent
+    FooterComponent,
+    FormsModule
   ],
   standalone: true
 })
+
+
 export class CartComponent{
 
   currentActiveMenu: string = 'cart';
   cart: any;
+  totalPanier: number = 0;
+  totalPanierPromotion: number = 0;
   isLoading = true;
-  promotion : Promotion = new class implements Promotion {
-    _id: any;
-    name: string = "";
-    description: string = "";
-    discount: number = 0;
-    products: any;
-    services: any;
-    validFrom: Date  = new Date();
-    validUntil: Date = new Date();
-    createdAt: Date = new Date();
-    updatedAt: Date = new Date();
-  };
-
-  product : Product = new class implements Product {
-    _id: any;
-    category: string = "";
-    createdDate: Date = new Date();
-    description: string = "";
-    image: string = "";
-    name: string = "";
-    price: number = 0;
-    updatedDate: Date = new Date();
-  };
+  listServices: any[] = [];
+  listProducts: any[] = [];
 
   constructor(private promotionService: PromotionService, public cartService: CartService) {}
 
   async ngOnInit(): Promise<void> {
-    this.cartService.cart$.subscribe({
-      next: cart => {
-        this.cart = cart;
-        this.isLoading = false;
-      },
-      error: err => {
-        console.error(err);
-        this.isLoading = false;
-      }
-    });
 
-    this.cartService.loadCart().subscribe();
+
+    this.cart = await lastValueFrom(this.cartService.loadCart());
+    await this.loadProducts();
+    await this.loadServices();
+    await this.calculateTotalPanier();
+    console.log("Exemple "+this.listServices[0].serviceId.price);
+  }
+
+  updateDate(event: string, item: any) {
+    item.date = new Date(event); // Convertir la valeur en Date
+  }
+
+  async loadServices() {
+    this.listServices = await Promise.all(
+      this.cart.services.map(async (item : CartServiceResult) => {
+        try {
+          const promotionCheck = await lastValueFrom(
+            this.promotionService.checkServicePromotion(item.serviceId._id)
+          );
+
+          return {
+            ...item, // Conserve toutes les propriétés existantes
+            serviceId: {
+              ...item.serviceId, // Conserve les infos du produit
+              isInPromotion: promotionCheck?.isInPromotion || false,
+              promotion: promotionCheck?.promotion || null
+            }
+            // La quantité reste inchangée (item.quantity)
+          };
+        } catch (error) {
+          console.error(`Erreur promotion pour produit ${item.serviceId._id}`, error);
+          return {
+            ...item,
+            serviceId: {
+              ...item.serviceId,
+              isInPromotion: false,
+              promotion: null
+            }
+          };
+        }
+      })
+    );
+  }
+
+  async loadProducts() {
+    this.listProducts = await Promise.all(
+      this.cart.products.map(async (item : CartProduct) => {
+        try {
+          const promotionCheck = await lastValueFrom(
+            this.promotionService.checkProductPromotion(item.productId._id)
+          );
+
+          return {
+            ...item, // Conserve toutes les propriétés existantes
+            productId: {
+              ...item.productId, // Conserve les infos du produit
+              isInPromotion: promotionCheck?.isInPromotion || false,
+              promotion: promotionCheck?.promotion || null
+            },
+            // La quantité reste inchangée (item.quantity)
+          };
+        } catch (error) {
+          console.error(`Erreur promotion pour produit ${item.productId._id}`, error);
+          return {
+            ...item,
+            productId: {
+              ...item.productId,
+              isInPromotion: false,
+              promotion: null
+            }
+          };
+        }
+      })
+    );
+  }
+
+  async calculateTotalPanier() {
+    this.totalPanier = 0;
+    this.totalPanierPromotion = 0;
+
+    for (let i = 0; i < this.listProducts.length; i++) {
+      let item = this.listProducts[i];
+      this.totalPanier = this.totalPanier + (item.productId?.price * item.quantity || 0);
+      if (item.productId.isInPromotion) {
+        this.totalPanierPromotion = this.totalPanierPromotion + (this.calculateDiscountedPrice(item.productId.price, item.productId.promotion.discount) * item.quantity);
+      } else {
+        this.totalPanierPromotion = this.totalPanierPromotion + (item.productId.price * item.quantity);
+      }
+    }
+
+    for (let i = 0; i < this.listServices.length; i++) {
+      let item = this.listServices[i];
+      this.totalPanier = this.totalPanier + item.serviceId.price;
+      if (item.serviceId.isInPromotion) {
+        this.totalPanierPromotion = this.totalPanierPromotion + this.calculateDiscountedPrice(item.serviceId.price, item.serviceId.promotion.discount);
+      } else {
+        this.totalPanierPromotion = this.totalPanierPromotion + item.serviceId.price;
+      }
+    }
   }
 
   calculateDiscountedPrice(originalPrice: number, discount: number): number {
@@ -126,15 +203,25 @@ export class CartComponent{
     return fullPath;
   }
 
+  getSafeImagePathService(): string {
+    // Vérifie que le fichier existe
+    const fullPath = `assets-bosh/images/upload/blog-2.jpg`;
+    return fullPath;
+  }
+
   incrementQuantity(item: any, isProduct: boolean): void {
     if (isProduct) {
-      this.cartService.updateQuantity(item._id, item.quantity + 1).subscribe();
+      item.quantity = item.quantity + 1;
+      this.calculateTotalPanier();
+      this.cartService.updateQuantity(item.productId._id, item.quantity).subscribe();
     }
   }
 
   decrementQuantity(item: any, isProduct: boolean): void {
     if (isProduct && item.quantity > 1) {
-      this.cartService.updateQuantity(item._id, item.quantity - 1).subscribe();
+      item.quantity = item.quantity - 1;
+      this.calculateTotalPanier();
+      this.cartService.updateQuantity(item.productId._id, item.quantity).subscribe();
     }
   }
 }

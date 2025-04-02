@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import {Product} from "../../models/product";
+import {environment} from "../../../environments/environment";
 
 interface CartItem {
   _id?: string;
@@ -29,12 +31,12 @@ export class CartService {
 
   constructor(private http: HttpClient) {}
 
-  private apiUrl = '/cart';
+  readonly url = environment.apiUrl;
+  private apiUrl = this.url+'/cart';
 
   // Charge le panier depuis le backend
-  loadCart(): Observable<Cart> {
-    return this.http.get<Cart>(this.apiUrl).pipe(
-      tap(cart => this.cartSubject.next(cart)))
+  loadCart() {
+    return this.http.get<Cart>(this.apiUrl);
   }
 
   // Ajoute un produit au panier

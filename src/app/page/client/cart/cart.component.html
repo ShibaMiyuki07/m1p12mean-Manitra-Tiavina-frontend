@@ -42,33 +42,79 @@
               </tr>
               </thead>
               <tbody>
-                @if (cart?.products?.length) {
-                  @for (item of cart.products; track item._id) {
+                @if (listProducts.length) {
+                  @for (item of listProducts; track item._id) {
                     <tr>
                       <td colspan="4" class="prod-column">
                         <div class="column-box">
                           <div class="remove-btn">
-                            <i class="fa fa-times" (click)="cartService.removeItem(item._id, true).subscribe()"></i>
+                            <i class="fa fa-times" (click)="cartService.removeItem(item.productId._id, true).subscribe()"></i>
                           </div>
                           <div class="prod-thumb">
                             <img [src]="getSafeImagePath(item.productId?.image)" [alt]="item.name">
                           </div>
                           <div class="prod-title">
-                            {{ item.productId?.name }}
+                            <strong>Produit : </strong>{{ item.productId?.name }}
                           </div>
                         </div>
                       </td>
-                      <td class="price">AR {{ item.productId?.price }}</td>
-                      <td class="qty">
-                        <div class="item-quantity">
-                          <div class="quantity-control">
-                            <button (click)="decrementQuantity(item, true)">-</button>
-                            <span>{{ item.productId?.quantity }}</span>
-                            <button (click)="incrementQuantity(item, true)">+</button>
+                      <td class="price">
+                        @if (item.productId.isInPromotion) {
+                          <span style="text-decoration: line-through;">AR {{ item.productId?.price }}</span><br/>AR <strong>{{ calculateDiscountedPrice(item.productId?.price,item.productId.promotion.discount)  }}</strong>
+                        } @else {
+                          {{ item.productId?.price }}
+                        }
+                      </td>
+                      <td>
+                        <div class="quantity-control">
+                          <button (click)="decrementQuantity(item, true)">-</button>
+                          <span>{{ item.quantity }}</span>
+                          <button (click)="incrementQuantity(item, true)">+</button>
+                        </div>
+                      </td>
+                      <td class="sub-total">
+                        @if (item.productId.isInPromotion) {
+                          AR {{ (calculateDiscountedPrice(item.productId?.price,item.productId.promotion.discount) * item.quantity)  }}
+                        } @else {
+                          AR {{ (item.productId?.price * item.quantity) }}
+                        }
+                      </td>
+                    </tr>
+                  }
+                }
+                @if (listServices.length) {
+                  @for (item of listServices; track item._id) {
+                    <tr>
+                      <td colspan="4" class="prod-column">
+                        <div class="column-box">
+                          <div class="remove-btn">
+                            <i class="fa fa-times" (click)="cartService.removeItem(item.serviceId._id, false).subscribe()"></i>
+                          </div>
+                          <div class="prod-thumb">
+                            <img [src]="getSafeImagePathService()" [alt]="item.serviceId?.name">
+                          </div>
+                          <div class="prod-title">
+                            <strong>Service : </strong>{{ item.serviceId?.name }}
                           </div>
                         </div>
                       </td>
-                      <td class="sub-total">$70.30</td>
+                      <td class="price">
+                        @if (item.serviceId?.isInPromotion) {
+                          <span style="text-decoration: line-through;">AR {{ item.serviceId?.price }}</span><br/>AR <strong>{{ calculateDiscountedPrice(item.serviceId?.price,item.serviceId?.promotion.discount)  }}</strong>
+                        } @else {
+                          {{ item.serviceId?.price }}
+                        }
+                      </td>
+                      <td>
+                        <input type="datetime-local" />
+                      </td>
+                      <td class="sub-total">
+                        @if (item.serviceId.isInPromotion) {
+                          AR {{ calculateDiscountedPrice(item.serviceId?.price,item.serviceId.promotion.discount)  }}
+                        } @else {
+                          AR {{ item.serviceId?.price }}
+                        }
+                      </td>
                     </tr>
                   }
                 }
@@ -77,14 +123,19 @@
           </div>
         </div>
       </div>
+      <div class="othre-content clearfix">
+        <div class="update-btn pull-right">
+          <button type="button" class="theme-btn">Vider le panier</button>
+        </div>
+      </div>
       <div class="cart-total">
         <div class="row">
           <div class="col-xl-5 col-lg-12 col-md-12 offset-xl-7 cart-column">
             <div class="total-cart-box clearfix">
               <h3 class="fs_24 fw_sbold lh_30 d_block">Panier total</h3>
               <ul class="list clearfix mb_30">
-                <li>Total:<span>$150.50</span></li>
-                <li>Avec remise:<span>$150.50</span></li>
+                <li>Total:<span>AR {{ totalPanier }}</span></li>
+                <li>Avec remise:<span>AR {{ totalPanierPromotion }}</span></li>
               </ul>
               <a href="" class="theme-btn theme-btn-eight">Valider mes achats <i class="icon-4"></i></a>
             </div>
@@ -96,18 +147,5 @@
   <!-- cart section end -->
 
   <app-footer />
-
-  <!--Scroll to top-->
-  <div class="scroll-to-top">
-    <div>
-      <div class="scroll-top-inner">
-        <div class="scroll-bar">
-          <div class="bar-inner"></div>
-        </div>
-        <div class="scroll-bar-text">Go To Top</div>
-      </div>
-    </div>
-  </div>
-  <!-- Scroll to top end -->
 
 </div>
