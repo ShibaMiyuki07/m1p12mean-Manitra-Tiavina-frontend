@@ -4,6 +4,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Product} from "../../../../models/product";
 import {ApiProductServiceService} from "../../../../services/productApi/api-product-service.service";
 import {Router} from "@angular/router";
+import {UtilsService} from "../../../../services/utilsApi/utils.service";
 
 @Component({
   selector: 'app-create-product',
@@ -19,6 +20,7 @@ import {Router} from "@angular/router";
 export class CreateProductComponent {
   private router: Router =inject(Router);
   apiProduct = inject(ApiProductServiceService);
+  utilsService = inject(UtilsService);
   product : Product = new class implements Product {
     _id: any;
     category: string = "";
@@ -30,17 +32,21 @@ export class CreateProductComponent {
     updatedDate: Date = new Date();
   };
 
+  productPicture : File | null = null;
+
   createProduct() {
+
     this.apiProduct.createProduct(this.product);
+    this.utilsService.uploadProductImage(this.productPicture);
     this.router.navigate(['/manager/products']);
   }
 
   getFileInformation(event:any)
   {
-    const file:File = event.target.files[0];
-    if(file)
+    this.productPicture = event.target.files[0];
+    if(this.productPicture)
     {
-      this.product.image = file.name;
+      this.product.image = this.productPicture.name;
     }
   }
 
