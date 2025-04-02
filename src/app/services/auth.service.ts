@@ -3,19 +3,31 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import {BehaviorSubject, catchError, tap, throwError} from 'rxjs';
+import {jwtDecode} from "jwt-decode";
+import {UserRole} from "../models/enum/UserRole";
+
+interface JwtPayload {
+  userId: string;
+  role: string;
+  iat: number;
+  exp: number;
+}
 
 interface LoginResponse {
-  _id: string;
-  email: string;
-  role: string;
-  username: string;
-  profile: {
-    firstName: string;
-    lastName: string;
-    address: string;
-    phone: string;
-    photo: string;
-  };
+  user : {
+    _id: string;
+    email: string;
+    role: string;
+    username: string;
+    profile: {
+      firstName: string;
+      lastName: string;
+      address: string;
+      phone: string;
+      photo: string;
+    };
+  }
+  token: string;
 }
 
 @Injectable({
@@ -41,10 +53,10 @@ export class AuthService {
       .post<LoginResponse>(`${this.apiUrl}/users/auth/login`, { email, password }, { withCredentials: true })
       .pipe(
         tap(response => {
-          localStorage.setItem(this.tokenKey, response._id);
-          localStorage.setItem("username", response.username);
-          console.log("Connexion réussi : " + response.username);
-          this.redirectBasedOnRole(response.role);
+          localStorage.setItem(this.tokenKey, response.token);
+          localStorage.setItem("username", response.user.username);
+          console.log("Connexion réussi : " + response.user.username);
+          this.redirectBasedOnRole(response.user.role);
         }),
         catchError(error => {
           throw this.handleAuthError(error);
@@ -54,7 +66,7 @@ export class AuthService {
 
   private redirectBasedOnRole(role: string): void {
     const routes: Record<string, string> = {
-      manager: '/manager/dashboard',
+      manager: 'manager',
       mecanicien: 'mechanic',
       client: 'home'
     };
@@ -98,5 +110,46 @@ export class AuthService {
   private checkAuthentication() {
     const token = this.getToken();
     this.isAuthenticatedSubject.next(!!token);
+  }
+
+  decodeToken(): JwtPayload | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      return jwtDecode<JwtPayload>(token);
+    } catch (error) {
+      console.error('Token invalide', error);
+      return null;
+    }
+  }
+
+
+  isExpired(): boolean {
+    const decoded = this.decodeToken();
+    if (!decoded?.exp) return true;
+    return Date.now() >= decoded.exp * 1000;
+  }
+
+  getUserId(): string | null {
+    const decoded = this.decodeToken();
+    return decoded?.userId || null;
+  }
+
+  getRole(): string | null {
+    const decoded = this.decodeToken();
+    return decoded?.role || null;
+  }
+
+  isClient(): boolean {
+    return this.getRole()?.toLowerCase() === UserRole.CLIENT;
+  }
+
+  isMecanicien(): boolean {
+    return this.getRole()?.toLowerCase() === UserRole.MECANICIEN;
+  }
+
+  isManager(): boolean {
+    return this.getRole()?.toLowerCase() === UserRole.MANAGER;
   }
 }

@@ -4,6 +4,9 @@ import { LoginComponent } from './page/login/login.component';
 import { RegisterComponent } from './page/register/register.component';
 import { HomeComponent } from './page/home/home.component';
 import {AuthGuard} from "./core/guards/auth.guard";
+import {ClientGuard} from "./core/guards/client.guard";
+import {MecanicienGuard} from "./core/guards/mecanicien.guard";
+import {ManagerGuard} from "./core/guards/manager.guard";
 import {IndexManagerComponent} from "./page/manager/index-manager/index-manager.component";
 import {ListProductComponent} from "./page/manager/product/list-product/list-product.component";
 import {UpdateProductComponent} from "./page/manager/product/update-product/update-product.component";
@@ -12,15 +15,15 @@ import {ProductDetailsComponent} from "./page/product-details/product-details.co
 import {CartComponent} from "./page/client/cart/cart.component";
 
 export const routes: Routes = [
-  { path: 'mechanic', component: IndexMechanicComponent, canActivate: [AuthGuard] },
+  { path: 'mechanic', component: IndexMechanicComponent, canActivate: [MecanicienGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'product-detail/:id', component: ProductDetailsComponent },
-  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
-  { path: 'manager' , component : IndexManagerComponent},
-  { path: 'manager/products', component: ListProductComponent },
-  { path: 'manager/products/:id', component: UpdateProductComponent },
-  { path: 'manager/create/product', component: CreateProductComponent }
+  { path: 'cart', component: CartComponent, canActivate: [ClientGuard] },
+  { path: 'manager' , component : IndexManagerComponent, canActivate: [ManagerGuard] },
+  { path: 'manager/products', component: ListProductComponent, canActivate: [ManagerGuard] },
+  { path: 'manager/products/:id', component: UpdateProductComponent, canActivate: [ManagerGuard] },
+  { path: 'manager/create/product', component: CreateProductComponent, canActivate: [ManagerGuard] }
 ];
