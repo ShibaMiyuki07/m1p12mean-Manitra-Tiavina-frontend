@@ -16,6 +16,7 @@ import {CreateServiceComponent} from "./page/manager/services/create-service/cre
 import {UpdateServiceComponent} from "./page/manager/services/update-service/update-service.component";
 import {ProductDetailsComponent} from "./page/product-details/product-details.component";
 import {CartComponent} from "./page/client/cart/cart.component";
+import {ClientProductListComponent} from "./page/client/client-product-list/client-product-list.component";
 
 export const routes: Routes = [
   { path: 'mechanic', component: IndexMechanicComponent, canActivate: [MecanicienGuard] },
@@ -32,4 +33,5 @@ export const routes: Routes = [
   { path: 'manager/services', component: ListServiceComponent, canActivate: [ManagerGuard] },
   { path: 'manager/create/service', component: CreateServiceComponent, canActivate: [ManagerGuard] },
   { path: 'manager/service/:id', component: UpdateServiceComponent, canActivate: [ManagerGuard] },
+  {path : 'client/products', component: ClientProductListComponent },
 ];
