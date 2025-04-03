@@ -76,7 +76,6 @@ export class IndexMechanicComponent implements OnInit {
     return false;
   }
 
-  protected readonly Constant = new Constant();
 
 
 }
