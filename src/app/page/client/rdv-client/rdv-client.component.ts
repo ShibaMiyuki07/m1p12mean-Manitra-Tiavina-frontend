@@ -1,9 +1,9 @@
-import {Component, ChangeDetectionStrategy, OnInit, inject, ChangeDetectorRef} from '@angular/core';
+import {Component, ChangeDetectionStrategy, OnInit, inject} from '@angular/core';
 import { isSameDay, isSameMonth} from 'date-fns';
 import {of, Subject} from 'rxjs';
-import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarModule, CalendarView,} from 'angular-calendar';
+import {CalendarEvent, CalendarModule, CalendarView,} from 'angular-calendar';
 import { EventColor } from 'calendar-utils';
-import {DatePipe, NgIf, NgSwitch, NgSwitchCase} from "@angular/common";
+import {DatePipe, NgSwitch, NgSwitchCase} from "@angular/common";
 import {AppModules} from "../../../app.modules";
 import {AuthService} from "../../../services/auth.service";
 import {ApiReservationServiceService} from "../../../services/reservationApi/api-reservation-service.service";
@@ -37,8 +37,6 @@ const colors: Record<string, EventColor> = {
     NgSwitch,
     AppModules,
     NgSwitchCase,
-    NgIf,
-    DatePipe,
     LoaderComponent,
     HeaderComponent,
     FooterComponent
@@ -46,25 +44,26 @@ const colors: Record<string, EventColor> = {
   standalone: true
 })
 export class RdvClientComponent implements OnInit {
-  currentActiveMenu = "rdv"
+
+  readonly currentActiveMenu = "rdv"
+  private readonly  reservationService = inject(ApiReservationServiceService);
+  private readonly authService : AuthService = inject(AuthService);
+  private readonly clientId = this.authService.getUserId();
+  private readonly datePipe: DatePipe = inject(DatePipe);
+
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
-  private readonly  reservationService = inject(ApiReservationServiceService);
-  private readonly authService : AuthService = inject(AuthService);
-  clientId = this.authService.getUserId();
-  cdr : ChangeDetectorRef = inject(ChangeDetectorRef);
   reservations : Array<ReservationDetailsUser> = [];
-  private datePipe: DatePipe = inject(DatePipe);
   events: CalendarEvent[] = [];
   isOpen : boolean = false;
+  refresh = new Subject<void>();
+  activeDayIsOpen: boolean = false;
 
 
   ngOnInit(): void {
-    console.log(this.clientId);
     this.reservationService.getReservationsByUserId(this.clientId).subscribe(reservations => {
       this.reservations = reservations;
-      console.log(this.reservations);
       for (let reservation of reservations) {
         this.events.push({
           id : reservation._id,
@@ -76,11 +75,7 @@ export class RdvClientComponent implements OnInit {
       }
     })
   }
-  refresh = new Subject<void>();
 
-
-
-  activeDayIsOpen: boolean = false;
 
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -95,11 +90,6 @@ export class RdvClientComponent implements OnInit {
       }
       this.viewDate = date;
     }
-  }
-
-
-  closeModal(): void {
-    this.isOpen = false;
   }
 
   setView(view: CalendarView) {
