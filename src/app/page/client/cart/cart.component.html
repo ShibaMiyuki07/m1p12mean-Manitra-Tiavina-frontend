@@ -62,7 +62,7 @@
                         @if (item.productId.isInPromotion) {
                           <span style="text-decoration: line-through;">AR {{ item.productId?.price }}</span><br/>AR <strong>{{ calculateDiscountedPrice(item.productId?.price,item.productId.promotion.discount)  }}</strong>
                         } @else {
-                          {{ item.productId?.price }}
+                          AR <strong>{{ item.productId?.price }}</strong>
                         }
                       </td>
                       <td>
