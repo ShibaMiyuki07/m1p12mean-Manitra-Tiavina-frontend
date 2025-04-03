@@ -106,7 +106,12 @@
                         }
                       </td>
                       <td>
-                        <input type="datetime-local" />
+                        <input type="datetime-local"  [(ngModel)]="item.formattedDate" (change)="updateDateTime(item)">
+                        @if (errorMechanic) {
+                          <br/> <p style="color: red;">Indisponible</p>
+                        } @else {
+                          <br/> <p style="color: green;">Disponible</p>
+                        }
                       </td>
                       <td class="sub-total">
                         @if (item.serviceId.isInPromotion) {
@@ -125,7 +130,7 @@
       </div>
       <div class="othre-content clearfix">
         <div class="update-btn pull-right">
-          <button type="button" class="theme-btn">Vider le panier</button>
+          <button type="button" class="theme-btn" (click)="cartService.clearCart().subscribe()">Vider le panier</button>
         </div>
       </div>
       <div class="cart-total">
@@ -137,7 +142,9 @@
                 <li>Total:<span>AR {{ totalPanier }}</span></li>
                 <li>Avec remise:<span>AR {{ totalPanierPromotion }}</span></li>
               </ul>
-              <a href="" class="theme-btn theme-btn-eight">Valider mes achats <i class="icon-4"></i></a>
+              @if (!errorMechanic) {
+                <button (click)="cartService.checkout().subscribe()" class="theme-btn theme-btn-eight">Valider mes achats <i class="icon-4"></i></button>
+              }
             </div>
           </div>
         </div>

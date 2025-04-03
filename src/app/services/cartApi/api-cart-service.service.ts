@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import {BehaviorSubject, lastValueFrom, Observable, tap} from 'rxjs';
 import {Product} from "../../models/product";
 import {environment} from "../../../environments/environment";
 
@@ -57,6 +57,12 @@ export class CartService {
       tap(cart => this.cartSubject.next(cart)))
   }
 
+  // Met à jour la date
+  updateDate(itemId: string, date: Date): Observable<Cart> {
+    return this.http.put<Cart>(`${this.apiUrl}/services`, { productId: itemId, date }).pipe(
+      tap(cart => this.cartSubject.next(cart)))
+  }
+
   // Supprime un élément
   removeItem(itemId: string, isProduct: boolean): Observable<Cart> {
     return this.http.delete<Cart>(`${this.apiUrl}/items/${itemId}`, {
@@ -75,5 +81,10 @@ export class CartService {
   checkout(): Observable<Cart> {
     return this.http.post<Cart>(`${this.apiUrl}/checkout`, {}).pipe(
       tap(cart => this.cartSubject.next(cart)))
+  }
+
+  async getItemNumber() {
+    const cart = await lastValueFrom(this.loadCart());
+    return cart.services.length + cart.products.length;
   }
 }

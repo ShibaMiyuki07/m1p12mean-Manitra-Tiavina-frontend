@@ -9,6 +9,8 @@ import {lastValueFrom} from "rxjs";
 import {ApiServiceServiceService} from "../../services/serviceApi/api-service-service.service";
 import {PromotionService} from "../../services/promotionApi/api-promotion-service.service";
 import {Promotion} from "../../models/Promotion";
+import {CartService} from "../../services/cartApi/api-cart-service.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-details',
@@ -76,6 +78,7 @@ import {Promotion} from "../../models/Promotion";
 })
 export class ProductDetailsComponent{
 
+  private router: Router =inject(Router);
   currentActiveMenu: string = 'product-detail';
   id : any;
   private readonly route = inject(ActivatedRoute);
@@ -105,7 +108,7 @@ export class ProductDetailsComponent{
     updatedDate: Date = new Date();
   };
 
-  constructor(private promotionService: PromotionService) {}
+  constructor(private promotionService: PromotionService, private cartService: CartService) {}
 
   async ngOnInit(): Promise<void> {
     this.route.params.subscribe(async (params) => {
@@ -118,6 +121,11 @@ export class ProductDetailsComponent{
           this.promotion = promotionCheck.promotion;
         });
     })
+  }
+
+  addToCart(productId : any): void {
+    this.cartService.addProduct(productId).subscribe();
+    this.router.navigate(['/cart']);
   }
 
   calculateDiscountedPrice(originalPrice: number, discount: number): number {

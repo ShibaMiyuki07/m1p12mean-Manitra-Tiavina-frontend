@@ -15,6 +15,8 @@ import { CartService } from '../../../services/cartApi/api-cart-service.service'
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import {format, parseISO} from "date-fns";
+import {MechanicService} from "../../../services/mechanicApi/api-mechanic-service.service";
 
 @Component({
   selector: 'app-cart',
@@ -87,11 +89,11 @@ export class CartComponent{
   isLoading = true;
   listServices: any[] = [];
   listProducts: any[] = [];
+  errorMechanic: boolean = false;
 
-  constructor(private promotionService: PromotionService, public cartService: CartService) {}
+  constructor(private promotionService: PromotionService, public cartService: CartService, public mechanicService: MechanicService) {}
 
   async ngOnInit(): Promise<void> {
-
 
     this.cart = await lastValueFrom(this.cartService.loadCart());
     await this.loadProducts();
@@ -100,8 +102,17 @@ export class CartComponent{
     console.log("Exemple "+this.listServices[0].serviceId.price);
   }
 
-  updateDate(event: string, item: any) {
-    item.date = new Date(event); // Convertir la valeur en Date
+  async updateDateTime(item: any) {
+    const dateFromItem = new Date(item.formattedDate);
+    const listeMechanic = await lastValueFrom(
+      this.mechanicService.getAvailableMechanics(dateFromItem)
+    );
+    if (listeMechanic.length === 0){
+      this.errorMechanic = true;
+    } else {
+      this.errorMechanic = false;
+      this.cartService.updateDate(item.serviceId._id, dateFromItem).subscribe();
+    }
   }
 
   async loadServices() {
@@ -112,13 +123,18 @@ export class CartComponent{
             this.promotionService.checkServicePromotion(item.serviceId._id)
           );
 
+          const dateFromItem = new Date(item.date); // ou new Date(item.date)
+          const formattedDate = format(dateFromItem, "yyyy-MM-dd'T'HH:mm");
+          console.log("date ", formattedDate);
+
           return {
             ...item, // Conserve toutes les propriétés existantes
             serviceId: {
               ...item.serviceId, // Conserve les infos du produit
               isInPromotion: promotionCheck?.isInPromotion || false,
               promotion: promotionCheck?.promotion || null
-            }
+            },
+            formattedDate: formattedDate
             // La quantité reste inchangée (item.quantity)
           };
         } catch (error) {
@@ -224,4 +240,6 @@ export class CartComponent{
       this.cartService.updateQuantity(item.productId._id, item.quantity).subscribe();
     }
   }
+
+  protected readonly Date = Date;
 }

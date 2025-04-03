@@ -61,6 +61,8 @@ export class HeaderComponent {
 
   protected username = localStorage.getItem("username");
 
+  protected numberItem = parseInt(<string>localStorage.getItem("numberItem"), 10);
+
   constructor(public authService: AuthService) {}
 
   private checkConnection(): boolean {

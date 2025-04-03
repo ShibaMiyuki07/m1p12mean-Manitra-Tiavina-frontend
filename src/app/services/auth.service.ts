@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import {BehaviorSubject, catchError, tap, throwError} from 'rxjs';
 import {jwtDecode} from "jwt-decode";
 import {UserRole} from "../models/enum/UserRole";
+import {CartService} from "./cartApi/api-cart-service.service";
 
 interface JwtPayload {
   userId: string;
@@ -38,7 +39,7 @@ export class AuthService {
   private readonly tokenKey = 'authToken';
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private cartService: CartService) {
     this.checkAuthentication();
   }
 
@@ -55,6 +56,11 @@ export class AuthService {
         tap(response => {
           localStorage.setItem(this.tokenKey, response.token);
           localStorage.setItem("username", response.user.username);
+          this.cartService.getItemNumber().then((count: number) => {
+            localStorage.setItem("numberItem", count.toString());
+          }).catch(error => {
+            console.error('Erreur:', error);
+          });
           console.log("Connexion réussi : " + response.user.username);
           this.redirectBasedOnRole(response.user.role);
         }),

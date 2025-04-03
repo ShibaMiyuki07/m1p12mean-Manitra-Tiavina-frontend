@@ -19,8 +19,8 @@
         <li><a href="/client/services" [class.active]="activeMenu === 'services'">Services</a></li>
         @if (isConnected) {
           <li><a href="/client/history" [class.active]="activeMenu === 'history'">Historique commande</a></li>
+          <li><a href="/about" [class.active]="activeMenu === 'about'">Rendez-vous</a></li>
         }
-        <li><a href="/about" [class.active]="activeMenu === 'about'">A propos de nous</a></li>
       </ul>
     </div>
   </div>
@@ -54,7 +54,7 @@
         <ul class="right-info">
           @if (isConnected) {
             <li><a href="/client/chat"><i class="fa fa-comments"><span class="count">0</span></i></a></li>
-            <li><a href="/cart"><i class="icon-shopping-cart"><span class="count">0</span></i></a></li>
+            <li><a href="/cart"><i class="icon-shopping-cart"><span class="count">{{ numberItem }}</span></i></a></li>
             <li><a href="/client/profil" class="search-btn"><i class="icon-user"></i> <p>Mon compte <span>Hello, {{ username }}</span></p></a></li>
             <li class="search-toggler"><i class="icon-repair" (click)="authService.logout()"></i></li>
           } @else {
@@ -89,8 +89,8 @@
                   <li><a href="/client/services" [class.active]="activeMenu === 'services'">Services</a></li>
                   @if (isConnected) {
                     <li><a href="/client/history" [class.active]="activeMenu === 'history'">Historique</a></li>
+                    <li><a href="/about" [class.active]="activeMenu === 'about'">Rendez-vous</a></li>
                   }
-                  <li><a href="/about" [class.active]="activeMenu === 'about'">A propos de nous</a></li>
                 </ul>
               </div>
             </nav>
