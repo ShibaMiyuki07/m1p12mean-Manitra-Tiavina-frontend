@@ -1,0 +1,891 @@
+<div class="boxed_wrapper">
+
+  <app-loader />
+
+  <app-header [activeMenu]="currentActiveMenu" />
+
+  <section class="shop-page-section p_relative sec-pad">
+    <div class="auto-container">
+      <div class="row clearfix">
+        <div class="col-lg-3 col-md-12 cols-sm-12 sidebar-side">
+          <div class="shop-sidebar">
+            <div class="search-widget sidebar-widget p_relative d_block pb_40 mb_25">
+              <form action="https://wpsection.com/html/bosch/shop.html" method="post" class="search-form">
+                <div class="form-group p_relative m_0">
+                  <input type="search" name="search-field" placeholder="Search" required>
+                  <button type="submit"><i class="far fa-search"></i></button>
+                </div>
+              </form>
+            </div>
+            <div class="category-widget sidebar-widget pb_35 mb_35">
+              <div class="widget-title p_relative d_block mb_30">
+                <h4 class="p_relative d_block fs_20 lh_30">Categories</h4>
+              </div>
+              <div class="widget-content">
+                <ul class="category-list clearfix">
+                  <li class="p_relative d_block mb_11"><a href="shop-details.html" class="p_relative d_iblock fs_15 font_family_inter color_black pl_20">Smartphone & Tablet (9)</a></li>
+                  <li class="p_relative d_block mb_11"><a href="shop-details.html" class="p_relative d_iblock fs_15 font_family_inter color_black pl_20">Computer & Laptop (1)</a></li>
+                  <li class="p_relative d_block mb_11"><a href="shop-details.html" class="p_relative d_iblock fs_15 font_family_inter color_black pl_20">TV & Audio (5)</a></li>
+                  <li class="p_relative d_block mb_11"><a href="shop-details.html" class="p_relative d_iblock fs_15 font_family_inter color_black pl_20">Games & Accessories (3)</a></li>
+                  <li class="p_relative d_block mb_11"><a href="shop-details.html" class="p_relative d_iblock fs_15 font_family_inter color_black pl_20">Camera & Photos (7)</a></li>
+                  <li class="p_relative d_block mb_11"><a href="shop-details.html" class="p_relative d_iblock fs_15 font_family_inter color_black pl_20">Electronics (2)</a></li>
+                  <li class="p_relative d_block mb_11"><a href="shop-details.html" class="p_relative d_iblock fs_15 font_family_inter color_black pl_20">Accessories (6)</a></li>
+                  <li class="p_relative d_block"><a href="shop-details.html" class="p_relative d_iblock fs_15 font_family_inter color_black pl_20">Home Appliance (4)</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="price-filter sidebar-widget pb_30 mb_30">
+              <div class="widget-title p_relative d_block mb_30">
+                <h4 class="p_relative d_block fs_20 lh_30">by Price</h4>
+              </div>
+              <div class="range-slider clearfix p_relative">
+                <div class="price-range-slider"></div>
+                <div class="clearfix">
+                  <div class="pull-left">
+                    <button class="filter-btn fs_15 fw_sbold font_family_inter uppercase color_black">Filter</button>
+                  </div>
+                  <div class="pull-right">
+                    <p class="d_iblock fs_15 fw_medium font_family_inter mr_10">Price:</p>
+                    <div class="title p_relative d_iblock"></div>
+                    <div class="input p_relative d_iblock fs_15"><input type="text" class="property-amount" name="field-name" readonly=""></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tags-widget sidebar-widget p_relative d_block">
+              <div class="widget-title p_relative d_block mb_30">
+                <h4 class="p_relative d_block fs_20 lh_30">Tags</h4>
+              </div>
+              <div class="widget-content">
+                <ul class="tags-list clearfix">
+                  <li class="p_relative d_iblock pull-left ml_5 mr_5 mb_10"><a href="shop-details.html" class="p_relative d_iblock fs_14 font_family_poppins color_black">Creative</a></li>
+                  <li class="p_relative d_iblock pull-left ml_5 mr_5 mb_10"><a href="shop-details.html" class="p_relative d_iblock fs_14 font_family_poppins color_black">Marketing</a></li>
+                  <li class="p_relative d_iblock pull-left ml_5 mr_5 mb_10"><a href="shop-details.html" class="p_relative d_iblock fs_14 font_family_poppins color_black">Idea</a></li>
+                  <li class="p_relative d_iblock pull-left ml_5 mr_5 mb_10"><a href="shop-details.html" class="p_relative d_iblock fs_14 font_family_poppins color_black">Consulting</a></li>
+                  <li class="p_relative d_iblock pull-left ml_5 mr_5 mb_10"><a href="shop-details.html" class="p_relative d_iblock fs_14 font_family_poppins color_black">Target</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-9 col-md-12 cols-sm-12 content-side">
+          <div class="our-shop">
+            <div class="item-shorting p_relative d_block mb_50 clearfix">
+              <div class="left-column pull-left clearfix">
+                <div class="float_left p_relative clearfix mr_30">
+                  <button class="grid-view on p_relative d_iblock fs_20 b_radius_5 mr_2 centred"><img src="assets/images/shape/menu.png" alt="menu"></button>
+                  <button class="list-view p_relative d_iblock fs_20 b_radius_5 centred"><img src="assets/images/shape/list.png" alt="list"></button>
+                </div>
+                <div class="text float_left"><p class="fs_16 font_family_poppins">Showing <span class="color_black">1–12</span> of <span class="color_black">50</span> Results</p></div>
+              </div>
+              <div class="right-column pull-right clearfix">
+                <div class="short-box clearfix">
+                  <div class="select-box">
+                    <select class="wide">
+                      <option data-display="Popularity">Popularity</option>
+                      <option value="1">New Collection</option>
+                      <option value="2">Top Sell</option>
+                      <option value="4">Top Ratted</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="wrapper grid">
+              <div class="shop-grid-content">
+                <div class="row clearfix">
+                  <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <span class="category hot p_absolute l_10 t_10 fs_13 fw_medium font_family_poppins z_1">Hot</span>
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-1.jpg" alt="product"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-1.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">ASRock DeskMini H470 Portable Mini PC</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$70.30</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-2.jpg" alt="product"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-2.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Wiwu S700 Aluminum Alloy Adjustable Laptop</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$80.50</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <span class="category sale p_absolute l_10 t_10 fs_13 fw_medium font_family_poppins z_1">Sale</span>
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-3.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-3.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">HP Pavilion Adapter Blue Pin 3.33A</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$60.50</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-4.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-4.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Orico AC-20 Micro USB <br />Charge</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$20.50</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <span class="category sale p_absolute l_10 t_10 fs_13 fw_medium font_family_poppins z_1">Sale</span>
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-5.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-5.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Apacer AH360 32GB USB 3.1 Pendrive</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$70.50</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-6.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-6.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Apple TV 4K 32GB 6th Gen TV Box</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$90.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-1.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-1.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Acer Extensa 15-A78 15.6" HD Laptop</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$85.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-2.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-2.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Dell OptiPlex 3080 MT Core i3 10th Gen</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$75.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <span class="category hot p_absolute l_10 t_10 fs_13 fw_medium font_family_poppins z_1">Hot</span>
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-3.jpg" alt=""></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-3.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">HP Pavilion Adapter Blue Pin 3.33A</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$30.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <span class="category hot p_absolute l_10 t_10 fs_13 fw_medium font_family_poppins z_1">Hot</span>
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-4.jpg" alt=""></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-4.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Razer Viper Mini Ultra Light- weight Mouse</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$10.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <span class="category sale p_absolute l_10 t_10 fs_13 fw_medium font_family_poppins z_1">Sale</span>
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-5.jpg" alt=""></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-5.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Dell Inspiron 15 3501 Core i3 11th Gen FHD Laptop</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$90.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-6.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-6.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Dell Optiplex 3060 Core i5 8th Gen</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$70.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="shop-list-content">
+                <div class="row clearfix">
+                  <div class="col-lg-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-3.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-3.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Dell OptiPlex 3080 MT Core i3 10th Gen</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$75.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <span class="category hot p_absolute l_10 t_10 fs_13 fw_medium font_family_poppins z_1">Hot</span>
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-5.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-5.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">HP Pavilion Adapter Blue Pin 3.33A</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$30.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <span class="category hot p_absolute l_10 t_10 fs_13 fw_medium font_family_poppins z_1">Hot</span>
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-1.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-1.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Razer Viper Mini Ultra Light- weight Mouse</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$10.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <span class="category sale p_absolute l_10 t_10 fs_13 fw_medium font_family_poppins z_1">Sale</span>
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-2.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-2.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Dell Inspiron 15 3501 Core i3 11th Gen FHD Laptop</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$90.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-3.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-3.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Dell Optiplex 3060 Core i5 8th Gen</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$70.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <span class="category hot p_absolute l_10 t_10 fs_13 fw_medium font_family_poppins z_1">Hot</span>
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-4.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-4.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">ASRock DeskMini H470 Portable Mini PC</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$70.30</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-5.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-5.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Wiwu S700 Aluminum Alloy Adjustable Laptop</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$80.50</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <span class="category sale p_absolute l_10 t_10 fs_13 fw_medium font_family_poppins z_1">Sale</span>
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-6.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-6.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">HP Pavilion Adapter Blue Pin 3.33A</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$60.50</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-2.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-2.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Dell OptiPlex 3080 MT Core i3 10th Gen</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$75.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <span class="category hot p_absolute l_10 t_10 fs_13 fw_medium font_family_poppins z_1">Hot</span>
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-4.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/i-4.png" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">HP Pavilion Adapter Blue Pin 3.33A</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$30.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <span class="category hot p_absolute l_10 t_10 fs_13 fw_medium font_family_poppins z_1">Hot</span>
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-1.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-1.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Razer Viper Mini Ultra Light- weight Mouse</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$10.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <span class="category sale p_absolute l_10 t_10 fs_13 fw_medium font_family_poppins z_1">Sale</span>
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-2.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-2.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Dell Inspiron 15 3501 Core i3 11th Gen FHD Laptop</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$90.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-3.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-3.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Dell Optiplex 3060 Core i5 8th Gen</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$70.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <span class="category hot p_absolute l_10 t_10 fs_13 fw_medium font_family_poppins z_1">Hot</span>
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-4.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-4.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">ASRock DeskMini H470 Portable Mini PC</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$70.30</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-5.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-5.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">Wiwu S700 Aluminum Alloy Adjustable Laptop</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$80.50</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box p_relative d_block tran_5 mb_30">
+                        <div class="image-box p_relative d_block">
+                          <span class="category sale p_absolute l_10 t_10 fs_13 fw_medium font_family_poppins z_1">Sale</span>
+                          <figure class="image p_relative d_block"><img src="assets/images/product/instagram-6.jpg" alt="pro"></figure>
+                          <ul class="option-list">
+                            <li><a href="assets/images/product/instagram-6.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-magnifiying-glass"></i></a></li>
+                            <li><a href="#"><i class="flaticon-music-bars"></i></a></li>
+                            <li><a href="#"><i class="flaticon-heart"></i></a></li>
+                            <li><a href="#"><i class="flaticon-shopping-cart"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="lower-content p_relative d_block pt_3 pr_20 pb_20 pl_20">
+                          <h6 class="d_block fs_15 lh_20 mb_4"><a href="shop-details.html" class="d_iblock color_black">HP Pavilion Adapter Blue Pin 3.33A</a></h6>
+                          <ul class="rating clearfix">
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_3 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left mr_5 fs_13"><i class="fas fa-star"></i></li>
+                            <li class="p_relative d_iblock pull-left fs_14"><a href="shop.html" class="color_black">(3)</a></li>
+                          </ul>
+                          <span class="price p_relative d_block fs_15 fw_medium font_family_inter color_black mb_2">$60.50</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pagination-wrapper centred mt_40">
+              <ul class="pagination clearfix">
+                <li><a href="shop.html" class="current">1</a></li>
+                <li><a href="shop.html">2</a></li>
+                <li><a href="shop.html">3</a></li>
+                <li class="dot">...</li>
+                <li><a href="shop.html">9</a></li>
+                <li><a href="shop.html"><i class="fas fa-arrow-right"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
