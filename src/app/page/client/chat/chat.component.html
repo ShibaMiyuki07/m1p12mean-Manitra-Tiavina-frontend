@@ -2,9 +2,17 @@
 
 <main style="display: flex;padding-top: 20px">
   <div class="message-list">
-    <div *ngFor="let item of [].constructor(messageList)" class="message-item">
+    <div class="header" style="display: flex">
+      <div style="padding-bottom: 10px;">
+        Discussions
+      </div>
+      <div style="padding-bottom: 10px;" class="div-btn">
+        <button class="btn">New</button>
+      </div>
+    </div>
+    <div *ngFor="let discussion of discussions" class="message-item">
       <div>
-        <img src="assets/images/user.png" style="width: 50px;height: 50px" class="rounded">
+        <img src="../../../../assets/images/user.png" style="width: 50px;height: 50px" class="rounded">
       </div>
       <div class="last-message unread">
         <div class="username">Ratits</div>
@@ -15,7 +23,7 @@
   <div class="message-content">
     <div class="header">
       <div>
-        <img src="assets/images/user.png" style="width: 50px;height: 50px;" class="rounded">
+        <img src="../../../../assets/images/user.png" style="width: 50px;height: 50px;" class="rounded">
       </div>
       <div class="user-title">
         <div class="username">Ratits</div>
@@ -56,10 +64,10 @@
     </div>
     <div class="message-input">
       <div class="message-text">
-        <textarea autosize class="message-text-area"></textarea>
+        <textarea [(ngModel)]="chat.content" autosize class="message-text-area"></textarea>
       </div>
       <div>
-        <img alt="picture sending" class="send" [src]="'assets/images/send.png'" style="width: 20px;height: 20px;cursor: pointer;">
+        <img (click)="send()" alt="picture sending" class="send" [src]="'assets/images/send.png'" style="width: 20px;height: 20px;cursor: pointer;">
       </div>
     </div>
   </div>

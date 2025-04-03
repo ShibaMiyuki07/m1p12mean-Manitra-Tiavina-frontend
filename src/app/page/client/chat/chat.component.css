@@ -2,11 +2,20 @@
   overflow: hidden;
 }
 .message-list{
-  overflow-y: auto;
+  padding-left: 10px;
+  padding-top: 20px;
+  width: 15%;
+  overflow-y: scroll;
   overflow-x: hidden;
   max-height: calc(100vh - 100px) !important; /* Reduce by input height + margins */
   padding-bottom: 60px !important; /* Space for input */
   box-sizing: border-box !important;
+}
+
+.div-btn{
+  padding-right: 40px;
+  position: relative;
+  left: 45%;
 }
 
 .message-item{
@@ -125,6 +134,7 @@
 .sent{
   position:relative;
   left: 90%;
+  border: 0;
   background: #0d95e8;
   color: white;
 }

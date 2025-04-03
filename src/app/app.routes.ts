@@ -18,6 +18,7 @@ import {ProductDetailsComponent} from "./page/product-details/product-details.co
 import {CartComponent} from "./page/client/cart/cart.component";
 import {ClientProductListComponent} from "./page/client/client-product-list/client-product-list.component";
 import {RdvClientComponent} from "./page/client/rdv-client/rdv-client.component";
+import {ChatComponent} from "./page/client/chat/chat.component";
 
 export const routes: Routes = [
   { path: 'mechanic', component: IndexMechanicComponent, canActivate: [MecanicienGuard] },
@@ -36,4 +37,5 @@ export const routes: Routes = [
   { path: 'manager/service/:id', component: UpdateServiceComponent, canActivate: [ManagerGuard] },
   {path : 'client/products', component: ClientProductListComponent },
   {path : 'client/rdv',component : RdvClientComponent , canActivate: [ClientGuard] },
+  {path : "client/chat", component: ChatComponent, canActivate: [ClientGuard] },
 ];
