@@ -1,13 +1,24 @@
-import { Component } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {HeaderComponent} from "../../../components/header/header.component";
 import {LoaderComponent} from "../../../components/loader/loader.component";
+import {Product} from "../../../models/product";
+import {ApiProductServiceService} from "../../../services/productApi/api-product-service.service";
+import {NgForOf, NgIf} from "@angular/common";
+import {CategoryCount} from "../../../models/CategoryCount";
+import {environment} from "../../../../environments/environment";
+import {FooterComponent} from "../../../components/footer/footer.component";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-client-product-list',
   standalone: true,
   imports: [
     HeaderComponent,
-    LoaderComponent
+    LoaderComponent,
+    NgForOf,
+    NgIf,
+    FooterComponent,
+    FormsModule
   ],
   templateUrl: './client-product-list.component.html',
   styleUrls: ['./client-product-list.component.css',
@@ -62,6 +73,71 @@ import {LoaderComponent} from "../../../components/loader/loader.component";
     '../../../../assets-bosh/css/style.css',
   ]
 })
-export class ClientProductListComponent {
+
+export class ClientProductListComponent implements OnInit {
+  url = environment.apiUrl;
   currentActiveMenu = "products";
+  products: Product[] | undefined = [];
+  productService: ApiProductServiceService = inject(ApiProductServiceService);
+  categoryList : string[] = [];
+  categoryCount : CategoryCount[] = [];
+  productsCopy: Product[] | undefined = [];
+  viewType:string = "gridView";
+  searchTerm: string = "";
+
+
+
+  async ngOnInit() {
+    this.products = await this.productService.getAllProducts().toPromise();
+    this.productsCopy = this.products;
+    this.categoryList = this.getUniqueCategories();
+    this.categoryCount = this.getCategoryCounts();
+  }
+
+  searchResult()
+  {
+    this.products = this.productsCopy?.filter(product => product.name.toLowerCase().includes(this.searchTerm.toLowerCase()) || product.category.toLowerCase().includes(this.searchTerm.toLowerCase()) || product.description.toLowerCase().includes(this.searchTerm.toLowerCase()));
+  }
+
+  changeViewType() {
+    if (this.viewType == 'gridView') {
+      this.viewType = 'listView';
+    }
+    else if (this.viewType == 'listView') {
+      this.viewType = 'gridView';
+    }
+    console.log(this.viewType);
+  }
+
+  getCategoryCounts(): CategoryCount[] {
+    if (!this.products) return [];
+
+    // Count using reduce
+    const categoryCounts = this.products.reduce((acc, product) => {
+      acc[product.category] = (acc[product.category] || 0) + 1;
+      return acc;
+    }, {} as { [key: string]: number });
+
+    // Convert to array format
+    return Object.entries(categoryCounts).map(([category, count]) => ({
+      category,
+      count
+    }));
+  }
+
+  getUniqueCategories(): string[] {
+    // First check if products exist
+    if (!this.products) return [];
+
+    // Get distinct categories
+    return [...new Set(
+      this.products.map(product => product.category)
+    )];
+  }
+
+  filterByCategory(category: string): Product[] | undefined
+  {
+    this.products = this.productsCopy?.filter(product => product.category == category);
+    return this.products;
+  }
 }
