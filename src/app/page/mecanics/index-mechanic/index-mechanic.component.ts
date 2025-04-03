@@ -41,13 +41,6 @@ export class IndexMechanicComponent implements OnInit {
   }
 
 
-  displayDateWithHour(date: Date)
-  {
-    const toDate = date;
-    return toDate.getDate() + ' ' + this.Constant.monthNames[toDate.getMonth()] + ' ' + toDate.getFullYear() + ' ' + toDate.getUTCHours() + 'h' + toDate.getUTCMinutes() + 'mn';
-  }
-
-
 
   assign(reservation : Reservation)
   {
