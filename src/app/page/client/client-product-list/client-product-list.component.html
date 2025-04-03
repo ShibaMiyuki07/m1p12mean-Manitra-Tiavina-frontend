@@ -41,6 +41,9 @@
                   <li class="p_relative d_block mb_11 category"  *ngFor="let category of categoryCount" style="cursor: pointer;">
                     <a (click)="filterByCategory(category.category)" class="p_relative d_iblock fs_15 font_family_inter color_black pl_20">{{ category.category }} ({{category.count}}) </a>
                   </li>
+                  <li class="p_relative d_block mb_11 category" style="cursor: pointer;">
+                    <a (click)="getAll()" class="p_relative d_iblock fs_15 font_family_inter color_black pl_20">Tout ({{productsCopy?.length}}) </a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -54,9 +57,9 @@
                   <button class="grid-view on p_relative d_iblock fs_20 b_radius_5 mr_2 centred" (click)="changeViewType()"><img src="{{url}}/pictures/images/shape/menu.png" alt="menu"></button>
                   <button class="list-view p_relative d_iblock fs_20 b_radius_5 centred" (click)="changeViewType()"><img src="{{url}}/pictures/images/shape/list.png" alt="list"></button>
                 </div>
-                <div class="text float_left"><p class="fs_16 font_family_poppins">Showing <span class="color_black">1– @if (products !== undefined && products.length > 10){12} @else {
+                <div class="text float_left"><p class="fs_16 font_family_poppins">Showing <span class="color_black">@if (products === undefined || products.length ===0) {0}@else{1}– @if (products !== undefined && products.length > 10){12} @else {
                   {{products?.length}}
-                }</span> of <span class="color_black">{{products?.length || 0}}</span> Results</p></div>
+                }</span> of <span class="color_black">{{productsCopy?.length || 0}}</span> Results</p></div>
               </div>
             </div>
             <div class="wrapper grid" >
@@ -106,14 +109,18 @@
                 </div>
               </div>
             </div>
-            <div class="pagination-wrapper centred mt_40" *ngIf="products !== undefined && products.length > 10">
+            <div class="pagination-wrapper centred mt_40" *ngIf="productsCopy!.length > 12 ">
               <ul class="pagination clearfix">
-                <li><a href="shop.html" class="current">1</a></li>
-                <li><a href="shop.html">2</a></li>
-                <li><a href="shop.html">3</a></li>
-                <li class="dot">...</li>
-                <li><a href="shop.html">9</a></li>
-                <li><a href="shop.html"><i class="fas fa-arrow-right"></i></a></li>
+                <li *ngIf="actualPage > 1" (click)="changePage(actualPage-1)" style="cursor: pointer;">
+                  <a><i class="fas fa-arrow-left"></i></a>
+                </li>
+                <li *ngFor="let page of [].constructor(pageNumber);index as i" style="cursor: pointer;">
+                  <a (click)="changePage(i+1)" *ngIf="actualPage-1 === i" class="current" >{{i+1}}</a>
+                  <a (click)="changePage(i+1)" *ngIf="actualPage-1 !== i" >{{i+1}}</a>
+                </li>
+                <li *ngIf="actualPage < pageNumber" (click)="changePage(actualPage+1)" style="cursor: pointer;">
+                  <a><i class="fas fa-arrow-right"></i></a>
+                </li>
               </ul>
             </div>
           </div>

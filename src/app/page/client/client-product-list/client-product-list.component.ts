@@ -3,7 +3,7 @@ import {HeaderComponent} from "../../../components/header/header.component";
 import {LoaderComponent} from "../../../components/loader/loader.component";
 import {Product} from "../../../models/product";
 import {ApiProductServiceService} from "../../../services/productApi/api-product-service.service";
-import {NgForOf, NgIf} from "@angular/common";
+import {DecimalPipe, NgForOf, NgIf, SlicePipe} from "@angular/common";
 import {CategoryCount} from "../../../models/CategoryCount";
 import {environment} from "../../../../environments/environment";
 import {FooterComponent} from "../../../components/footer/footer.component";
@@ -18,7 +18,8 @@ import {FormsModule} from "@angular/forms";
     NgForOf,
     NgIf,
     FooterComponent,
-    FormsModule
+    FormsModule,
+    SlicePipe
   ],
   templateUrl: './client-product-list.component.html',
   styleUrls: ['./client-product-list.component.css',
@@ -79,24 +80,44 @@ export class ClientProductListComponent implements OnInit {
   currentActiveMenu = "products";
   products: Product[] | undefined = [];
   productService: ApiProductServiceService = inject(ApiProductServiceService);
-  categoryList : string[] = [];
   categoryCount : CategoryCount[] = [];
   productsCopy: Product[] | undefined = [];
   viewType:string = "gridView";
   searchTerm: string = "";
+  actualPage: number = 1;
+  pageNumber: number = 0;
 
 
 
   async ngOnInit() {
     this.products = await this.productService.getAllProducts().toPromise();
     this.productsCopy = this.products;
-    this.categoryList = this.getUniqueCategories();
+    this.getPageNumber();
+    this.products = this.productsCopy?.slice(this.actualPage-1,(this.actualPage*12));
+    console.log(this.products);
     this.categoryCount = this.getCategoryCounts();
   }
 
   searchResult()
   {
     this.products = this.productsCopy?.filter(product => product.name.toLowerCase().includes(this.searchTerm.toLowerCase()) || product.category.toLowerCase().includes(this.searchTerm.toLowerCase()) || product.description.toLowerCase().includes(this.searchTerm.toLowerCase()));
+    this.getPageNumber();
+  }
+
+  getAll()
+  {
+    this.actualPage = 1;
+    this.products = this.productsCopy;
+    this.getPageNumber();
+    this.products = this.productsCopy?.slice((this.actualPage-1)*12,this.actualPage*12);
+    console.log(this.productsCopy);
+
+  }
+
+
+  changePage(pageNumber: number): void {
+    this.actualPage = pageNumber;
+    this.products = this.productsCopy?.slice(((this.actualPage-1)*12),(this.actualPage*12))
   }
 
   changeViewType() {
@@ -109,11 +130,22 @@ export class ClientProductListComponent implements OnInit {
     console.log(this.viewType);
   }
 
+  getPageNumber()
+  {
+    this.pageNumber = 1;
+    console.log(this.products!.length);
+    while(this.pageNumber * 12 < this.products!.length) {
+      this.pageNumber++;
+    }
+    console.log(this.pageNumber);
+  }
+
+
   getCategoryCounts(): CategoryCount[] {
-    if (!this.products) return [];
+    if (!this.productsCopy) return [];
 
     // Count using reduce
-    const categoryCounts = this.products.reduce((acc, product) => {
+    const categoryCounts = this.productsCopy.reduce((acc, product) => {
       acc[product.category] = (acc[product.category] || 0) + 1;
       return acc;
     }, {} as { [key: string]: number });
@@ -125,19 +157,10 @@ export class ClientProductListComponent implements OnInit {
     }));
   }
 
-  getUniqueCategories(): string[] {
-    // First check if products exist
-    if (!this.products) return [];
-
-    // Get distinct categories
-    return [...new Set(
-      this.products.map(product => product.category)
-    )];
-  }
-
-  filterByCategory(category: string): Product[] | undefined
+  filterByCategory(category: string)
   {
+    this.actualPage = 1;
     this.products = this.productsCopy?.filter(product => product.category == category);
-    return this.products;
+    this.getPageNumber();
   }
 }
