@@ -102,7 +102,7 @@ export class AuthService {
   // Déconnexion de l'utilisateur
   logout() {
     console.log('Logout');
-    localStorage.removeItem(this.tokenKey);
+    localStorage.clear();
     this.isAuthenticatedSubject.next(false);
     this.router.navigate(['/login']);
   }

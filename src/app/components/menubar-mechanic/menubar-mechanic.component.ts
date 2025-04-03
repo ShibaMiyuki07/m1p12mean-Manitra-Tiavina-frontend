@@ -19,6 +19,7 @@ import {AuthService} from "../../services/auth.service";
   ]
 })
 export class MenubarMechanicComponent {
+  username = localStorage.getItem('username');
   private authService: AuthService = inject(AuthService);
   logoff()
   {

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-menubar-manager',
@@ -17,5 +18,10 @@ import { Component } from '@angular/core';
   ]
 })
 export class MenubarManagerComponent {
+  username = localStorage.getItem('username');
+  private authService: AuthService = inject(AuthService);
 
+  logoff() {
+    this.authService.logout();
+  }
 }
