@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-menubar-mechanic',
@@ -18,5 +19,9 @@ import { Component } from '@angular/core';
   ]
 })
 export class MenubarMechanicComponent {
-
+  private authService: AuthService = inject(AuthService);
+  logoff()
+  {
+    this.authService.logout();
+  }
 }

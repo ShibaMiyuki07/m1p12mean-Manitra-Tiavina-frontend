@@ -97,7 +97,7 @@ export class AgendaComponent implements OnInit {
 
 
 
-  activeDayIsOpen: boolean = true;
+  activeDayIsOpen: boolean = false;
 
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -112,24 +112,6 @@ export class AgendaComponent implements OnInit {
       }
       this.viewDate = date;
     }
-  }
-
-  eventTimesChanged({
-                      event,
-                      newStart,
-                      newEnd,
-                    }: CalendarEventTimesChangedEvent): void {
-    this.events = this.events.map((iEvent) => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd,
-        };
-      }
-      return iEvent;
-    });
-    this.handleEvent('Dropped or resized', event);
   }
 
   onClick(event: CalendarEvent)
