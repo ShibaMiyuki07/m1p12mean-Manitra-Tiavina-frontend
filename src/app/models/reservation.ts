@@ -6,6 +6,6 @@ export interface Reservation {
   status : string,
   endReservation : Date,
   reservationDate : Date,
-  createdAt : any,
-  updatedAt : any,
+  createdAt : Date,
+  updatedAt : Date,
 }

@@ -4,6 +4,7 @@ export class Constant {
     "February",
     "March",
     "April",
+    "May",
     "June",
     "July",
     "August",
@@ -19,6 +20,13 @@ export class Constant {
     "pending",
     "finished"
   ];
+
+  Status = {
+    unassigned : "unassigned",
+    pending : "pending",
+    notStarted: "not started",
+    finished: "finished",
+  }
 }
 
 
