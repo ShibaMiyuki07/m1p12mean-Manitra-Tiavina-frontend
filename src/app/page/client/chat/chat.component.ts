@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {MenubarMechanicComponent} from "../../../components/menubar-mechanic/menubar-mechanic.component";
 import {NgForOf, NgIf} from "@angular/common";
 import {AutosizeModule} from "ngx-autosize";
@@ -29,6 +29,8 @@ export class ChatComponent implements OnInit {
   discussions : Discussion[] | undefined = [];
   messages : Chat[] | undefined = [];
   discussionApiService : DiscussionApiService = inject(DiscussionApiService);
+  isNewDiscussion : boolean = false ;
+  username : string = "";
 
   chat : Chat = new class implements Chat {
     discussionId: any;
@@ -37,18 +39,41 @@ export class ChatComponent implements OnInit {
     senderId: any;
     receiverId: any;
   }
+  @ViewChild('children') children : ElementRef | null = null;
 
 
-  send()
-  {
-    this.chatApi.addMessage(this.chat);
-  }
+
 
   async ngOnInit() {
     this.chat.senderId = this.senderId;
     this.chat.receiverId = "65f8e8b1e4b1a2b3c4d5e6f1";
     this.discussions = await this.discussionApiService.getAllDiscussions(this.senderId).toPromise();
     this.messages = await this.chatApi.getAllMessages(this.chat.senderId,this.chat.receiverId ).toPromise();
+  }
+
+  send()
+  {
+    this.chatApi.addMessage(this.chat);
+  }
+
+  openNewDiscussion(){
+    this.isNewDiscussion = true;
+    if(this.children)
+    {
+      this.children.nativeElement.focus();
+    }
+    this.discussions?.push(
+      {
+        _id: undefined,
+        receiver: undefined,
+        receiverId: undefined,
+        sender: undefined,
+        senderId: undefined,
+        text : "New Message",
+        isSelected : true
+
+      }
+    )
   }
 
 }

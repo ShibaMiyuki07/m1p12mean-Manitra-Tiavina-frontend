@@ -7,21 +7,21 @@
         Discussions
       </div>
       <div style="padding-bottom: 10px;" class="div-btn">
-        <button class="btn">New</button>
+        <button class="btn" (click)="openNewDiscussion()">New</button>
       </div>
     </div>
-    <div *ngFor="let discussion of discussions" class="message-item">
+    <div *ngFor="let discussion of discussions" class="message-item" [className]="discussion.isSelected ? 'selected' : ''">
       <div>
-        <img src="../../../../assets/images/user.png" style="width: 50px;height: 50px" class="rounded">
+        <img src="../../../../assets/images/user.png" style="width: 50px;height: 50px" class="rounded" >
       </div>
       <div class="last-message unread">
-        <div class="username">Ratits</div>
-        <div class="content">Good Morning</div>
+        <div class="username">{{discussion.receiver || discussion.text}}</div>
+        <div class="content" *ngIf="discussion.receiver">Good Morning</div>
       </div>
     </div>
   </div>
   <div class="message-content">
-    <div class="header">
+    <div class="header" *ngIf="!isNewDiscussion">
       <div>
         <img src="../../../../assets/images/user.png" style="width: 50px;height: 50px;" class="rounded">
       </div>
@@ -30,37 +30,18 @@
         <div class="status" style="display: flex;"><i class="icon online"></i>En ligne</div>
       </div>
     </div>
+    <div class="header" *ngIf="isNewDiscussion">
+      <div style="width: 100%;padding-bottom: 10px">
+        A : <input #children style="width: 95%;height: 35px;font-size: 25px;border:0;" name="username" [(ngModel)]="username" />
+      </div>
+    </div>
     <div class="content">
-      <div class="message got">
-          <div class="text-content">Good Morning</div>
-      </div>
-      <div class="message sent">
-        <div class="text-content">Good Morning</div>
-      </div>
-      <div class="message got">
-        <div class="text-content">Good Morning</div>
-      </div>
-      <div class="message sent">
-        <div class="text-content">Good Morning</div>
-      </div>
-      <div class="message got">
-        <div class="text-content">Good Morning</div>
-      </div>
-      <div class="message sent">
-        <div class="text-content">Good Morning</div>
-      </div>
-      <div class="message got">
-        <div class="text-content">Good Morning</div>
-      </div>
-      <div class="message sent">
-        <div class="text-content">Good Morning</div>
-      </div>
-      <div class="message got">
-        <div class="text-content">Good Morning</div>
-      </div>
-      <div class="message sent">
-        <div class="text-content">Good Morning</div>
-      </div>
+      @for(message of messages;track message._id)
+      {
+        <div class="message" [className]="message.senderId === senderId ? 'sent' : 'got'">
+          <div class="text-content">{{message.content}}</div>
+        </div>
+      }
     </div>
     <div class="message-input">
       <div class="message-text">
