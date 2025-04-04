@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FooterComponent} from "../../components/footer/footer.component";
 import {LoaderComponent} from "../../components/loader/loader.component";
@@ -11,6 +11,8 @@ import {Service} from "../../models/Service";
 import {PromotionService} from "../../services/promotionApi/api-promotion-service.service";
 import {lastValueFrom} from "rxjs";
 import {DateTime} from 'luxon';
+import {CartService} from "../../services/cartApi/api-cart-service.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -78,6 +80,7 @@ export class HomeComponent{
     seconds: '00'
   };
 
+  private router: Router =inject(Router);
   currentActiveMenu: string = 'home';
   private countdownInterval: any;
   private carousel: any;
@@ -89,7 +92,7 @@ export class HomeComponent{
   isLoading = true;
 
 
-  constructor(private productService: ApiProductServiceService, private serviceService: ApiServiceServiceService, private promotionService: PromotionService) {}
+  constructor(private productService: ApiProductServiceService, private serviceService: ApiServiceServiceService, private promotionService: PromotionService, private cartService: CartService) {}
 
   async ngOnInit() {
     this.loadGroupedProducts();
@@ -109,6 +112,18 @@ export class HomeComponent{
     }
     if (this.carousel) {
       this.carousel.trigger('destroy.owl.carousel');
+    }
+  }
+
+  async addToCart(serviceId: string): Promise<void> {
+    try {
+      await lastValueFrom(this.cartService.addService(serviceId, new Date()));
+
+      await this.cartService.updateCount();
+
+      await this.router.navigate(['/cart']);
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
     }
   }
 

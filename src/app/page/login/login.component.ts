@@ -76,7 +76,6 @@ export class LoginComponent {
 
     this.authService.login(email, password).subscribe({
       next: (response) => {
-        this.isLoading = false;
       },
       error: (err) => {
         this.errorMessage = err.message;

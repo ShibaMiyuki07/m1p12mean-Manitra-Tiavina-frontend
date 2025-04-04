@@ -1,8 +1,14 @@
-import {Profile} from "./Profile";
 
 export interface User {
-  _id : any,
-  username : any,
-  email : string,
-  profile : Profile,
+  _id: string;
+  email: string;
+  role: string;
+  username: string;
+  profile: {
+    firstName: string;
+    lastName: string;
+    address: string;
+    phone: string;
+    photo: string;
+  };
 }

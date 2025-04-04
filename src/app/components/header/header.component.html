@@ -16,7 +16,6 @@
         <li><h6>Menu Principal</h6></li>
         <li><a href="/home" [class.active]="activeMenu === 'home'"> Accueil</a></li>
         <li><a href="/client/products" [class.active]="activeMenu === 'products'">Produits</a></li>
-        <li><a href="/client/services" [class.active]="activeMenu === 'services'">Services</a></li>
         @if (isConnected) {
           <li><a href="/client/history" [class.active]="activeMenu === 'history'">Historique commande</a></li>
           <li><a href="/client/rdv" [class.active]="activeMenu === 'rdv'">Rendez-vous</a></li>
@@ -55,7 +54,7 @@
           @if (isConnected) {
             <li><a href="/client/chat"><i class="fa fa-comments"><span class="count">0</span></i></a></li>
             <li><a href="/cart"><i class="icon-shopping-cart"><span class="count">{{ numberItem }}</span></i></a></li>
-            <li><a href="/client/profil" class="search-btn"><i class="icon-user"></i> <p>Mon compte <span>Hello, {{ username }}</span></p></a></li>
+            <li><a class="search-btn"><i class="icon-user"></i> <p>Mon compte <span>Hello, {{ username }}</span></p></a></li>
             <li class="search-toggler"><i class="icon-repair" (click)="authService.logout()"></i></li>
           } @else {
             @if (activeMenu === 'login') {
@@ -86,7 +85,6 @@
                 <ul class="navigation clearfix home-menu">
                   <li class="current"><a href="/home" class="first-menu" [class.active]="activeMenu === 'home'">Accueil</a></li>
                   <li><a href="/client/products" [class.active]="activeMenu === 'products'">Produits</a></li>
-                  <li><a href="/client/services" [class.active]="activeMenu === 'services'">Services</a></li>
                   @if (isConnected) {
                     <li><a href="/client/history" [class.active]="activeMenu === 'history'">Historique</a></li>
                     <li><a href="/about" [class.active]="activeMenu === 'about'">Rendez-vous</a></li>

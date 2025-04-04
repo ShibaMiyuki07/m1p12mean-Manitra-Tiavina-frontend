@@ -1,5 +1,7 @@
 import {Component, AfterViewInit, Input} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
+import {CartService} from "../../services/cartApi/api-cart-service.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-header',
@@ -59,14 +61,27 @@ export class HeaderComponent {
 
   protected isConnected = this.checkConnection();
 
-  protected username = localStorage.getItem("username");
+  protected username: string | null = null;
 
-  protected numberItem = parseInt(<string>localStorage.getItem("numberItem"), 10);
+  protected numberItem : number = 0;
 
-  constructor(public authService: AuthService) {}
+  private cartSubscription?: Subscription;
+
+  constructor(public authService: AuthService, public cartService: CartService) {}
 
   private checkConnection(): boolean {
     return localStorage.getItem('authToken') !== null;
+  }
+
+  ngOnInit(): void {
+    this.checkConnection();
+    this.username = localStorage.getItem("username");
+    this.subscribeToCartUpdates();
+    this.loadInitialCartCount();
+  }
+
+  ngOnDestroy(): void {
+    this.cartSubscription?.unsubscribe();
   }
 
   ngAfterViewInit() {
@@ -79,6 +94,23 @@ export class HeaderComponent {
     });
 
     this.initMobileMenu();
+  }
+
+  private subscribeToCartUpdates(): void {
+    this.cartSubscription = this.cartService.itemCount$.subscribe({
+      next: (count: number) => {
+        this.numberItem = count;
+      },
+      error: (err: any) => {
+        console.error('Error receiving cart updates:', err);
+        this.numberItem = 0;
+      }
+    });
+  }
+
+  private loadInitialCartCount(): void {
+    const savedCount = localStorage.getItem('cartItemCount');
+    this.numberItem = savedCount ? parseInt(savedCount, 10) : 0;
   }
 
   initMobileMenu() {

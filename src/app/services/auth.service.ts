@@ -6,6 +6,8 @@ import {BehaviorSubject, catchError, tap, throwError} from 'rxjs';
 import {jwtDecode} from "jwt-decode";
 import {UserRole} from "../models/enum/UserRole";
 import {CartService} from "./cartApi/api-cart-service.service";
+import {Product} from "../models/product";
+import {User} from "../models/User";
 
 interface JwtPayload {
   userId: string;
@@ -53,14 +55,10 @@ export class AuthService {
     return this.http
       .post<LoginResponse>(`${this.apiUrl}/users/auth/login`, { email, password }, { withCredentials: true })
       .pipe(
-        tap(response => {
+        tap(async response => {
           localStorage.setItem(this.tokenKey, response.token);
           localStorage.setItem("username", response.user.username);
-          this.cartService.getItemNumber().then((count: number) => {
-            localStorage.setItem("numberItem", count.toString());
-          }).catch(error => {
-            console.error('Erreur:', error);
-          });
+          await this.cartService.updateCount();
           console.log("Connexion réussi : " + response.user.username);
           this.redirectBasedOnRole(response.user.role);
         }),
@@ -99,9 +97,12 @@ export class AuthService {
       });
   }
 
+  getUserById() {
+    return this.http.get<User>(`${this.apiUrl}/users/${this.getUserId()}`);
+  }
+
   // Déconnexion de l'utilisateur
   logout() {
-    console.log('Logout');
     localStorage.clear();
     this.isAuthenticatedSubject.next(false);
     this.router.navigate(['/login']);
