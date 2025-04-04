@@ -123,9 +123,23 @@ export class ProductDetailsComponent{
     })
   }
 
-  addToCart(productId : any): void {
-    this.cartService.addProduct(productId).subscribe();
-    this.router.navigate(['/cart']);
+  async addToCart(productId: string, quantity: string): Promise<void> {
+    try {
+      const quantityNumber = parseInt(quantity, 10);
+
+      if (isNaN(quantityNumber)) {
+        console.error('La quantité doit être un nombre');
+        return;
+      }
+
+      await lastValueFrom(this.cartService.addProduct(productId, quantityNumber));
+
+      await this.cartService.updateCount();
+
+      await this.router.navigate(['/cart']);
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
+    }
   }
 
   calculateDiscountedPrice(originalPrice: number, discount: number): number {

@@ -48,7 +48,7 @@
                       <td colspan="4" class="prod-column">
                         <div class="column-box">
                           <div class="remove-btn">
-                            <i class="fa fa-times" (click)="cartService.removeItem(item.productId._id, true).subscribe()"></i>
+                            <i class="fa fa-times" (click)="removeItem(item.productId._id, true)"></i>
                           </div>
                           <div class="prod-thumb">
                             <img [src]="getSafeImagePath(item.productId?.image)" [alt]="item.name">
@@ -88,7 +88,7 @@
                       <td colspan="4" class="prod-column">
                         <div class="column-box">
                           <div class="remove-btn">
-                            <i class="fa fa-times" (click)="cartService.removeItem(item.serviceId._id, false).subscribe()"></i>
+                            <i class="fa fa-times" (click)="removeItem(item.serviceId._id, false)"></i>
                           </div>
                           <div class="prod-thumb">
                             <img [src]="getSafeImagePathService()" [alt]="item.serviceId?.name">
@@ -102,12 +102,12 @@
                         @if (item.serviceId?.isInPromotion) {
                           <span style="text-decoration: line-through;">AR {{ item.serviceId?.price }}</span><br/>AR <strong>{{ calculateDiscountedPrice(item.serviceId?.price,item.serviceId?.promotion.discount)  }}</strong>
                         } @else {
-                          {{ item.serviceId?.price }}
+                          AR <strong>{{ item.serviceId?.price }}</strong>
                         }
                       </td>
                       <td>
                         <input type="datetime-local"  [(ngModel)]="item.formattedDate" (change)="updateDateTime(item)">
-                        @if (errorMechanic) {
+                        @if (item.errorMechanic) {
                           <br/> <p style="color: red;">Indisponible</p>
                         } @else {
                           <br/> <p style="color: green;">Disponible</p>
@@ -130,7 +130,7 @@
       </div>
       <div class="othre-content clearfix">
         <div class="update-btn pull-right">
-          <button type="button" class="theme-btn" (click)="cartService.clearCart().subscribe()">Vider le panier</button>
+          <button type="button" class="theme-btn" (click)="clearCart()">Vider le panier</button>
         </div>
       </div>
       <div class="cart-total">
@@ -143,7 +143,7 @@
                 <li>Avec remise:<span>AR {{ totalPanierPromotion }}</span></li>
               </ul>
               @if (!errorMechanic) {
-                <button (click)="cartService.checkout().subscribe()" class="theme-btn theme-btn-eight">Valider mes achats <i class="icon-4"></i></button>
+                <a href="/checkout" class="theme-btn theme-btn-eight">Valider mes achats <i class="icon-4"></i></a>
               }
             </div>
           </div>

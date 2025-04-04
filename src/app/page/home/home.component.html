@@ -155,7 +155,7 @@
                 <h4>{{ service.name }}</h4>
                 <p>{{ service.description }}</p>
                 <p>Prix : Ar {{ service.price }} - {{ service.duration }} heures</p>
-                <a href="#" class="theme-btn btn-style-one">Réserver maintenant<i class="flaticon-right-arrow"></i></a>
+                <button (click)="addToCart(service._id)" class="theme-btn btn-style-one">Ajouter au panier<i class="flaticon-right-arrow"></i></button>
               </div>
             </div>
           </div>

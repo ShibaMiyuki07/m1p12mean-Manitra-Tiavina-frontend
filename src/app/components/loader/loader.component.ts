@@ -48,7 +48,7 @@ export class LoaderComponent {
   private playLoaderAnimation(): void {
     if (typeof $ !== 'undefined') {
       console.log("loader fade");
-      $('.loader-wrap').delay(1000).fadeOut(500);
+      $('.loader-wrap').delay(5000).fadeOut(1000);
     } else {
       console.warn('jQuery non chargé');
       // Fallback vanilla JS

@@ -1,28 +1,23 @@
-import {ChangeDetectorRef, Component, inject} from "@angular/core";
+import {Component} from "@angular/core";
 import {HeaderComponent} from "../../../components/header/header.component";
 import {LoaderComponent} from "../../../components/loader/loader.component";
 import {FooterComponent} from "../../../components/footer/footer.component";
-import {ActivatedRoute} from "@angular/router";
-import {ApiProductServiceService} from "../../../services/productApi/api-product-service.service";
-import {Product} from "../../../models/product";
+import {FormsModule} from "@angular/forms";
+import {AuthService} from "../../../services/auth.service";
+import {User} from "../../../models/User";
 import {lastValueFrom} from "rxjs";
-import {ApiServiceServiceService} from "../../../services/serviceApi/api-service-service.service";
-import {PromotionService} from "../../../services/promotionApi/api-promotion-service.service";
-import {Promotion} from "../../../models/Promotion";
+import {CartService} from "../../../services/cartApi/api-cart-service.service";
 import {CartProduct} from "../../../models/apiResult/CartProduct";
+import {PromotionService} from "../../../services/promotionApi/api-promotion-service.service";
 import {CartServiceResult} from "../../../models/apiResult/CartService";
-import { CartService } from '../../../services/cartApi/api-cart-service.service';
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import {format, parseISO} from "date-fns";
+import {format} from "date-fns";
 import {MechanicService} from "../../../services/mechanicApi/api-mechanic-service.service";
 
 @Component({
-  selector: 'app-cart',
-  templateUrl: './cart.component.html',
+  selector: 'app-checkout',
+  templateUrl: './checkout.component.html',
   styleUrls: [
-    './cart.component.css',
+    './checkout.component.css',
     '../../../../assets-bosh/css/font_awesome_all.css',
     '../../../../assets-bosh/css/flaticon.css',
     '../../../../assets-bosh/css/icomoon.css',
@@ -55,6 +50,8 @@ import {MechanicService} from "../../../services/mechanicApi/api-mechanic-servic
     '../../../../assets-bosh/css/element_css/cta_section.css',
     '../../../../assets-bosh/css/element_css/cart_section.css',
     '../../../../assets-bosh/css/element_css/check_box.css',
+    '../../../../assets-bosh/css/element_css/check_out.css',
+    '../../../../assets-bosh/css/element_css/xs_sidebar.css',
     '../../../../assets-bosh/css/element_css/page_title.css',
     '../../../../assets-bosh/css/element_css/feature_block_one.css',
     '../../../../assets-bosh/css/element_css/product_block_one.css',
@@ -80,101 +77,25 @@ import {MechanicService} from "../../../services/mechanicApi/api-mechanic-servic
 })
 
 
-export class CartComponent{
+export class CheckoutComponent {
 
-  currentActiveMenu: string = 'cart';
+  currentActiveMenu: string = 'checkout';
   cart: any;
+  user: User | undefined;
   totalPanier: number = 0;
   totalPanierPromotion: number = 0;
   isLoading = true;
   listServices: any[] = [];
   listProducts: any[] = [];
-  errorMechanic: boolean = false;
 
-  constructor(private promotionService: PromotionService, public cartService: CartService, public mechanicService: MechanicService, private cd: ChangeDetectorRef) {}
+  constructor(private authService: AuthService, protected cartService: CartService, private promotionService: PromotionService, private mechanicService: MechanicService) {}
 
-  async ngOnInit(): Promise<void> {
-
+  async ngOnInit() {
     this.cart = await lastValueFrom(this.cartService.loadCart());
+    this.user = await lastValueFrom(this.authService.getUserById());
     await this.loadProducts();
     await this.loadServices();
     await this.calculateTotalPanier();
-    if (this.listServices.length === 0 && this.listProducts.length === 0) {
-      this.errorMechanic = true;
-    }
-  }
-
-  async updateDateTime(item: any) {
-    const index = this.listServices.findIndex(s => s.serviceId._id === item.serviceId._id);
-
-    if (index > -1) {
-      try {
-        const date = new Date(item.formattedDate);
-        const mechanics = await lastValueFrom(this.mechanicService.getAvailableMechanics(date));
-
-        // Créez un nouveau tableau pour déclencher la détection
-        this.listServices = [
-          ...this.listServices.slice(0, index),
-          {
-            ...this.listServices[index],
-            errorMechanic: mechanics.length === 0,
-            formattedDate: item.formattedDate
-          },
-          ...this.listServices.slice(index + 1)
-        ];
-
-        if (!this.listServices[index].errorMechanic) {
-          await lastValueFrom(this.cartService.updateDate(item.serviceId._id, date));
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        this.listServices[index].errorMechanic = true;
-      }
-    }
-    this.verifErrorMechanic();
-  }
-
-  async clearCart(){
-    try {
-      await lastValueFrom(this.cartService.clearCart());
-      await this.cartService.updateCount();
-    } catch (error) {
-      console.error('Error during removal:', error);
-    } finally {
-      this.verifErrorMechanic();
-      location.reload();
-    }
-  }
-
-  async removeItem(itemId: string, isProduct: boolean) {
-    try {
-      await lastValueFrom(this.cartService.removeItem(itemId, isProduct));
-      await this.cartService.updateCount();
-    } catch (error) {
-      console.error('Error during removal:', error);
-    } finally {
-      this.verifErrorMechanic();
-      location.reload();
-    }
-  }
-
-  verifErrorMechanic(){
-    if (this.listServices.length === 0 && this.listProducts.length === 0) {
-      this.errorMechanic = true;
-      return;
-    }
-
-    for (let i = 0; i < this.listServices.length; i++) {
-      let item = this.listServices[i];
-      console.log('item error :' + item.errorMechanic);
-      if (item.errorMechanic) {
-        this.errorMechanic = true;
-        console.log('verifErrorMechanic :' + this.errorMechanic);
-        return;
-      }
-    }
-    this.errorMechanic = false;
-    console.log('verifErrorMechanic :' + this.errorMechanic);
   }
 
   async loadServices() {
@@ -189,26 +110,14 @@ export class CartComponent{
           const formattedDate = format(dateFromItem, "yyyy-MM-dd'T'HH:mm");
           console.log("date ", formattedDate);
 
-
-          const listeMechanic = await lastValueFrom(
-            this.mechanicService.getAvailableMechanics(dateFromItem)
-          );
-          let error = false;
-          if (listeMechanic.length === 0) {
-            error = true;
-            this.errorMechanic = true;
-          }
-
           return {
-            ...item, // Conserve toutes les propriétés existantes
+            ...item,
             serviceId: {
               ...item.serviceId, // Conserve les infos du produit
               isInPromotion: promotionCheck?.isInPromotion || false,
               promotion: promotionCheck?.promotion || null
             },
             formattedDate: formattedDate,
-            errorMechanic: error
-            // La quantité reste inchangée (item.quantity)
           };
         } catch (error) {
           console.error(`Erreur promotion pour produit ${item.serviceId._id}`, error);
@@ -285,34 +194,4 @@ export class CartComponent{
   calculateDiscountedPrice(originalPrice: number, discount: number): number {
     return originalPrice * (1 - discount / 100);
   }
-
-  getSafeImagePath(filename: string): string {
-    // Vérifie que le fichier existe
-    const fullPath = `assets-bosh/images/upload/${filename}`;
-    return fullPath;
-  }
-
-  getSafeImagePathService(): string {
-    // Vérifie que le fichier existe
-    const fullPath = `assets-bosh/images/upload/blog-2.jpg`;
-    return fullPath;
-  }
-
-  incrementQuantity(item: any, isProduct: boolean): void {
-    if (isProduct) {
-      item.quantity = item.quantity + 1;
-      this.calculateTotalPanier();
-      this.cartService.updateQuantity(item.productId._id, item.quantity).subscribe();
-    }
-  }
-
-  decrementQuantity(item: any, isProduct: boolean): void {
-    if (isProduct && item.quantity > 1) {
-      item.quantity = item.quantity - 1;
-      this.calculateTotalPanier();
-      this.cartService.updateQuantity(item.productId._id, item.quantity).subscribe();
-    }
-  }
-
-  protected readonly Date = Date;
 }
