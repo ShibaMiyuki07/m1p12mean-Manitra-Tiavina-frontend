@@ -16,6 +16,9 @@ import {CreateServiceComponent} from "./page/manager/services/create-service/cre
 import {UpdateServiceComponent} from "./page/manager/services/update-service/update-service.component";
 import {ProductDetailsComponent} from "./page/product-details/product-details.component";
 import {CartComponent} from "./page/client/cart/cart.component";
+import {ClientProductListComponent} from "./page/client/client-product-list/client-product-list.component";
+import {RdvClientComponent} from "./page/client/rdv-client/rdv-client.component";
+import {ChatComponent} from "./page/client/chat/chat.component";
 import {CheckoutComponent} from "./page/client/checkout/checkout.component";
 
 export const routes: Routes = [
@@ -34,4 +37,7 @@ export const routes: Routes = [
   { path: 'manager/services', component: ListServiceComponent, canActivate: [ManagerGuard] },
   { path: 'manager/create/service', component: CreateServiceComponent, canActivate: [ManagerGuard] },
   { path: 'manager/service/:id', component: UpdateServiceComponent, canActivate: [ManagerGuard] },
+  {path : 'client/products', component: ClientProductListComponent },
+  {path : 'client/rdv',component : RdvClientComponent , canActivate: [ClientGuard] },
+  {path : "client/chat", component: ChatComponent, canActivate: [ClientGuard] },
 ];

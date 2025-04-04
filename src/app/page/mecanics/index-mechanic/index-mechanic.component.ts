@@ -1,10 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, NgModule, OnInit} from '@angular/core';
 import {MenubarMechanicComponent} from "../../../components/menubar-mechanic/menubar-mechanic.component";
 import {Constant} from "../../../models/Constant";
 import {Reservation} from "../../../models/reservation";
 import {ApiReservationServiceService} from "../../../services/reservationApi/api-reservation-service.service";
-import {NgForOf, NgIf} from "@angular/common";
+import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {UnassignedReservation} from "../../../models/apiResult/unassignedReservation";
+import {AuthService} from "../../../services/auth.service";
+import {Router} from "@angular/router";
+import {AgendaComponent} from "../../../components/agenda/agenda.component";
 
 @Component({
   selector: 'app-index-mechanic',
@@ -12,88 +15,46 @@ import {UnassignedReservation} from "../../../models/apiResult/unassignedReserva
   imports: [
     MenubarMechanicComponent,
     NgForOf,
-    NgIf
+    NgIf,
+    AgendaComponent,
+    DatePipe
   ],
   templateUrl: './index-mechanic.component.html',
   styleUrl: './index-mechanic.component.css'
 })
 export class IndexMechanicComponent implements OnInit {
-  todayDate : Date = new Date();
   reservations: Array<UnassignedReservation> = [];
-  agendas: Array<Reservation> = [];
+  authService : AuthService = inject(AuthService);
   error : string = "";
+  mechanicId: string | null = null;
+  router : Router = inject(Router);
 
   constructor(private reservationService:ApiReservationServiceService) {}
 
   ngOnInit() {
-    this.reloadAgenda();
+
+    this.mechanicId = this.authService.getUserId();
     this.reservationService.getUnassignedReservations().subscribe(liste =>{
       this.reservations = liste;
     });
 
   }
 
-  checkDate(date1: Date,date2 : Date) {
-    return date1.getFullYear() == date2.getFullYear() && date1.getMonth() == date2.getMonth() && date1.getDate() == date2.getDate();
 
-  }
-
-  nextDate()
-  {
-    this.todayDate.setDate(this.todayDate.getDate() + 1);
-    this.reloadAgenda();
-  }
-
-  prevDate()
-  {
-    this.todayDate.setDate(this.todayDate.getDate() - 1);
-    this.reloadAgenda()
-  }
-
-  reloadAgenda()
-  {
-    this.reservationService.getReservationsByMechanicId(localStorage.getItem("authToken")).subscribe(liste =>{
-      this.agendas = liste.filter(l => this.checkDate(new Date(l.reservationDate),this.todayDate));
-      console.log(this.agendas);
-    });
-  }
-
-  displayDate()
-  {
-    return this.displayDateWithoutHour(this.todayDate);
-  }
-
-  displayDateWithoutHour(date: Date)
-  {
-    return date.getDate() + ' ' + this.Constant.monthNames[date.getMonth()] + ' ' + date.getFullYear();
-  }
-  displayDateWithHour(date: any)
-  {
-    const toDate = new Date(date);
-    return toDate.getDate() + ' ' + this.Constant.monthNames[toDate.getMonth()] + ' ' + toDate.getFullYear() + ' ' + toDate.getUTCHours() + 'h' + toDate.getUTCMinutes() + 'mn';
-  }
-
-  displayHour(reservationDate : any,endReservation : any)
-  {
-    const reservationDatetoDate = new Date(reservationDate);
-    const endReservationtoDate = new Date(endReservation);
-    return reservationDatetoDate.getUTCHours() + 'h - ' + endReservationtoDate.getUTCHours() + 'h';
-  }
 
   assign(reservation : Reservation)
   {
-    this.reservationService.getReservationsByMechanicId(localStorage.getItem("authToken")).subscribe(liste =>{
+    this.reservationService.getReservationsByMechanicId(this.mechanicId).subscribe(liste =>{
       const MyAgenda = liste;
       let assignable = true;
       for(let agenda of MyAgenda){
-        console.log(agenda);
         if(!this.isAssignationValid(reservation, agenda)){
           assignable = false;
         }
       }
       if(assignable){
-        reservation.mechanicId = localStorage.getItem('authToken');
-        this.reservationService.updateMechanicId(reservation,"not started");
+        reservation.mechanicId = this.mechanicId;
+        this.reservationService.updateReservationById(reservation,"not started");
         location.reload();
       }
       else{
@@ -115,23 +76,6 @@ export class IndexMechanicComponent implements OnInit {
     return false;
   }
 
-  changeState(reservation : Reservation,status : string)
-  {
-    let index = 0;
-    for(let i in this.Constant.status)
-    {
-      if(this.Constant.status[i] === status)
-      {
-        break;
-      }
-      index++;
-    }
-    reservation.status = this.Constant.status[index+1];
-    this.reservationService.updateMechanicId(reservation,reservation.status);
-    location.reload();
-  }
-
-  protected readonly Constant = new Constant();
 
 
 }

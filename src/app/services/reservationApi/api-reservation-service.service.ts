@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Reservation} from "../../models/reservation";
 import {UnassignedReservation} from "../../models/apiResult/unassignedReservation";
 import {environment} from "../../../environments/environment";
+import {ReservationDetailsUser} from "../../models/apiResult/ReservationDetailsUser";
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,18 @@ export class ApiReservationServiceService {
   }
 
   getReservationsByMechanicId(mechanicId: any) {
-      return this.http.get<Reservation[]>(`${this.url}/reservations/mechanics/${mechanicId}`);
+      return this.http.get<Array<ReservationDetailsUser>>(`${this.url}/reservations/mechanics/${mechanicId}`);
   }
 
-  updateMechanicId(reservation:Reservation,status:string) {
+  getReservationById(reservationId: any) {
+    return this.http.get<Array<ReservationDetailsUser>>(`${this.url}/reservations/${reservationId}`);
+  }
+
+  getReservationsByUserId(userId: any) {
+    return this.http.get<Array<ReservationDetailsUser>>(`${this.url}/reservations/users/${userId}`);
+  }
+
+  updateReservationById(reservation:Reservation,status:string) {
       this.http.put(`${this.url}/reservations/${reservation._id}`,
         {
           mechanicId : reservation.mechanicId,

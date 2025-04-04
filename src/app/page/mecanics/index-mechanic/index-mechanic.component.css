@@ -44,12 +44,14 @@
   border: 1px solid blue;
 }
 
-.agenda{
+app-agenda{
+  margin-top: 40px;
   margin-left: 40px;
   width: 35%;
-  border: 2px solid;
-  margin-right: 10px;
+  margin-right: 40px;
+  max-height: 100vh;
 }
+
 .reservation{
   display: flex;
   padding-top: 20px;
@@ -61,27 +63,3 @@
   padding-top: 10px;
 }
 
-.agenda-items{
-  padding-top: 30px;
-}
-
-.agenda-item:not(:first-child){
-  padding-top: 10px;
-}
-
-.agenda-item{
-  display: flex;
-  padding-left: 10px;
-}
-
-.description{
-  padding-left: 50px;
-}
-
-.date-display{
-  width: 350px;
-}
-
-.detail{
-  padding-top: 10px;
-}

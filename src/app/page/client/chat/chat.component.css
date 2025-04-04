@@ -1,0 +1,149 @@
+::ng-deep body{
+  overflow: hidden;
+}
+.message-list{
+  padding-left: 10px;
+  padding-top: 20px;
+  width: 15%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: calc(100vh - 100px) !important; /* Reduce by input height + margins */
+  padding-bottom: 60px !important; /* Space for input */
+  box-sizing: border-box !important;
+}
+
+.div-btn{
+  padding-right: 40px;
+  position: relative;
+  left: 45%;
+}
+
+.message-item{
+  display: flex;
+  border-bottom: 1px solid black;
+  width: 300px;
+}
+
+.message-item:not(:first-child){
+  padding-top: 10px;
+}
+
+.last-message{
+  padding-left: 15px;
+}
+
+.content{
+  padding-top: 10px;
+  overflow-x: auto;
+  max-height: 600px ;
+}
+
+.unread{
+  font-weight: bold ;
+}
+
+.message-content{
+  padding-left: 30px;
+  width: 100%;
+}
+
+.header{
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid black;
+}
+
+.user-title{
+  padding-left: 30px;
+  padding-top: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.rounded{
+  border-radius: 100% !important;
+}
+
+.status{
+  font-weight: normal ;
+  font-size: 10px;
+}
+
+.icon{
+  margin-top: 3px;
+  border-radius: 100%;
+  width: 5px;
+  height: 5px;
+
+}
+
+.online{
+  background: green;
+}
+
+.offline{
+  background: red;
+}
+
+.message-input{
+  display: flex;
+  width: 100%;
+  position: absolute;
+  bottom: 10px;
+}
+.message-text{
+  width: 80%;
+}
+
+.message-text-area{
+  resize: none;
+  width: 100%;
+  border-radius: 20px;
+  text-indent: 10px;
+  font-size: 15px;
+  padding: 10px;
+  overflow: visible;
+  max-height: 300px;
+}
+
+.send{
+  position: absolute;
+  bottom: 10px;
+  padding-left: 30px;
+}
+
+
+
+.message{
+  width: max-content;
+  border: 1px solid black;
+  border-radius: 50px;
+}
+
+.message:not(:first-child)
+{
+  margin-top: 10px;
+}
+
+.got{
+  position: relative;
+  left: 0;
+  margin-bottom: 10px;
+}
+
+.sent{
+  position:relative;
+  left: 90%;
+  border: 0;
+  background: #0d95e8;
+  color: white;
+}
+
+.text-content{
+  padding: 15px 15px;
+}
+
+.selected{
+  background: #EAF4FF;
+}
+

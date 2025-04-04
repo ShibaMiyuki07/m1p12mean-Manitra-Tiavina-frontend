@@ -13,7 +13,6 @@ import {CartProduct} from "../../../models/apiResult/CartProduct";
 import {CartServiceResult} from "../../../models/apiResult/CartService";
 import { CartService } from '../../../services/cartApi/api-cart-service.service';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import {format, parseISO} from "date-fns";
 import {MechanicService} from "../../../services/mechanicApi/api-mechanic-service.service";
