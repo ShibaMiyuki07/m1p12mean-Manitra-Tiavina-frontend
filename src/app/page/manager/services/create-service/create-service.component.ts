@@ -21,7 +21,7 @@ export class CreateServiceComponent {
     category: string = "";
     createdAt: any;
     description: string = "";
-    duration: Number = 0;
+    duration: number = 0;
     image : string = "";
     name: string = "";
     price: Number = 0;

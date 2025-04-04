@@ -29,6 +29,10 @@ export class ApiReservationServiceService {
     return this.http.get<Array<ReservationDetailsUser>>(`${this.url}/reservations/users/${userId}`);
   }
 
+  createReservation(reservation: Reservation) {
+    this.http.post(`${this.url}/reservations`, reservation).subscribe();
+  }
+
   updateReservationById(reservation:Reservation,status:string) {
       this.http.put(`${this.url}/reservations/${reservation._id}`,
         {

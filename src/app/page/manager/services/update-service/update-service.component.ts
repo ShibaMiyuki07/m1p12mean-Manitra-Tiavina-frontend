@@ -25,7 +25,7 @@ export class UpdateServiceComponent implements OnInit {
     category: string = "";
     createdAt: any;
     description: string = "";
-    duration: Number = 0;
+    duration: number = 0;
     image : string = "";
     name: string = "";
     price: Number = 0;
