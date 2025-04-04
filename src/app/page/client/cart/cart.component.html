@@ -1,0 +1,158 @@
+<div class="boxed_wrapper">
+
+  <app-loader />
+
+  <app-header [activeMenu]="currentActiveMenu" />
+
+  <!-- Page Title -->
+  <section class="page-title p_relative centred">
+    <div class="pattern-layer">
+      <div class="shape-1 p_absolute l_120 t_120 rotate-me" style="background-image: url(assets-bosh/images/shape/shape-176.png);"></div>
+      <div class="shape-2 p_absolute t_180 r_170 float-bob-y" style="background-image: url(assets-bosh/images/shape/shape-56.png);"></div>
+      <div class="shape-3 p_absolute l_0 b_0" style="background-image: url(assets-bosh/images/shape/shape-189.png);"></div>
+    </div>
+    <div class="auto-container">
+      <div class="content-box">
+        <h1 class="d_block fs_60 lh_70 fw_bold mb_10">Votre panier</h1>
+        <ul class="bread-crumb p_relative d_block mb_8 clearfix">
+          <li class="p_relative d_iblock fs_16 lh_25 fw_sbold font_family_inte mr_20"><a href="/home">Accueil</a></li>
+          <li class="current p_relative d_iblock fs_16 lh_25 fw_sbold font_family_inte">Panier</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- End Page Title -->
+
+  <!-- cart section -->
+  <section class="cart-section p_relative pt_140 pb_150">
+    <div class="auto-container">
+      <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 table-column">
+          <div class="table-outer">
+            <table class="cart-table">
+              <thead class="cart-header">
+              <tr>
+                <th>&nbsp;</th>
+                <th class="prod-column">Produit</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th class="price">Prix Unitaire</th>
+                <th class="quantity">Quantité</th>
+                <th>Prix total</th>
+              </tr>
+              </thead>
+              <tbody>
+                @if (listProducts.length) {
+                  @for (item of listProducts; track item._id) {
+                    <tr>
+                      <td colspan="4" class="prod-column">
+                        <div class="column-box">
+                          <div class="remove-btn">
+                            <i class="fa fa-times" (click)="removeItem(item.productId._id, true)"></i>
+                          </div>
+                          <div class="prod-thumb">
+                            <img [src]="getSafeImagePath(item.productId?.image)" [alt]="item.name">
+                          </div>
+                          <div class="prod-title">
+                            <strong>Produit : </strong>{{ item.productId?.name }}
+                          </div>
+                        </div>
+                      </td>
+                      <td class="price">
+                        @if (item.productId.isInPromotion) {
+                          <span style="text-decoration: line-through;">AR {{ item.productId?.price }}</span><br/>AR <strong>{{ calculateDiscountedPrice(item.productId?.price,item.productId.promotion.discount)  }}</strong>
+                        } @else {
+                          AR <strong>{{ item.productId?.price }}</strong>
+                        }
+                      </td>
+                      <td>
+                        <div class="quantity-control">
+                          <button (click)="decrementQuantity(item, true)">-</button>
+                          <span>{{ item.quantity }}</span>
+                          <button (click)="incrementQuantity(item, true)">+</button>
+                        </div>
+                      </td>
+                      <td class="sub-total">
+                        @if (item.productId.isInPromotion) {
+                          AR {{ (calculateDiscountedPrice(item.productId?.price,item.productId.promotion.discount) * item.quantity)  }}
+                        } @else {
+                          AR {{ (item.productId?.price * item.quantity) }}
+                        }
+                      </td>
+                    </tr>
+                  }
+                }
+                @if (listServices.length) {
+                  @for (item of listServices; track item._id) {
+                    <tr>
+                      <td colspan="4" class="prod-column">
+                        <div class="column-box">
+                          <div class="remove-btn">
+                            <i class="fa fa-times" (click)="removeItem(item.serviceId._id, false)"></i>
+                          </div>
+                          <div class="prod-thumb">
+                            <img [src]="getSafeImagePathService()" [alt]="item.serviceId?.name">
+                          </div>
+                          <div class="prod-title">
+                            <strong>Service : </strong>{{ item.serviceId?.name }}
+                          </div>
+                        </div>
+                      </td>
+                      <td class="price">
+                        @if (item.serviceId?.isInPromotion) {
+                          <span style="text-decoration: line-through;">AR {{ item.serviceId?.price }}</span><br/>AR <strong>{{ calculateDiscountedPrice(item.serviceId?.price,item.serviceId?.promotion.discount)  }}</strong>
+                        } @else {
+                          AR <strong>{{ item.serviceId?.price }}</strong>
+                        }
+                      </td>
+                      <td>
+                        <input type="datetime-local"  [(ngModel)]="item.formattedDate" (change)="updateDateTime(item)">
+                        @if (item.errorMechanic) {
+                          <br/> <p style="color: red;">Indisponible</p>
+                        } @else {
+                          <br/> <p style="color: green;">Disponible</p>
+                        }
+                      </td>
+                      <td class="sub-total">
+                        @if (item.serviceId.isInPromotion) {
+                          AR {{ calculateDiscountedPrice(item.serviceId?.price,item.serviceId.promotion.discount)  }}
+                        } @else {
+                          AR {{ item.serviceId?.price }}
+                        }
+                      </td>
+                    </tr>
+                  }
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="othre-content clearfix">
+        <div class="update-btn pull-right">
+          <button type="button" class="theme-btn" (click)="clearCart()">Vider le panier</button>
+        </div>
+      </div>
+      <div class="cart-total">
+        <div class="row">
+          <div class="col-xl-5 col-lg-12 col-md-12 offset-xl-7 cart-column">
+            <div class="total-cart-box clearfix">
+              <h3 class="fs_24 fw_sbold lh_30 d_block">Panier total</h3>
+              <ul class="list clearfix mb_30">
+                <li>Total:<span>AR {{ totalPanier }}</span></li>
+                <li>Avec remise:<span>AR {{ totalPanierPromotion }}</span></li>
+              </ul>
+              @if (!errorMechanic) {
+                <a href="/checkout" class="theme-btn theme-btn-eight">Valider mes achats <i class="icon-4"></i></a>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- cart section end -->
+
+  <app-footer />
+
+</div>

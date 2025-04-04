@@ -1,0 +1,65 @@
+.assign{
+  width: 120px;
+  height: 40px;
+  color: blue;
+  background-color: white;
+  border: 1px solid blue;
+  cursor: pointer;
+}
+
+.pending{
+  width: 120px;
+  height: 40px;
+  color: blue;
+  background-color: white;
+  border: 1px solid blue;
+  cursor: pointer;
+}
+
+.prev,.next{
+  border: 0px solid blue;
+  background-color: white;
+  cursor: pointer;
+}
+
+.finished{
+  width: 120px;
+  height: 40px;
+  color: green;
+  background-color: white;
+  border: 1px solid green;
+}
+.not-started{
+  width: 120px;
+  height: 40px;
+  color: red;
+  background-color: white;
+  border: 1px solid red;
+}
+
+
+.assign:hover,.pending:hover{
+  background-color: blue;
+  color: white;
+  border: 1px solid blue;
+}
+
+app-agenda{
+  margin-top: 40px;
+  margin-left: 40px;
+  width: 35%;
+  margin-right: 40px;
+  max-height: 100vh;
+}
+
+.reservation{
+  display: flex;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid;
+}
+
+.hour{
+  padding-top: 10px;
+}
+

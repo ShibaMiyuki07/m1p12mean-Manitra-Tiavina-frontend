@@ -1,0 +1,24 @@
+<app-menubar-mechanic />
+<main>
+  <div style="display: flex;padding-top: 30px;">
+    <div style="padding-left: 2%;width: 65%;">
+      <h4>Unassigned reservation</h4>
+      <div *ngIf="reservations.length === 0">No reservation unassigned</div>
+      <div *ngFor="let reservation of reservations" class="reservation">
+        <div>
+          <div class="date-display">{{reservation.reservationDate | date: "dd-MM-yyyy HH:mm"}} - {{reservation.endReservation | date: "dd-MM-yyyy HH:mm"}}</div>
+          <div class="detail">
+            <div>{{reservation.result.name}}</div>
+            <div>{{reservation.result.description}}</div>
+          </div>
+        </div>
+        <div style="display: flex; padding-left: 60%;padding-top: 10px;">
+          <div>
+            <button (click)="assign(reservation)" class="assign">Assign</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-agenda />
+  </div>
+</main>

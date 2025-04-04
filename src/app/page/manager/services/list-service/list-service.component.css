@@ -1,0 +1,64 @@
+main{
+  padding-top: 50px;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+.title{
+  text-align: center;
+}
+
+
+table{
+  width: 100%;
+}
+
+button{
+  width: 100px;
+  height: 30px;
+  color: black;
+  cursor: pointer;
+  background: whitesmoke;
+}
+
+.add:hover{
+  background: #1ee156;
+  color: white;
+}
+
+.update:hover{
+  background: #4444f3;
+  color: white;
+}
+
+.delete:hover{
+  background: #ec5656;
+  color: white;
+}
+
+table{
+  border-collapse: collapse;
+}
+
+tr{
+  border-bottom: black 1px solid;
+  height: 50px;
+}
+
+tr:nth-child(even) {
+  background-color: #efeaea;
+}
+
+.header{
+  display: flex;
+  padding-top: 5px;
+}
+
+.item{
+  padding: 10px;
+}
+
+dialog{
+  position: absolute;
+  top : 500px;
+  left : 50px;
+}

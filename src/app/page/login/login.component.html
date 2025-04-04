@@ -1,0 +1,66 @@
+<div class="boxed_wrapper">
+
+  <app-loader />
+
+  <app-header [activeMenu]="currentActiveMenu" />
+
+  <!-- Page Title -->
+  <section class="page-title p_relative centred">
+    <div class="pattern-layer">
+      <div class="shape-1 p_absolute l_120 t_120 rotate-me" style="background-image: url(assets-bosh/images/shape/shape-176.png);"></div>
+      <div class="shape-2 p_absolute t_180 r_170 float-bob-y" style="background-image: url(assets-bosh/images/shape/shape-56.png);"></div>
+      <div class="shape-3 p_absolute l_0 b_0" style="background-image: url(assets-bosh/images/shape/shape-189.png);"></div>
+    </div>
+    <div class="auto-container">
+      <div class="content-box">
+        <h1 class="d_block fs_60 lh_70 fw_bold mb_10">Login</h1>
+        <ul class="bread-crumb p_relative d_block mb_8 clearfix">
+          <li class="current p_relative d_iblock fs_16 lh_25 fw_sbold font_family_inte">Connectez-vous!</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- End Page Title -->
+
+
+  <!-- contact form -->
+  <div class="contact-form">
+    <div class="contact-map">
+      <img src="assets-bosh/images/fond-1.jpg">
+    </div>
+    <div class="map-shape">
+      <div class="pattern-map" style="background-image: url(assets-bosh/images/shape/map-shape.png);"></div>
+    </div>
+    <div class="contact-form-wrapper">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <input type="email" name="email" class="contact-input ui-spinner-input" placeholder="Email" formControlName="email" required>
+        <input type="password" name="password" class="contact-input ui-spinner-input" placeholder="Password" formControlName="password" required>
+
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+        <button
+          type="submit"
+          class="theme_btn_2 btn-dark"
+          style="color: white;"
+          [disabled]="loginForm.invalid || isLoading"
+        >
+          @if (isLoading) {
+            <span class="spinner-border spinner-border-sm"></span>
+            Connexion...
+          } @else {
+            Se connecter
+          }
+        </button>
+
+        <div class="mt-3">
+          <a routerLink="/auth/forgot-password">Mot de passe oublié ?</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- contact form -->
+
+  <app-footer />
+
+</div>

@@ -1,0 +1,145 @@
+<div class="boxed_wrapper">
+
+  <app-loader />
+
+  <app-header [activeMenu]="currentActiveMenu" />
+
+  <!-- Page Title -->
+  <section class="page-title p_relative centred">
+    <div class="pattern-layer">
+      <div class="shape-1 p_absolute l_120 t_120 rotate-me" style="background-image: url(assets-bosh/images/shape/shape-176.png);"></div>
+      <div class="shape-2 p_absolute t_180 r_170 float-bob-y" style="background-image: url(assets-bosh/images/shape/shape-56.png);"></div>
+      <div class="shape-3 p_absolute l_0 b_0" style="background-image: url(assets-bosh/images/shape/shape-189.png);"></div>
+    </div>
+    <div class="auto-container">
+      <div class="content-box">
+        <h1 class="d_block fs_60 lh_70 fw_bold mb_10">Confirmation commande</h1>
+        <ul class="bread-crumb p_relative d_block mb_8 clearfix">
+          <li class="p_relative d_iblock fs_16 lh_25 fw_sbold font_family_inte mr_20"><a href="/home">Accueil</a></li>
+          <li class="current p_relative d_iblock fs_16 lh_25 fw_sbold font_family_inte">Confirmation commande</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- End Page Title -->
+
+  <!-- checkout-section -->
+  <section class="checkout-section p_relative pt_140 pb_150">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12 left-column">
+          <div class="inner-box">
+            <div class="billing-info p_relative d_block mb_55">
+              <h4 class="sub-title d_block fs_30 lh_40 mb_25">Informations personnelles</h4>
+              <form action="#" method="post" class="billing-form p_relative d_block">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                    <label class="p_relative d_block fs_16 font_family_poppins color_black mb_2">Nom*</label>
+                    <div class="field-input">
+                      <input type="text" name="first_name" [value]="user?.profile?.firstName" disabled>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                    <label class="p_relative d_block fs_16 font_family_poppins color_black mb_2">Prénoms*</label>
+                    <div class="field-input">
+                      <input type="text" name="last_name" [value]="user?.profile?.lastName" disabled>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                    <label class="p_relative d_block fs_16 font_family_poppins color_black mb_2">Adresse Email*</label>
+                    <div class="field-input">
+                      <input type="email" name="email" [value]="user?.email" disabled>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                    <label class="p_relative d_block fs_16 font_family_poppins color_black mb_2">Numéro mobile*</label>
+                    <div class="field-input">
+                      <input type="text" name="phone" [value]="user?.profile?.phone" disabled>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                    <label class="p_relative d_block fs_16 font_family_poppins color_black mb_2">Adresse*</label>
+                    <div class="field-input">
+                      <input type="text" name="address" class="address" [value]="user?.profile?.address" disabled>
+                      <input type="text" name="address">
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                    <label class="p_relative d_block fs_16 font_family_poppins color_black mb_2">Code postal*</label>
+                    <div class="field-input">
+                      <input type="text" name="zip">
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 right-column">
+          <div class="inner-box">
+            <div class="order-info p_relative d_block pt_45 pr_50 pb_25 pl_50 mb_50">
+              <h4 class="sub-title d_block fs_24 lh_30 mb_25">Vos commandes</h4>
+              <div class="order-product">
+                <ul class="order-list clearfix">
+                  @for (item of listProducts; track item._id) {
+                    <li class="p_relative d_block clearfix pt_17 pb_16">
+                      <h6 class="fs_15 lh_20 pull-left fw_normal"><strong>Produit</strong> : {{ item.productId?.name }} <br />{{item.productId?.description}}</h6>
+                      @if (item.productId.isInPromotion) {
+                        <span class="p_relative d_block pull-right fs_15 fw_medium font_family_inter color_black"><span style="text-decoration: line-through;">AR {{ (item.productId?.price * item.quantity) }}</span> AR {{ (calculateDiscountedPrice(item.productId?.price,item.productId.promotion.discount) * item.quantity) }}</span>
+                      } @else {
+                        <span class="p_relative d_block pull-right fs_15 fw_medium font_family_inter color_black">AR {{ (item.productId?.price * item.quantity) }}</span>
+                      }
+                    </li>
+                  }
+                  @for (item of listServices; track item._id) {
+                    <li class="p_relative d_block clearfix pt_17 pb_16">
+                      <h6 class="fs_15 lh_20 pull-left fw_normal"><strong>Service</strong> : {{ item.serviceId?.name }} <br />{{item.serviceId?.description}}</h6>
+                      @if (item.serviceId.isInPromotion) {
+                        <span class="p_relative d_block pull-right fs_15 fw_medium font_family_inter color_black"><span style="text-decoration: line-through;">AR {{ item.serviceId?.price }}</span> AR {{ calculateDiscountedPrice(item.serviceId?.price,item.serviceId.promotion.discount) }}</span>
+                      } @else {
+                        <span class="p_relative d_block pull-right fs_15 fw_medium font_family_inter color_black">AR {{ item.serviceId?.price }}</span>
+                      }
+                    </li>
+                  }
+                  <li class="sub-total p_relative d_block clearfix pt_17 pb_16">
+                    <h6 class="fs_16 fw_medium lh_20 pull-left">Prix Total</h6>
+                    <span class="p_relative d_block pull-right fs_15 fw_medium font_family_inter color_black light">AR {{totalPanier}}</span>
+                  </li>
+                  <li class="order-total p_relative d_block clearfix pt_17 pb_16">
+                    <h6 class="fs_16 fw_bold lh_20 pull-left">Prix Total avec Promotion</h6>
+                    <span class="p_relative d_block pull-right fs_15 fw_bold font_family_inter color_black">AR {{totalPanierPromotion}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="payment-info p_relative d_block pt_45 pr_50 pb_50 pl_50">
+              <h4 class="sub-title d_block fs_24 lh_30 mb_40">Paiement</h4>
+              <div class="payment-inner p_relative d_block pt_25 pr_30 pb_20 pl_30 mb_30">
+                <div class="option-block pb_12 mb_13">
+                  <div class="check-box">
+                    <input class="custom-radio" type="radio" id="checkbox2" name="choix" checked>
+                    <label for="checkbox2" class="fs_16 fw_medium font_family_inter color_black">Virement bancaire direct</label>
+                  </div>
+                  <p class="fs_14 font_family_poppins pl_30">Veuillez nous envoyer le bordereau de virement une fois le virement fait.</p>
+                </div>
+                <div class="option-block clearfix">
+                  <div class="check-box pull-left mr_25">
+                    <input class="custom-radio" type="radio" id="checkbox3" name="choix">
+                    <label for="checkbox3" class="fs_16 fw_medium font_family_inter color_black">Paypal</label>
+                  </div>
+                </div>
+              </div>
+              <div class="btn-link">
+                <button (click)="cartService.checkout()" class="theme-btn theme-btn-eight">Passer votre commande <i class="icon-4"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- checkout-section end -->
+
+  <app-footer />
+
+</div>

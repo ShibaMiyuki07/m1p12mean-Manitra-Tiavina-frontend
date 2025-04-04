@@ -1,0 +1,266 @@
+<div class="boxed_wrapper">
+
+  <app-loader />
+
+  <app-header [activeMenu]="currentActiveMenu" />
+
+
+  <!-- banner -->
+  <section class="banner banner-three">
+    <div class="auto-container">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="banner-left-container" style="background-image: url(assets-bosh/images/banner/banner-3.jpg);">
+            <div class="banner-carousel owl-carousel owl-theme">
+              <div class="row">
+                <div class="offset-lg-6 col-lg-6">
+                  <div class="banner-item">
+                    <div class="banner-content">
+                      <h2>Des produits <br> Hautes qualités</h2>
+                      <p>Découvrez notre gamme de produits de hautes qualités, n'hésitez plus et commencer à les commander en ligne. </p>
+                      <div class="btn-box clearfix">
+                        <a href="/client/products" class="theme-btn btn-style-one">Acheter maintenant<i class="flaticon-right-arrow"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="offset-lg-6 col-lg-6">
+                  <div class="banner-item">
+                    <div class="banner-content">
+                      <h2>Des services <br> Hautes qualités</h2>
+                      <p>Référence des meilleurs services d'entretien et de réparation à Madagascar, n'attendez plus !</p>
+                      <div class="btn-box clearfix">
+                        <a href="/client/services" class="theme-btn btn-style-one">Réserver maintenant<i class="flaticon-right-arrow"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="offset-lg-6 col-lg-6">
+                  <div class="banner-item">
+                    <div class="banner-content">
+                      <h2>BOSH <br> Garage en ligne</h2>
+                      <p>Créé en 2024, nous offrons des produits et services de hautes qualités et en ligne. Voulez-vous nous connaître un peu plus?</p>
+                      <div class="btn-box clearfix">
+                        <a href="/about" class="theme-btn btn-style-one">A propos de nous<i class="flaticon-right-arrow"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- banner -->
+
+  <!-- featured -->
+  <section class="featured-three">
+    <div class="auto-container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="left-column">
+            <div class="tab-area">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="featured-one-container">
+                    <div class="section-title">
+                      <img src="assets-bosh/images/icons/featured-nav-left.png" alt="icon">
+                      <h4>Nos Produits et Services</h4>
+                    </div>
+                    <ul class="nav nav-tabs tab-btn-style-one" role="tablist">
+                      @for (group of groupedProducts; track group.category) {
+                        <li class="nav-item">
+                          <a class="nav-link"
+                             [class.active]="selectedCategory === group.category"
+                             [id]="group.category + '-area'"
+                             data-toggle="tab"
+                             [attr.href]="'#' + group.category"
+                             role="tab"
+                             [attr.aria-controls]="group.category"
+                             [attr.aria-selected]="selectedCategory === group.category"
+                             (click)="selectCategory(group.category)">
+                          <h6>{{ group.category }}</h6>
+                        </a>
+                      </li>
+                      }
+                    </ul>
+                    <div class="common-more-btn">
+                      <a href="/client/products">Voir plus <i class="flaticon-right-arrow"></i></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <!-- Tab panes -->
+                  <div class="tab-content wow fadeInUp" data-wow-delay="200ms" data-wow-duration="1200ms">
+                    <!-- Wheel Bearings -->
+                    @for (group of groupedProducts; track group.category) {
+                      <div class="tab-pane fadeInUp animated"
+                           [class.active]="selectedCategory === group.category"
+                           [id]="group.category"
+                           role="tabpanel"
+                           [attr.aria-labelledby]="group.category + '-area'">
+                        <div class="row">
+                          @for (product of group.products; track product._id) {
+                            <div class="col-xl-3 col-lg-3 col-md-6">
+                            <div class="product-block-one">
+                              <div class="product-block-one-image">
+                                <div class="image"><img [src]="getSafeImagePath(product.image)" [alt]="product.name" width="800"
+                                                        height="800"
+                                                        loading="lazy"></div>
+                              </div>
+                              <div class="product-block-one-cintent">
+                                <h4 class="fs_15"><a href="product-detail/{{ product._id }}">{{ product.name }}</a></h4>
+                                <div class="price-container">
+                                  <div class="price fs_15 fw_medium">AR <span>{{ product.price}}</span></div>
+                                  <div class="price-cart"><a href="product-detail/{{ product._id }}"><i class="flaticon-shopping-cart"></i></a></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          }
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- featured-3-->
+
+  <!-- add-3 -->
+  <section class="add-three">
+    <div class="auto-container">
+      <div class="row">
+        @for (service of listServices; track service._id; let i = $index) {
+          <div class="col-lg-6">
+            <div class="add-three-container">
+              @if (service.isInPromotion) {
+                <div class="ribone fs_13">{{ service.promotion.discount }}%</div>
+              }
+              <div class="add-three-image">
+                <img [src]="getSafeImagePath(service.image)" [alt]="service.name">
+              </div>
+              <div class="add-three-content">
+                <h4>{{ service.name }}</h4>
+                <p>{{ service.description }}</p>
+                <p>Prix : Ar {{ service.price }} - {{ service.duration }} heures</p>
+                <button (click)="addToCart(service._id)" class="theme-btn btn-style-one">Ajouter au panier<i class="flaticon-right-arrow"></i></button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+  <!-- add-3 -->
+
+  <!-- item-3 -->
+  <section class="item-3">
+    <div class="auto-container">
+      <div class="common-section-title">
+        <div class="common-section-title-left">
+          <div class="section-title">
+            <img src="assets-bosh/images/icons/featured-nav-left.png" alt="icon">
+            <h4>Nos Promotions</h4>
+          </div>
+        </div>
+        <div class="common-more-btn">
+          <a href="#">Voir plus <i class="flaticon-right-arrow"></i></a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-8 col-lg-12">
+          <div class="row">
+            @for (promotion of activePromotions; track promotion._id) {
+              @for (product of promotion.products; track product._id) {
+                <div class="col-xl-4 col-lg-4 col-md-6">
+                  <div class="product-block-one item-block-one">
+                    <div class="ribon fs_13">{{ promotion.discountFormatted }}</div>
+                    <div class="product-block-one-image">
+                      <div class="image"><img [src]="getSafeImagePath(product.image)" [alt]="product.name" width="300"
+                                              height="200"
+                                              loading="lazy"></div>
+                    </div>
+                    <div class="product-block-one-cintent">
+                      <h4 class="fs_15"><a href="product-detail/{{ product._id }}">{{ product.name }}</a></h4>
+                      <div class="price-container">
+                        <div class="price fs_15 fw_medium" style="text-decoration: line-through;">{{ product.price}}<span style="text-decoration: none;">{{ calculateDiscountedPrice(product.price, promotion.discount) }} AR</span></div>
+                        <div class="price-cart"><a href="product-detail/{{ product._id }}"><i class="flaticon-shopping-cart"></i></a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            }
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-6">
+          <div class="item-left-container">
+            <h4>Meilleur promotion du moment</h4>
+            <div class="ribon fs_13">{{ bestActivePromotion.discountFormatted }}</div>
+            <div class="item-left-carousol single-item-carousel owl-theme owl-carousel ">
+              @for (product of bestActivePromotion.products; track product._id) {
+                <div class="item-carousol-content">
+                  <div class="align-items-center" style="text-align: center">
+                    <img [src]="getSafeImagePath(product.image)" [alt]="product.name">
+                  </div>
+                  <div class="item-content">
+                    <h5><a href="product-detail/{{ product._id }}">{{ product.name }}</a></h5>
+                    <h6>AR {{ calculateDiscountedPrice(product.price, bestActivePromotion.discount) }}<span style="text-decoration: line-through;">{{ product.price}}</span></h6>
+                  </div>
+                </div>
+              }
+            </div>
+            <div class="item-left-timer">
+              <div class="launch-time item3-launch-time">
+                <div class="launch-time-content">
+                  <p id="days">{{ countdown.days }}</p>
+                  <span>Jours</span>
+                </div>
+                <div class="launch-time-content">
+                  <p id="hours">{{ countdown.hours }}</p>
+                  <span>Heures</span>
+                </div>
+                <div class="launch-time-content">
+                  <p id="minutes">{{ countdown.minutes }}</p>
+                  <span>Minutes</span>
+                </div>
+                <div class="launch-time-content">
+                  <p id="seconds">{{ countdown.seconds }}</p>
+                  <span>Secondes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- item-3 -->
+
+  <app-footer />
+  <!--Scroll to top-->
+  <div class="scroll-to-top">
+    <div>
+      <div class="scroll-top-inner">
+        <div class="scroll-bar">
+          <div class="bar-inner"></div>
+        </div>
+        <div class="scroll-bar-text">Go To Top</div>
+      </div>
+    </div>
+  </div>
+  <!-- Scroll to top end -->
+
+</div>

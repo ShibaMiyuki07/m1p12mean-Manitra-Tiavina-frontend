@@ -1,0 +1,30 @@
+<app-menubar-manager />
+
+<main>
+  <div class="title"><h2>Liste des services</h2></div>
+  <div align="right"><a href="/manager/create/service"><button class="add">New Service</button></a></div>
+  <div style="padding-top: 30px">
+    <table>
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Duration</th>
+        <th>Category</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let service of services" align="center">
+        <td>{{service.name}}</td>
+        <td>{{service.description}}</td>
+        <td>{{service.price}}</td>
+        <td>{{service.duration}}</td>
+        <td>{{service.category}}</td>
+        <td><button class="update" (click)="linkToUpdate(service._id)">Update</button></td>
+        <td><button  class="delete" (click)="deleteService(service._id)">Delete</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</main>

@@ -1,0 +1,141 @@
+<div class="" style="display: flex">
+  <div>
+    <div style="display: flex">
+      <div
+        class="btn"
+        mwlCalendarPreviousView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()"
+      >
+        Previous
+      </div>
+      <div
+        class="btn"
+        mwlCalendarToday
+        [(viewDate)]="viewDate"
+      >
+        Today
+      </div>
+      <div
+        class="btn"
+        mwlCalendarNextView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()"
+      >
+        Next
+      </div>
+    </div>
+  </div>
+  <div style="padding-left: 100px">
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+  </div>
+  <div style="padding-left: 100px;">
+    <div style="display: flex;">
+      <div
+        class="btn btn-primary"
+        (click)="setView(CalendarView.Month)"
+        [class.active]="view === CalendarView.Month"
+      >
+        Month
+      </div>
+      <div
+        class="btn btn-primary"
+        (click)="setView(CalendarView.Week)"
+        [class.active]="view === CalendarView.Week"
+      >
+        Week
+      </div>
+      <div
+        class="btn btn-primary"
+        (click)="setView(CalendarView.Day)"
+        [class.active]="view === CalendarView.Day"
+      >
+        Day
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<div [ngSwitch]="view">
+  <mwl-calendar-month-view
+    *ngSwitchCase="CalendarView.Month"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    [activeDayIsOpen]="activeDayIsOpen"
+    (dayClicked)="dayClicked($event.day)"
+    (eventClicked)="onClick($event.event)"
+  >
+  </mwl-calendar-month-view>
+  <mwl-calendar-week-view
+    *ngSwitchCase="CalendarView.Week"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    (eventClicked)="onClick($event.event)"
+  >
+  </mwl-calendar-week-view>
+  <mwl-calendar-day-view
+    *ngSwitchCase="CalendarView.Day"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    (eventClicked)="onClick($event.event)"
+  >
+  </mwl-calendar-day-view>
+</div>
+
+<div class="loading" *ngIf="isLoading"><i class="fas fa-spinner fa-spin" style="width: 100px"></i></div>
+
+<dialog [open]="isOpen">
+  <div class="header">
+    <div class="close" (click)="closeModal()">X</div>
+  </div>
+  <div class="main">
+    @for (reservation of reservationDetails;track reservation._id)
+    {
+      <div class="main-item">
+        <div>
+          Status : {{reservation.status}}
+        </div>
+      </div>
+      <div class="main-item">
+        <div>
+          Client : {{reservation.user.profile.firstName}} {{reservation.user.profile.lastName}}
+        </div>
+      </div>
+      <div class="main-item">
+        <div>
+          Addresse : {{reservation.user.profile.address}}
+        </div>
+      </div>
+      <div class="main-item">
+        <div>
+          Contact : {{reservation.user.profile.phone}} / {{reservation.user.email}}
+        </div>
+      </div>
+      <div class="main-item">
+        <div>
+          Titre : {{reservation.result.name}}
+        </div>
+      </div>
+      <div class="main-item">
+        <div>
+          Description : {{reservation.result.description}}
+        </div>
+      </div>
+      <div class="main-item">
+        <div>
+          Date de reservation : {{reservation.reservationDate | date: "dd-MM-yyyy HH:mm"}}
+        </div>
+      </div>
+      <div class="main-item">
+        <div>
+          Last Update : {{reservation.updatedAt | date: "dd-MM-yyyy HH:mm"}}
+        </div>
+      </div>
+    }
+  </div>
+</dialog>

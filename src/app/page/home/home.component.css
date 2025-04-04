@@ -1,0 +1,21 @@
+/* Remplacez toutes les règles d'opacité par ceci : */
+.banner-carousel .banner-content h6,
+.banner-carousel .banner-content h2,
+.banner-carousel .banner-content p,
+.banner-carousel .banner-content .btn-box {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Conservez les animations SEULEMENT pour les transitions entre slides */
+.owl-item:not(.active) .banner-content * {
+  opacity: 0;
+  transform: translateY(50px);
+}
+.owl-item.active .banner-content * {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 1s ease;
+  transition-delay: 0.5s; /* Délai uniforme */
+}
