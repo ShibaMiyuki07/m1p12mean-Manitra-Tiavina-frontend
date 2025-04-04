@@ -2,7 +2,17 @@ import {Injectable, signal} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {BehaviorSubject, lastValueFrom, Observable, tap} from 'rxjs';
 import {Product} from "../../models/product";
+import { PdfService } from '../pdf.service';
 import {environment} from "../../../environments/environment";
+import {User} from "../../models/User";
+import {jwtDecode} from "jwt-decode";
+
+interface JwtPayload {
+  userId: string;
+  role: string;
+  iat: number;
+  exp: number;
+}
 
 interface CartItem {
   _id?: string;
@@ -31,7 +41,7 @@ export class CartService {
   private cartSubject = new BehaviorSubject<Cart | null>(null);
   public cart$ = this.cartSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private pdfService: PdfService) {}
 
   readonly url = environment.apiUrl;
   private apiUrl = this.url+'/cart';
@@ -91,10 +101,44 @@ export class CartService {
       tap(() => this.cartSubject.next(null)))
   }
 
+  getUserById() {
+    return this.http.get<User>(`${this.url}/users/${this.getUserId()}`);
+  }
+
+  getUserId(): string | null {
+    const decoded = this.decodeToken();
+    return decoded?.userId || null;
+  }
+
+  decodeToken(): JwtPayload | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      return jwtDecode<JwtPayload>(token);
+    } catch (error) {
+      console.error('Token invalide', error);
+      return null;
+    }
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem("authToken");
+  }
+
   // Passe la commande
-  checkout(): Observable<Cart> {
-    return this.http.post<Cart>(`${this.apiUrl}/checkout`, {}).pipe(
-      tap(cart => this.cartSubject.next(cart)))
+  async checkout(): Promise<void> {
+    try {
+      const order = await lastValueFrom(this.loadCart());
+      const customer = await lastValueFrom(this.getUserById());
+
+      // Génération du PDF
+      this.pdfService.generateInvoice(order, customer);
+
+    } catch (error) {
+      console.error('Checkout failed:', error);
+      throw error;
+    }
   }
 
   async getItemNumber(): Promise<number> {
