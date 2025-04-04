@@ -1,4 +1,4 @@
-import {Injectable, signal} from '@angular/core';
+import {inject, Injectable, Injector, signal} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {BehaviorSubject, lastValueFrom, Observable, tap} from 'rxjs';
 import {Product} from "../../models/product";
@@ -6,6 +6,12 @@ import { PdfService } from '../pdf.service';
 import {environment} from "../../../environments/environment";
 import {User} from "../../models/User";
 import {jwtDecode} from "jwt-decode";
+import {ApiReservationServiceService} from "../reservationApi/api-reservation-service.service";
+import {AuthService} from "../auth.service";
+import {ApiServiceService} from "../serviceApi/api-service.service";
+import {addHours} from "date-fns";
+import {Service} from "../../models/Service";
+import {Router} from "@angular/router";
 
 interface JwtPayload {
   userId: string;
@@ -17,7 +23,7 @@ interface JwtPayload {
 interface CartItem {
   _id?: string;
   productId?: string;
-  serviceId?: string;
+  serviceId?: Service;
   quantity?: number;
   date?: Date;
 }
@@ -40,6 +46,10 @@ export class CartService {
   public itemCount$ = this.itemCount.asObservable();
   private cartSubject = new BehaviorSubject<Cart | null>(null);
   public cart$ = this.cartSubject.asObservable();
+  private readonly apiReservation = inject(ApiReservationServiceService);
+  private injector: Injector = inject(Injector);
+  private readonly apiService : ApiServiceService = inject(ApiServiceService);
+  private readonly router : Router = inject(Router);
 
   constructor(private http: HttpClient, private pdfService: PdfService) {}
 
@@ -87,6 +97,11 @@ export class CartService {
       tap(cart => this.cartSubject.next(cart)))
   }
 
+  updateStatus(cartId: string, cart: Cart): Observable<Cart> {
+    return this.http.put<Cart>(`${this.apiUrl}/update/${cartId}`, cart).pipe(
+      tap(cart => this.cartSubject.next(cart)))
+  }
+
   // Supprime un élément
   removeItem(itemId: string, isProduct: boolean): Observable<Cart> {
     return this.http.delete<Cart>(`${this.apiUrl}/items/${itemId}`, {
@@ -131,10 +146,28 @@ export class CartService {
     try {
       const order = await lastValueFrom(this.loadCart());
       const customer = await lastValueFrom(this.getUserById());
+      const auth = this.injector.get(AuthService);
+      order.status = "fulfilled";
+      await lastValueFrom(this.updateStatus(order._id,order));
 
+      for(let service of order.services) {
+        let serviceDetails = await this.apiService.getServiceById(service.serviceId!._id).toPromise();
+        this.apiReservation.createReservation({
+          _id : undefined,
+          createdAt: new Date(),
+          endReservation: addHours(service.date!,serviceDetails?.duration!),
+          mechanicId: undefined,
+          reservationDate: service.date!,
+          serviceId: service.serviceId,
+          status: "unassigned",
+          updatedAt: new Date(),
+          userId: auth.getUserId()
+        });
+      }
       // Génération du PDF
       this.pdfService.generateInvoice(order, customer);
-
+      await this.updateCount();
+      this.router.navigate(['/']);
     } catch (error) {
       console.error('Checkout failed:', error);
       throw error;

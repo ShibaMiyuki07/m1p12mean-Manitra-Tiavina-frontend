@@ -3,7 +3,7 @@ export interface Service {
   name : string,
   description : string,
   price : Number,
-  duration : Number,
+  duration : number,
   image : string,
   category : string,
   createdAt : any,
