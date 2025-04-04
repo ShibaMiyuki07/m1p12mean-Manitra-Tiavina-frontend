@@ -87,6 +87,11 @@ export class CartService {
       tap(cart => this.cartSubject.next(cart)))
   }
 
+  updateStatus(cartId: string, cart: Cart): Observable<Cart> {
+    return this.http.put<Cart>(`${this.apiUrl}/update/${cartId}`, cart).pipe(
+      tap(cart => this.cartSubject.next(cart)))
+  }
+
   // Supprime un élément
   removeItem(itemId: string, isProduct: boolean): Observable<Cart> {
     return this.http.delete<Cart>(`${this.apiUrl}/items/${itemId}`, {
@@ -132,6 +137,9 @@ export class CartService {
       const order = await lastValueFrom(this.loadCart());
       const customer = await lastValueFrom(this.getUserById());
 
+      order.status = "fulfilled";
+
+      await lastValueFrom(this.updateStatus(order._id,order));
       // Génération du PDF
       this.pdfService.generateInvoice(order, customer);
 
