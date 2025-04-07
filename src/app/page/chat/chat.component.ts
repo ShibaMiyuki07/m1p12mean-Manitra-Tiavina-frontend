@@ -107,27 +107,30 @@ export class ChatComponent implements OnInit {
   }
 
   openNewDiscussion(){
-    this.isNewDiscussion = true;
-    this.discussions?.forEach((discussion) => {
-      discussion.isSelected = false;
-    });
-    this.messages = [];
-    if(this.children)
+    if(!this.isNewDiscussion)
     {
-      this.children.nativeElement.focus();
-    }
-    this.discussions?.push(
+      this.isNewDiscussion = true;
+      this.discussions?.forEach((discussion) => {
+        discussion.isSelected = false;
+      });
+      this.messages = [];
+      if(this.children)
       {
-        _id: undefined,
-        receiver: undefined,
-        receiverId: undefined,
-        sender: undefined,
-        senderId: undefined,
-        text : "New Message",
-        isSelected : true,
-        lastMessage : undefined
+        this.children.nativeElement.focus();
       }
-    )
+      this.discussions?.push(
+        {
+          _id: undefined,
+          receiver: undefined,
+          receiverId: undefined,
+          sender: undefined,
+          senderId: undefined,
+          text : "New Message",
+          isSelected : true,
+          lastMessage : undefined
+        }
+      )
+    }
   }
 
 }

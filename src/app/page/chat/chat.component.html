@@ -7,7 +7,7 @@
         Discussions
       </div>
       <div class="div-btn">
-        <button class="btn" (click)="openNewDiscussion()"><i class="fa fa-solid fa-pen"></i></button>
+        <button class="btn" [disabled]="isNewDiscussion" (click)="openNewDiscussion()"><i class="fa fa-solid fa-pen"></i></button>
       </div>
     </div>
     <div class="message-list">
