@@ -39,9 +39,7 @@
   cursor: pointer;
 }
 
-.list-content{
-  max-width: 100px;
-}
+
 .last-message{
   padding-top: 5px;
   padding-left: 10px;
@@ -163,6 +161,29 @@
   }
   .message-container-header{
     width: 15vw;
+  }
+  .message-content{
+    width: 77vw;
+  }
+  .list-content{
+    max-width: 100px;
+  }
+
+}
+
+@media (min-width: 1501px){
+  .list-content{
+    max-width: 200px;
+  }
+  .message-list{
+    width: 14vw;
+  }
+  .div-btn{
+    margin-left: 8vw;
+    padding-right: 10px;
+  }
+  .message-container-header{
+    width: 14vw;
   }
   .message-content{
     width: 77vw;

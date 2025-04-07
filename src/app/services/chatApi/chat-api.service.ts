@@ -19,4 +19,14 @@ export class ChatApiService {
     return this.http.get<Array<Chat>>(`${this.url}/chats/discussions/${discussionId}`);
   }
 
+  updateMessage(message: Chat) {
+    return this.http.put(`${this.url}/chats/message/${message._id}`, {
+      _id: message._id,
+      senderId: message.senderId,
+      receiverId: message.receiverId,
+      unread: message.unread,
+      content: message.content
+    }).subscribe();
+  }
+
 }

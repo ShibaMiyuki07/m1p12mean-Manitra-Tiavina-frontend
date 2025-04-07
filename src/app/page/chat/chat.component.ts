@@ -1,6 +1,6 @@
 import {Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {MenubarMechanicComponent} from "../../components/menubar-mechanic/menubar-mechanic.component";
-import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {AutosizeModule} from "ngx-autosize";
 import {ChatApiService} from "../../services/chatApi/chat-api.service";
 import {Chat} from "../../models/chat";
@@ -18,7 +18,8 @@ import {DiscussionApiService} from "../../services/discussionApi/discussion-api.
     AutosizeModule,
     FormsModule,
     NgIf,
-    NgOptimizedImage
+    NgOptimizedImage,
+    AsyncPipe
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
@@ -53,7 +54,13 @@ export class ChatComponent implements OnInit {
     if(this.discussions && this.discussions.length > 0) {
       this.discussions[this.discussions.length-1].isSelected = true;
       this.lastDiscussion = this.discussions[this.discussions.length-1];
-      this.messages = await this.chatApi.getAllMessages(this.discussions[this.discussions.length-1]._id).toPromise();
+      this.chat.discussionId = this.lastDiscussion._id;
+      if(this.lastDiscussion.receiverId === this.senderId && this.lastDiscussion.lastMessage && this.lastDiscussion.lastMessage.unread)
+      {
+        this.lastDiscussion.lastMessage.unread = false;
+        this.chatApi.updateMessage(this.lastDiscussion.lastMessage);
+      }
+      this.messages = await this.chatApi.getAllMessages(this.lastDiscussion._id).toPromise();
       this.chat.receiverId = this.discussions[this.discussions.length-1].receiverId;
       if(this.discussions[this.discussions.length-1].senderId !== this.senderId) {
         this.chat.receiverId = this.discussions[this.discussions.length-1].senderId;
@@ -67,16 +74,35 @@ export class ChatComponent implements OnInit {
     {
       this.chatApi.addMessage(this.chat);
     }
+    location.reload();
   }
 
-  selectDiscussion(i:number)
+  async selectDiscussion(discussionId : any)
   {
-    this.discussions?.forEach((discussion:Discussion)=>{
-      discussion.isSelected = false;
-    });
+    if(this.isNewDiscussion)
+    {
+      if(this.discussions)
+      {
+        this.discussions.pop();
+      }
+    }
+    this.isNewDiscussion = false;
     if(this.discussions)
     {
-      this.discussions[i].isSelected = true;
+      if(this.discussions.find(discussion => discussion._id !== discussionId))
+      {
+        this.discussions.find(discussion => discussion._id !== discussionId)!.isSelected = false;
+      }
+      this.discussions.find(discussion => discussion._id == discussionId)!.isSelected = true;
+      this.messages = await this.chatApi.getAllMessages(this.discussions.find(discussion => discussion._id == discussionId)!._id).toPromise();
+      this.chat.discussionId = discussionId;
+      if(this.discussions.find(discussion => discussion._id == discussionId)!.senderId !== this.senderId)
+      {
+        this.chat.receiverId = this.discussions.find(discussion => discussion._id == discussionId)!.receiverId;
+      }
+      else{
+        this.chat.receiverId = this.discussions.find(discussion => discussion._id == discussionId)!.senderId;
+      }
     }
   }
 
