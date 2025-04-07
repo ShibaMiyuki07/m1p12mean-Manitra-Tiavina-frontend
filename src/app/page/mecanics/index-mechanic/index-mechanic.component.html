@@ -1,8 +1,8 @@
 <app-menubar-mechanic />
-<main>
-  <div style="display: flex;padding-top: 30px;">
-    <div style="padding-left: 2%;width: 65%;">
-      <h4>Unassigned reservation</h4>
+<main style="padding-bottom: 50px">
+  <div class="main-content">
+    <div class="unassigned-reservation">
+      <h4 align="center">Unassigned reservation</h4>
       <div *ngIf="reservations.length === 0">No reservation unassigned</div>
       <div *ngFor="let reservation of reservations" class="reservation">
         <div>
@@ -12,7 +12,7 @@
             <div>{{reservation.result.description}}</div>
           </div>
         </div>
-        <div style="width: 30%;position: absolute;left: 55%; padding-top: 10px">
+        <div class="btn-assign-position">
           <div>
             <button (click)="assign(reservation)" class="assign">Assign</button>
           </div>
@@ -22,3 +22,5 @@
     <app-agenda />
   </div>
 </main>
+
+<app-footer />

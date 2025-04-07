@@ -1,3 +1,19 @@
+.main-content{
+  padding-top: 30px;
+}
+
+.date-display{
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.unassigned-reservation{
+  padding-left: 2%;
+  width: 65%;
+  padding-right: 10px;
+  border-right: 1px solid black;
+}
+
 .assign{
   width: 120px;
   height: 40px;
@@ -7,59 +23,101 @@
   cursor: pointer;
 }
 
-.pending{
-  width: 120px;
-  height: 40px;
-  color: blue;
-  background-color: white;
-  border: 1px solid blue;
-  cursor: pointer;
-}
-
-.prev,.next{
-  border: 0px solid blue;
-  background-color: white;
-  cursor: pointer;
-}
-
-.finished{
-  width: 120px;
-  height: 40px;
-  color: green;
-  background-color: white;
-  border: 1px solid green;
-}
-.not-started{
-  width: 120px;
-  height: 40px;
-  color: red;
-  background-color: white;
-  border: 1px solid red;
-}
-
-
-.assign:hover,.pending:hover{
+.assign:hover{
   background-color: blue;
   color: white;
   border: 1px solid blue;
 }
 
-app-agenda{
-  margin-top: 40px;
-  margin-left: 40px;
-  width: 35%;
-  margin-right: 40px;
-  max-height: 100vh;
+.btn-assign-position{
+  position: absolute;
 }
 
+.detail{
+  padding-top: 5px;
+}
+
+@media (min-width: 1000px) and (max-width: 1500px) {
+  .reservation{
+    width: 97vw;
+  }
+
+  .btn-assign-position
+  {
+    left: calc(100vw - 11vw);
+    padding-top: 10px
+  }
+  .reservation:not(:first-child)
+  {
+    padding-top: 10px;
+  }
+
+  app-agenda{
+    padding-bottom: 50px;
+  }
+
+  .unassigned-reservation{
+    padding-bottom: 10px;
+    border-bottom: 1px black dotted;
+    width: 97.9%;
+  }
+}
+
+@media (min-width: 1501px) and (max-width:1919px) {
+  .main-content{
+    display: flex;
+  }
+  .reservation{
+    width: calc(100vw - 50vw);
+  }
+  .reservation:not(:first-child)
+  {
+    padding-top: 10px;
+  }
+  .btn-assign-position
+  {
+    left: calc(100vw - 56vw);
+    padding-top: 10px
+  }
+
+  app-agenda{
+    width: 50%;
+  }
+}
+
+@media (min-width: 1920px) {
+  .main-content{
+    display: flex;
+  }
+  .reservation{
+    width: calc(100vw - 50vw);
+  }
+  .btn-assign-position
+  {
+    width: 30%;
+    left: calc(100vw - 54.2vw);
+    padding-top: 10px
+  }
+  app-agenda{
+    margin-top: 40px;
+    width: 50%;
+    margin-right: 40px;
+    max-height: 100vh;
+  }
+
+  .hour{
+    padding-top: 10px;
+  }
+
+  app-agenda{
+    padding-bottom: 50px;
+    margin-right: 10px;
+  }
+}
 .reservation{
   display: flex;
-  padding-top: 20px;
+  border-bottom: 1px solid black;
   padding-bottom: 10px;
-  border-bottom: 1px solid;
 }
 
-.hour{
-  padding-top: 10px;
-}
 

@@ -1,6 +1,6 @@
-<div class="" style="display: flex">
+<div class="app-agenda" style="display: flex;">
   <div>
-    <div style="display: flex">
+    <div class="title" style="display: flex;">
       <div
         class="btn"
         mwlCalendarPreviousView
@@ -28,10 +28,10 @@
       </div>
     </div>
   </div>
-  <div style="padding-left: 100px">
+  <div class="date">
     <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
   </div>
-  <div style="padding-left: 100px;">
+  <div class="button-position">
     <div style="display: flex;">
       <div
         class="btn btn-primary"
@@ -98,42 +98,42 @@
     {
       <div class="main-item">
         <div>
-          Status : {{reservation.status}}
+          <strong>Status</strong> : {{reservation.status}}
         </div>
       </div>
       <div class="main-item">
         <div>
-          Client : {{reservation.user.profile.firstName}} {{reservation.user.profile.lastName}}
+          <strong>Client</strong> : {{reservation.user.profile.firstName}} {{reservation.user.profile.lastName}}
         </div>
       </div>
       <div class="main-item">
         <div>
-          Addresse : {{reservation.user.profile.address}}
+          <strong>Address</strong> : {{reservation.user.profile.address}}
         </div>
       </div>
       <div class="main-item">
         <div>
-          Contact : {{reservation.user.profile.phone}} / {{reservation.user.email}}
+          <strong>Contact</strong> : {{reservation.user.profile.phone}} / {{reservation.user.email}}
         </div>
       </div>
       <div class="main-item">
         <div>
-          Titre : {{reservation.result.name}}
+          <strong>Titre</strong>  : {{reservation.result.name}}
         </div>
       </div>
       <div class="main-item">
         <div>
-          Description : {{reservation.result.description}}
+           <strong>Description</strong> : {{reservation.result.description}}
         </div>
       </div>
       <div class="main-item">
         <div>
-          Date de reservation : {{reservation.reservationDate | date: "dd-MM-yyyy HH:mm"}}
+          <strong>Date de reservation</strong> : {{reservation.reservationDate | date: "dd-MM-yyyy HH:mm"}}
         </div>
       </div>
       <div class="main-item">
         <div>
-          Last Update : {{reservation.updatedAt | date: "dd-MM-yyyy HH:mm"}}
+          <strong>Last Update</strong> : {{reservation.updatedAt | date: "dd-MM-yyyy HH:mm"}}
         </div>
       </div>
     }

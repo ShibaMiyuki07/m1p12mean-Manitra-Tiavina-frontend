@@ -8,6 +8,7 @@ import {UnassignedReservation} from "../../../models/apiResult/unassignedReserva
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import {AgendaComponent} from "../../../components/agenda/agenda.component";
+import {FooterComponent} from "../../../components/footer/footer.component";
 
 @Component({
   selector: 'app-index-mechanic',
@@ -17,7 +18,8 @@ import {AgendaComponent} from "../../../components/agenda/agenda.component";
     NgForOf,
     NgIf,
     AgendaComponent,
-    DatePipe
+    DatePipe,
+    FooterComponent
   ],
   templateUrl: './index-mechanic.component.html',
   styleUrl: './index-mechanic.component.css'
