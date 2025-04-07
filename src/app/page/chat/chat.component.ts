@@ -1,13 +1,13 @@
 import {Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
-import {MenubarMechanicComponent} from "../../../components/menubar-mechanic/menubar-mechanic.component";
-import {NgForOf, NgIf} from "@angular/common";
+import {MenubarMechanicComponent} from "../../components/menubar-mechanic/menubar-mechanic.component";
+import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {AutosizeModule} from "ngx-autosize";
-import {ChatApiService} from "../../../services/chatApi/chat-api.service";
-import {Chat} from "../../../models/chat";
+import {ChatApiService} from "../../services/chatApi/chat-api.service";
+import {Chat} from "../../models/chat";
 import {FormsModule} from "@angular/forms";
-import {AuthService} from "../../../services/auth.service";
-import {Discussion} from "../../../models/discussion";
-import {DiscussionApiService} from "../../../services/discussionApi/discussion-api.service";
+import {AuthService} from "../../services/auth.service";
+import {Discussion} from "../../models/discussion";
+import {DiscussionApiService} from "../../services/discussionApi/discussion-api.service";
 
 @Component({
   selector: 'app-chat',
@@ -17,7 +17,8 @@ import {DiscussionApiService} from "../../../services/discussionApi/discussion-a
     NgForOf,
     AutosizeModule,
     FormsModule,
-    NgIf
+    NgIf,
+    NgOptimizedImage
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'

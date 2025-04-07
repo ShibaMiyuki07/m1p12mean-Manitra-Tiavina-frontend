@@ -1,8 +1,8 @@
 <header class="main-header ex_shop_header header-style-two">
   <!-- Header Upper -->
   <div class="header-upper">
-    <div class="auto-container">
-      <div class="inner-container">
+    <div>
+      <div style="display: flex">
         <!--Logo-->
         <div class="logo_menu">
           <div class="logo-box">
@@ -10,7 +10,7 @@
           </div>
         </div>
 
-        <ul class="right-info">
+        <ul style="position: absolute;left: 75%;padding-top: 30px" class="right-info" >
           <li><a href="#" class="search-btn"><div class="shopping-cart"><i class="fa fa-comments"></i><span class="count">2</span></div></a></li>
           <li><a href="#" class="search-btn"><i class="icon-user"></i> <p>My Account <span>Hello, {{username}}</span></p></a></li>
           <li><a (click)="logoff()" class="search-btn" style="cursor: pointer;"><i class="fa fa-power-off"></i></a></li>

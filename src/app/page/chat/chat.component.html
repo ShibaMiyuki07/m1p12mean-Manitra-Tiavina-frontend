@@ -12,7 +12,7 @@
     </div>
     <div *ngFor="let discussion of discussions" class="message-item" [className]="discussion.isSelected ? 'selected' : ''">
       <div>
-        <img src="../../../../assets/images/user.png" style="width: 50px;height: 50px" class="rounded" >
+        <img src="../../../assets/images/user.png" style="width: 50px;height: 50px" class="rounded" >
       </div>
       <div class="last-message unread">
         <div class="username">{{discussion.receiver || discussion.text}}</div>
@@ -23,7 +23,8 @@
   <div class="message-content">
     <div class="header" *ngIf="!isNewDiscussion">
       <div>
-        <img src="../../../../assets/images/user.png" style="width: 50px;height: 50px;" class="rounded">
+        <img ngSrc="../../../assets/images/user.png" style="width: 50px;height: 50px;" class="rounded" alt=""
+             height="512" width="512">
       </div>
       <div class="user-title">
         <div class="username">Ratits</div>
