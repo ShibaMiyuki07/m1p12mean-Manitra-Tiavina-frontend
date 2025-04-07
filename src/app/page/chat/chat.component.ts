@@ -43,15 +43,22 @@ export class ChatComponent implements OnInit {
   }
   @ViewChild('children') children : ElementRef | null = null;
 
+  lastDiscussion : Discussion | undefined;
 
 
 
   async ngOnInit() {
     this.chat.senderId = this.senderId;
-    this.chat.receiverId = "65f8e8b1e4b1a2b3c4d5e6f1";
     this.discussions = await this.discussionApiService.getAllDiscussions(this.senderId).toPromise();
-    console.log(this.discussions);
-    this.messages = await this.chatApi.getAllMessages(this.chat.senderId,this.chat.receiverId ).toPromise();
+    if(this.discussions && this.discussions.length > 0) {
+      this.discussions[this.discussions.length-1].isSelected = true;
+      this.lastDiscussion = this.discussions[this.discussions.length-1];
+      this.messages = await this.chatApi.getAllMessages(this.discussions[this.discussions.length-1]._id).toPromise();
+      this.chat.receiverId = this.discussions[this.discussions.length-1].receiverId;
+      if(this.discussions[this.discussions.length-1].senderId !== this.senderId) {
+        this.chat.receiverId = this.discussions[this.discussions.length-1].senderId;
+      }
+    }
   }
 
   send()
@@ -59,6 +66,17 @@ export class ChatComponent implements OnInit {
     if(!this.isNewDiscussion)
     {
       this.chatApi.addMessage(this.chat);
+    }
+  }
+
+  selectDiscussion(i:number)
+  {
+    this.discussions?.forEach((discussion:Discussion)=>{
+      discussion.isSelected = false;
+    });
+    if(this.discussions)
+    {
+      this.discussions[i].isSelected = true;
     }
   }
 

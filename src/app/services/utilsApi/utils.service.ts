@@ -13,8 +13,8 @@ export class UtilsService {
   uploadProductImage(pictureProduct:File | null) {
     if (pictureProduct) {
       const image = new FormData();
-      image.append("image", pictureProduct);
-      this.http.post(`${this.url}/utils/image-upload`, image).subscribe(() => {});
+      image.append("product", pictureProduct);
+      this.http.post(`${this.url}/utils/image/products`, image).subscribe(() => {});
     }
   }
 }

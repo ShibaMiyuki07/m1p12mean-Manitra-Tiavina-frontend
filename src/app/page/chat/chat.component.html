@@ -14,35 +14,53 @@
       <div class="message-item" *ngIf="discussions?.length === 0">
         <div style="padding-top: 10px;">Vous n'avez aucune discussion ...</div>
       </div>
-      <div *ngFor="let discussion of discussions?.reverse()" [className]="discussion.isSelected ? 'selected message-item' : 'message-item'">
+      <div *ngFor="let discussion of discussions?.reverse();index as i" (click)="selectDiscussion(i)" [className]="discussion.isSelected ? 'selected message-item' : 'message-item'">
         <div style="padding-bottom: 10px">
           <img src="../../../assets/images/user.png" class="user-icon" >
         </div>
-        <div [className]="( discussion.lastMessage && discussion.lastMessage.senderId !== senderId && discussion.lastMessage.unread) ? 'last-message unread' : 'last-message'">
+        <div
+          [className]="
+          (discussion.lastMessage && discussion.lastMessage.senderId !== senderId && discussion.lastMessage.unread) ?
+          'last-message unread' : 'last-message'">
           <div class="username">{{discussion.receiver?.username || discussion.text}}</div>
           <div class="list-content" *ngIf="discussion.receiver">
-            @if(discussion.lastMessage && discussion.lastMessage.senderId === senderId){You:}
+            @if(discussion.lastMessage && discussion.lastMessage.senderId === senderId)
+            {You:}
+
             {{discussion.lastMessage?.content?.slice(0,20)}}
-            @if(discussion.lastMessage && discussion.lastMessage.content.length >20){...}
+
+            @if(discussion.lastMessage && discussion.lastMessage.content.length >20)
+            {...}
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="message-content" *ngIf="discussions?.length === 0">
+  <div class="message-content"
+       *ngIf="discussions?.length === 0">
     <div style="padding-top: 10px;">Vous n'avez aucune discussion ...</div>
   </div>
-  <div class="message-content" *ngIf="discussions?.length !== 0">
-    <div class="message-content-header" *ngIf="!isNewDiscussion">
+  <div class="message-content"
+       *ngIf="discussions?.length !== 0">
+    <div class="message-content-header"
+         *ngIf="!isNewDiscussion">
       <div>
         <img class="user-icon" src="../../../assets/images/user.png" alt="">
       </div>
       <div class="user-details">
-        <div class="username">Ratits</div>
+        <div class="username">
+          @if(lastDiscussion?.senderId === senderId)
+          {
+            {{lastDiscussion?.receiver?.username }}
+          }
+          @else{
+            {{lastDiscussion?.sender?.username }}
+          }</div>
         <div class="status" style="display: flex;"><i class="icon online"></i> En ligne</div>
       </div>
     </div>
-    <div class="message-content-header" *ngIf="isNewDiscussion">
+    <div class="message-content-header"
+         *ngIf="isNewDiscussion">
       <div style="width: 100%;padding-bottom: 10px">
         A : <input #children style="width: 95%;height: 30px;font-size: 15px;border:0;" name="username" [(ngModel)]="username" />
       </div>
@@ -50,7 +68,9 @@
     <div class="content" >
       @for(message of messages;track message._id)
       {
-        <div class="message" [className]="message.senderId === senderId ? 'sent' : 'got'">
+        <div
+          [className]="message.senderId === senderId ? 'message sent' : 'message got'"
+        >
           <div class="text-content">{{message.content}}</div>
         </div>
       }
@@ -60,7 +80,10 @@
         <textarea [disabled]="isNewDiscussion" [(ngModel)]="chat.content" autosize [minRows]="1" [maxRows]="5" class="message-text-area"></textarea>
       </div>
       <div>
-        <img (click)="send()" alt="picture sending" class="send" [src]="'assets/images/send.png'">
+        <img
+          (click)="send()" alt="picture sending"
+          class="send"
+          [src]="'assets/images/send.png'">
       </div>
     </div>
   </div>

@@ -15,8 +15,8 @@ export class ChatApiService {
     this.http.post(`${this.url}/chats`, message).subscribe();
   }
 
-  getAllMessages(receiver:any,sender:any) {
-    return this.http.get<Array<Chat>>(`${this.url}/chats/messages/${receiver}/${sender}`);
+  getAllMessages(discussionId:any) {
+    return this.http.get<Array<Chat>>(`${this.url}/chats/discussions/${discussionId}`);
   }
 
 }
