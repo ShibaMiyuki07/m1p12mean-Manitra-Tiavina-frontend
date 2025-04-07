@@ -1,4 +1,5 @@
 import {User} from "./User";
+import {Chat} from "./chat";
 
 export interface Discussion{
   _id  : any,
@@ -8,4 +9,5 @@ export interface Discussion{
   sender : User | undefined,
   text : string,
   isSelected : boolean,
+  lastMessage : Chat | undefined
 }

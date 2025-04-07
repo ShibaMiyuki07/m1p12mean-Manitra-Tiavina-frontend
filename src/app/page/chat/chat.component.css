@@ -36,6 +36,7 @@
   padding-top: 10px;
   display: flex;
   border-bottom: 1px solid black;
+  cursor: pointer;
 }
 
 .list-content{
@@ -119,7 +120,7 @@
   height: 5px;
 }
 
-.selected{
+.selected,.message-item:hover{
   background-color: rgba(116, 184, 230, 0.61);
 }
 

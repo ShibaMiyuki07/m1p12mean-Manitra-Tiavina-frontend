@@ -39,6 +39,7 @@ export class ChatComponent implements OnInit {
     content: string = "";
     senderId: any;
     receiverId: any;
+    unread : boolean = true;
   }
   @ViewChild('children') children : ElementRef | null = null;
 
@@ -48,7 +49,8 @@ export class ChatComponent implements OnInit {
   async ngOnInit() {
     this.chat.senderId = this.senderId;
     this.chat.receiverId = "65f8e8b1e4b1a2b3c4d5e6f1";
-    //this.discussions = await this.discussionApiService.getAllDiscussions(this.senderId).toPromise();
+    this.discussions = await this.discussionApiService.getAllDiscussions(this.senderId).toPromise();
+    console.log(this.discussions);
     this.messages = await this.chatApi.getAllMessages(this.chat.senderId,this.chat.receiverId ).toPromise();
   }
 
@@ -78,8 +80,8 @@ export class ChatComponent implements OnInit {
         sender: undefined,
         senderId: undefined,
         text : "New Message",
-        isSelected : true
-
+        isSelected : true,
+        lastMessage : undefined
       }
     )
   }

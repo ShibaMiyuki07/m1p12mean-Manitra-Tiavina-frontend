@@ -4,4 +4,5 @@ export interface Chat {
   senderId : any,
   receiverId : any,
   content : string,
+  unread : boolean,
 }

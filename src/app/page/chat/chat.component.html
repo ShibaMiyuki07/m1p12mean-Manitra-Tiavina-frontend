@@ -11,13 +11,20 @@
       </div>
     </div>
     <div class="message-list">
+      <div class="message-item" *ngIf="discussions?.length === 0">
+        <div style="padding-top: 10px;">Vous n'avez aucune discussion ...</div>
+      </div>
       <div *ngFor="let discussion of discussions?.reverse()" [className]="discussion.isSelected ? 'selected message-item' : 'message-item'">
         <div style="padding-bottom: 10px">
           <img src="../../../assets/images/user.png" class="user-icon" >
         </div>
-        <div class="last-message unread">
+        <div [className]="( discussion.lastMessage && discussion.lastMessage.senderId !== senderId && discussion.lastMessage.unread) ? 'last-message unread' : 'last-message'">
           <div class="username">{{discussion.receiver?.username || discussion.text}}</div>
-          <div class="list-content" *ngIf="discussion.receiver">{{discussion.text.slice(0,12) }}@if(discussion.text.length > 12){...}</div>
+          <div class="list-content" *ngIf="discussion.receiver">
+            @if(discussion.lastMessage && discussion.lastMessage.senderId === senderId){You:}
+            {{discussion.lastMessage?.content?.slice(0,20)}}
+            @if(discussion.lastMessage && discussion.lastMessage.content.length >20){...}
+          </div>
         </div>
       </div>
     </div>
