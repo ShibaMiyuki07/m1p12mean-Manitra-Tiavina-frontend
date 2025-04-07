@@ -42,6 +42,10 @@
   cursor: pointer;
 }
 
+.btn:hover{
+  color: #D94032;
+}
+
 h3 {
   margin: 0 0 10px;
 }
