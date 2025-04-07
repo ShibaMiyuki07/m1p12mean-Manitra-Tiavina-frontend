@@ -1,42 +1,46 @@
 <app-menubar-mechanic />
 
-<main style="display: flex;padding-top: 20px">
-  <div class="message-list">
-    <div class="header" style="display: flex">
+<main style="display: flex;">
+  <div class="message-container">
+    <div class="message-container-header">
       <div style="padding-bottom: 10px;">
         Discussions
       </div>
-      <div style="padding-bottom: 10px;" class="div-btn">
-        <button class="btn" (click)="openNewDiscussion()">New</button>
+      <div class="div-btn">
+        <button class="btn" (click)="openNewDiscussion()"><i class="fa fa-solid fa-pen"></i></button>
       </div>
     </div>
-    <div *ngFor="let discussion of discussions" class="message-item" [className]="discussion.isSelected ? 'selected' : ''">
-      <div>
-        <img src="../../../assets/images/user.png" style="width: 50px;height: 50px" class="rounded" >
-      </div>
-      <div class="last-message unread">
-        <div class="username">{{discussion.receiver || discussion.text}}</div>
-        <div class="content" *ngIf="discussion.receiver">Good Morning</div>
+    <div class="message-list">
+      <div *ngFor="let discussion of discussions?.reverse()" [className]="discussion.isSelected ? 'selected message-item' : 'message-item'">
+        <div style="padding-bottom: 10px">
+          <img src="../../../assets/images/user.png" class="user-icon" >
+        </div>
+        <div class="last-message unread">
+          <div class="username">{{discussion.receiver?.username || discussion.text}}</div>
+          <div class="list-content" *ngIf="discussion.receiver">{{discussion.text.slice(0,12) }}@if(discussion.text.length > 12){...}</div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="message-content">
-    <div class="header" *ngIf="!isNewDiscussion">
+  <div class="message-content" *ngIf="discussions?.length === 0">
+    <div style="padding-top: 10px;">Vous n'avez aucune discussion ...</div>
+  </div>
+  <div class="message-content" *ngIf="discussions?.length !== 0">
+    <div class="message-content-header" *ngIf="!isNewDiscussion">
       <div>
-        <img ngSrc="../../../assets/images/user.png" style="width: 50px;height: 50px;" class="rounded" alt=""
-             height="512" width="512">
+        <img class="user-icon" src="../../../assets/images/user.png" alt="">
       </div>
-      <div class="user-title">
+      <div class="user-details">
         <div class="username">Ratits</div>
-        <div class="status" style="display: flex;"><i class="icon online"></i>En ligne</div>
+        <div class="status" style="display: flex;"><i class="icon online"></i> En ligne</div>
       </div>
     </div>
-    <div class="header" *ngIf="isNewDiscussion">
+    <div class="message-content-header" *ngIf="isNewDiscussion">
       <div style="width: 100%;padding-bottom: 10px">
-        A : <input #children style="width: 95%;height: 35px;font-size: 25px;border:0;" name="username" [(ngModel)]="username" />
+        A : <input #children style="width: 95%;height: 30px;font-size: 15px;border:0;" name="username" [(ngModel)]="username" />
       </div>
     </div>
-    <div class="content">
+    <div class="content" >
       @for(message of messages;track message._id)
       {
         <div class="message" [className]="message.senderId === senderId ? 'sent' : 'got'">
@@ -46,10 +50,10 @@
     </div>
     <div class="message-input">
       <div class="message-text">
-        <textarea [(ngModel)]="chat.content" autosize class="message-text-area"></textarea>
+        <textarea [disabled]="isNewDiscussion" [(ngModel)]="chat.content" autosize [minRows]="1" [maxRows]="5" class="message-text-area"></textarea>
       </div>
       <div>
-        <img (click)="send()" alt="picture sending" class="send" [src]="'assets/images/send.png'" style="width: 20px;height: 20px;cursor: pointer;">
+        <img (click)="send()" alt="picture sending" class="send" [src]="'assets/images/send.png'">
       </div>
     </div>
   </div>

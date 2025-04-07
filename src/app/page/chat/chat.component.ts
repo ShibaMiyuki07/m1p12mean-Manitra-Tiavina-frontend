@@ -48,17 +48,24 @@ export class ChatComponent implements OnInit {
   async ngOnInit() {
     this.chat.senderId = this.senderId;
     this.chat.receiverId = "65f8e8b1e4b1a2b3c4d5e6f1";
-    this.discussions = await this.discussionApiService.getAllDiscussions(this.senderId).toPromise();
+    //this.discussions = await this.discussionApiService.getAllDiscussions(this.senderId).toPromise();
     this.messages = await this.chatApi.getAllMessages(this.chat.senderId,this.chat.receiverId ).toPromise();
   }
 
   send()
   {
-    this.chatApi.addMessage(this.chat);
+    if(!this.isNewDiscussion)
+    {
+      this.chatApi.addMessage(this.chat);
+    }
   }
 
   openNewDiscussion(){
     this.isNewDiscussion = true;
+    this.discussions?.forEach((discussion) => {
+      discussion.isSelected = false;
+    });
+    this.messages = [];
     if(this.children)
     {
       this.children.nativeElement.focus();
