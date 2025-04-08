@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
@@ -8,6 +8,7 @@ import {UserRole} from "../models/enum/UserRole";
 import {CartService} from "./cartApi/api-cart-service.service";
 import {Product} from "../models/product";
 import {User} from "../models/User";
+import {DiscussionApiService} from "./discussionApi/discussion-api.service";
 
 interface JwtPayload {
   userId: string;
@@ -40,6 +41,8 @@ export class AuthService {
   private readonly apiUrl = environment.apiUrl;
   private readonly tokenKey = 'authToken';
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  private discussionService: DiscussionApiService = inject(DiscussionApiService);
+  discussionInterval : any;
 
   constructor(private http: HttpClient, private router: Router, private cartService: CartService) {
     this.checkAuthentication();
@@ -59,6 +62,9 @@ export class AuthService {
           localStorage.setItem(this.tokenKey, response.token);
           localStorage.setItem("username", response.user.username);
           await this.cartService.updateCount();
+          this.discussionInterval = setInterval(async() =>{
+            await this.discussionService.getUnreadDiscussionCount(response.user._id);
+          },1000);
           console.log("Connexion réussi : " + response.user.username);
           this.redirectBasedOnRole(response.user.role);
         }),
@@ -103,6 +109,7 @@ export class AuthService {
 
   // Déconnexion de l'utilisateur
   logout() {
+    clearInterval(this.discussionInterval);
     localStorage.clear();
     this.isAuthenticatedSubject.next(false);
     this.router.navigate(['/login']);

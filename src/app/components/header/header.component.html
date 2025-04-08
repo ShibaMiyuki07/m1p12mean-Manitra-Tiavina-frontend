@@ -52,7 +52,7 @@
 
         <ul class="right-info">
           @if (isConnected) {
-            <li><a href="/client/chat"><i class="fa fa-comments"><span class="count">0</span></i></a></li>
+            <li><a href="/chat"><i class="fa fa-comments"><span class="count">{{localStorage.getItem("unreadCount")}}</span></i></a></li>
             <li><a href="/cart"><i class="icon-shopping-cart"><span class="count">{{ numberItem }}</span></i></a></li>
             <li><a class="search-btn"><i class="icon-user"></i> <p>Mon compte <span>Hello, {{ username }}</span></p></a></li>
             <li class="search-toggler"><i class="icon-repair" (click)="authService.logout()"></i></li>

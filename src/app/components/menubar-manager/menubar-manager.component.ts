@@ -24,4 +24,6 @@ export class MenubarManagerComponent {
   logoff() {
     this.authService.logout();
   }
+
+  protected readonly localStorage = localStorage;
 }

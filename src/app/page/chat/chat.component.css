@@ -34,7 +34,7 @@
 }
 
 .message-item{
-  padding-top: 10px;
+  padding-top: 5px;
   display: flex;
   border-bottom: 1px solid black;
   cursor: pointer;
@@ -42,12 +42,13 @@
 
 
 .last-message{
-  padding-top: 5px;
-  padding-left: 10px;
+  position: relative;
+  top:0;
+  padding-left: 15px;
 }
 
 .content{
-  overflow-y: scroll;
+  overflow-y: auto;
   direction: ltr;
 
 }
@@ -125,6 +126,10 @@
   background-color: rgba(116, 184, 230, 0.61);
 }
 
+.selected{
+  cursor: not-allowed;
+}
+
 .unread{
   font-weight: bold;
 }
@@ -157,6 +162,7 @@
 @media (min-width: 1000px) and (max-width: 1500px){
   .content{
     width: 83vw;
+    height: 73vh;
     max-height: 73vh;
   }
   .message-list{
@@ -173,7 +179,8 @@
     width: 77vw;
   }
   .list-content{
-    max-width: 100px;
+    max-width: 200px;
+    padding-bottom: 10px;
   }
 }
 

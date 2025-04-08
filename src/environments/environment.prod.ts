@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:8888', // URL du backend Node.js
+  apiUrl: 'http://192.168.1.149:8888', // URL du backend Node.js
 };

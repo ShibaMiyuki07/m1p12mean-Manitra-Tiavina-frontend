@@ -15,8 +15,8 @@
         <div style="padding-top: 10px;">Vous n'avez aucune discussion ...</div>
       </div>
       <div *ngFor="let discussion of discussions?.reverse();" (click)="selectDiscussion(discussion._id)" [className]="discussion.isSelected ? 'selected message-item' : 'message-item'">
-        <div style="padding-bottom: 10px">
-          <img src="../../../assets/images/user.png" class="user-icon" >
+        <div>
+          <img style="padding-top: 5px;" src="../../../assets/images/user.png" class="user-icon" >
         </div>
         <div
           [className]="

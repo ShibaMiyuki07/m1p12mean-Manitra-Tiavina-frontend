@@ -127,6 +127,7 @@ export class ChatComponent implements OnInit {
   }
 
   openNewDiscussion(){
+    clearInterval(this.messageInterval);
     if(!this.isNewDiscussion)
     {
       this.isNewDiscussion = true;

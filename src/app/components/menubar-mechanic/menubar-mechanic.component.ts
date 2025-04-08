@@ -25,4 +25,6 @@ export class MenubarMechanicComponent {
   {
     this.authService.logout();
   }
+
+  protected readonly localStorage = localStorage;
 }
