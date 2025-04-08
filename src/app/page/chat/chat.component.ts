@@ -45,27 +45,40 @@ export class ChatComponent implements OnInit {
   @ViewChild('children') children : ElementRef | null = null;
 
   lastDiscussion : Discussion | undefined;
+  messageInterval : any;
 
 
 
   async ngOnInit() {
     this.chat.senderId = this.senderId;
     this.discussions = await this.discussionApiService.getAllDiscussions(this.senderId).toPromise();
+
     if(this.discussions && this.discussions.length > 0) {
+      //make the last discussion selected
       this.discussions[this.discussions.length-1].isSelected = true;
       this.lastDiscussion = this.discussions[this.discussions.length-1];
+
+      //get the discussionId of the last discussion
       this.chat.discussionId = this.lastDiscussion._id;
       if(this.lastDiscussion.receiverId === this.senderId && this.lastDiscussion.lastMessage && this.lastDiscussion.lastMessage.unread)
       {
         this.lastDiscussion.lastMessage.unread = false;
         this.chatApi.updateMessage(this.lastDiscussion.lastMessage);
       }
-      this.messages = await this.chatApi.getAllMessages(this.lastDiscussion._id).toPromise();
-      this.chat.receiverId = this.discussions[this.discussions.length-1].receiverId;
-      if(this.discussions[this.discussions.length-1].senderId !== this.senderId) {
-        this.chat.receiverId = this.discussions[this.discussions.length-1].senderId;
+
+      //retrieve all the message of the last discussion
+      this.messageInterval = this.reloadDiscussions(this.lastDiscussion._id);
+      this.chat.receiverId = this.lastDiscussion.receiverId;
+      if(this.lastDiscussion.senderId !== this.senderId) {
+        this.chat.receiverId = this.lastDiscussion.senderId;
       }
     }
+  }
+
+  reloadDiscussions (discussionId:any) {
+    return setInterval(async () =>{
+      this.messages = await this.chatApi.getAllMessages(discussionId).toPromise();
+    },1000);
   }
 
   send()
@@ -73,12 +86,14 @@ export class ChatComponent implements OnInit {
     if(!this.isNewDiscussion)
     {
       this.chatApi.addMessage(this.chat);
+      this.chat.content = "";
     }
-    location.reload();
   }
 
   async selectDiscussion(discussionId : any)
   {
+    clearInterval(this.messageInterval);
+    let selectedDiscussion : Discussion | undefined;
     if(this.isNewDiscussion)
     {
       if(this.discussions)
@@ -93,15 +108,20 @@ export class ChatComponent implements OnInit {
       {
         this.discussions.find(discussion => discussion._id !== discussionId)!.isSelected = false;
       }
+      selectedDiscussion = this.discussions.find(discussion => discussion._id == discussionId);
       this.discussions.find(discussion => discussion._id == discussionId)!.isSelected = true;
-      this.messages = await this.chatApi.getAllMessages(this.discussions.find(discussion => discussion._id == discussionId)!._id).toPromise();
+      this.messageInterval = this.reloadDiscussions(selectedDiscussion!._id);
+
+      //initialize chat data
       this.chat.discussionId = discussionId;
-      if(this.discussions.find(discussion => discussion._id == discussionId)!.senderId !== this.senderId)
+      this.chat.unread = true;
+
+      if(selectedDiscussion!.senderId !== this.senderId)
       {
-        this.chat.receiverId = this.discussions.find(discussion => discussion._id == discussionId)!.receiverId;
+        this.chat.receiverId = selectedDiscussion!.receiverId;
       }
       else{
-        this.chat.receiverId = this.discussions.find(discussion => discussion._id == discussionId)!.senderId;
+        this.chat.receiverId = selectedDiscussion!.senderId;
       }
     }
   }
