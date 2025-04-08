@@ -39,5 +39,5 @@ export const routes: Routes = [
   { path: 'manager/service/:id', component: UpdateServiceComponent, canActivate: [ManagerGuard] },
   {path : 'client/products', component: ClientProductListComponent },
   {path : 'client/rdv',component : RdvClientComponent , canActivate: [ClientGuard] },
-  {path : "chat", component: ChatComponent },
+  {path : "chat", component: ChatComponent ,canActivate : [ClientGuard,ManagerGuard,MecanicienGuard] },
 ];
