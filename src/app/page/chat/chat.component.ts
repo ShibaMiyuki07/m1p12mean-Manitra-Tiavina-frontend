@@ -8,6 +8,8 @@ import {FormsModule} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {Discussion} from "../../models/discussion";
 import {DiscussionApiService} from "../../services/discussionApi/discussion-api.service";
+import {MenubarManagerComponent} from "../../components/menubar-manager/menubar-manager.component";
+import {HeaderComponent} from "../../components/header/header.component";
 
 @Component({
   selector: 'app-chat',
@@ -19,7 +21,9 @@ import {DiscussionApiService} from "../../services/discussionApi/discussion-api.
     FormsModule,
     NgIf,
     NgOptimizedImage,
-    AsyncPipe
+    AsyncPipe,
+    MenubarManagerComponent,
+    HeaderComponent
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
