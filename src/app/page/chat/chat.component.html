@@ -1,4 +1,12 @@
-<app-menubar-mechanic />
+@if (authService.isMecanicien()) {
+  <app-menubar-mechanic />
+} @else if (authService.isManager())
+{
+  <app-menubar-manager />
+} @else if (authService.isClient())
+{
+  <app-header />
+}
 
 <main style="display: flex;">
   <div class="message-container">
