@@ -32,5 +32,5 @@ Lancez le serveur de développement :
 ```sh
 ng serve
 ```
-L'application sera accessible à http://localhost:4200.# Backend
+L'application sera accessible à http://localhost:4200
 
